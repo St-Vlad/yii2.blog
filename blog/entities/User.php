@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\user\models;
+namespace app\blog\entities;
 
 use Yii;
 use yii\base\NotSupportedException;
@@ -21,7 +21,7 @@ use yii\web\IdentityInterface;
  * @property int $created_at
  * @property int $updated_at
  */
-class User
+class User extends ActiveRecord
 {
     const STATUS_BLOCKED = 0;
     const STATUS_ACTIVE = 1;
@@ -63,31 +63,6 @@ class User
             self::STATUS_BLOCKED => 'Заблокований',
             self::STATUS_ACTIVE => 'Активний',
         ];
-    }
-
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        throw new NotSupportedException('findIdentityByAccessToken is not implemented.');
-    }
-
-    public function getId()
-    {
-        return $this->getPrimaryKey();
-    }
-
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-
-    public function validateAuthKey($authKey)
-    {
-        return $this->getAuthKey() === $authKey;
     }
 
     /**

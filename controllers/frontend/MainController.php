@@ -9,6 +9,7 @@ use yii\web\Controller;
  */
 class MainController extends Controller
 {
+    private ArticleService $service;
     public function actions()
     {
         return [
@@ -18,12 +19,18 @@ class MainController extends Controller
         ];
     }
 
+    public function __construct($id, $module, ArticleService $service, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+    }
+
     /**
      * Renders the index view for the module
      * @return string
      */
     public function actionIndex()
     {
+
         return $this->render('index');
     }
 

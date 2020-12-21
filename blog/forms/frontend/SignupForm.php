@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\user\models\forms;
+namespace app\blog\forms\frontend;
 
-use app\modules\user\models\User;
+use app\blog\entities\User;
 use Yii;
 use yii\base\Model;
 
@@ -31,6 +31,7 @@ class SignupForm extends Model
             ['password', 'string', 'min' => 8],
 
             ['password_repeat', 'compare', 'compareAttribute' => 'password'],
+            ['password_repeat', 'required'],
         ];
     }
 }

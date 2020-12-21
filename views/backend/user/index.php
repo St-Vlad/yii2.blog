@@ -1,11 +1,11 @@
 <?php
 
-use app\modules\user\models\User;
+use app\blog\entities\User;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\user\models\UserSearch */
+/* @var $searchModel app\blog\forms\backend\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Users';

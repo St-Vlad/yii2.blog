@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Blog',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -21,11 +22,11 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\blog\entities\UserIdentity',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'frontend/main/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -49,7 +50,9 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'frontend/main/index',
-                'admin' => 'backend/main/index',
+                '<a:(login|logout)>' => 'frontend/auth/<a>',
+                '<a:(signup)>' => 'frontend/signup/signup',
+                'admin' => 'backend/users/index',
             ],
         ],
 

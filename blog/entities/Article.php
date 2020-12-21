@@ -2,7 +2,7 @@
 
 namespace app\modules\blog\models;
 
-use app\modules\user\models\User;
+use app\blog\entities\User;
 use Yii;
 use yii\helpers\ArrayHelper;
 

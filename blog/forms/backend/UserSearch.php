@@ -1,7 +1,8 @@
 <?php
 
-namespace app\modules\user\models;
+namespace app\blog\forms\backend;
 
+use app\blog\entities\User;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -10,6 +11,13 @@ use yii\data\ActiveDataProvider;
  */
 class UserSearch extends Model
 {
+    public $id;
+    public $username;
+    public $email;
+    public $status;
+    public $created_at;
+    public $updated_at;
+
     /**
      * {@inheritdoc}
      */
@@ -17,7 +25,7 @@ class UserSearch extends Model
     {
         return [
             [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'email'], 'safe'],
+            [['username', 'email'], 'safe'],
         ];
     }
 

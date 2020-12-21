@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\user\controllers\frontend;
+namespace app\controllers\frontend;
 
-use app\modules\user\models\forms\SignupForm;
-use app\modules\user\models\UserService;
+use app\blog\forms\frontend\SignupForm;
+use app\blog\services\SignupService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -12,9 +12,9 @@ use yii\web\Response;
 
 class SignupController extends Controller
 {
-    private UserService $service;
+    private SignupService $service;
 
-    public function __construct($id, $module, UserService $service, $config = [])
+    public function __construct($id, $module, SignupService $service, $config = [])
     {
         $this->service = $service;
         parent::__construct($id, $module, $config);
@@ -81,6 +81,6 @@ class SignupController extends Controller
 
     public function getViewPath(): string
     {
-        return '@app/modules/user/views/frontend';
+        return '@app/views/frontend/user/forms';
     }
 }

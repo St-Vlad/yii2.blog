@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\user\controllers\backend;
+namespace app\controllers\backend;
 
+use app\blog\entities\User;
+use app\blog\forms\backend\UserSearch;
 use Yii;
-use app\modules\user\models\User;
-use app\modules\user\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -109,6 +109,6 @@ class UsersController extends Controller
 
     public function getViewPath()
     {
-        return "@app/modules/user/views/backend";
+        return "@app/views/backend/user";
     }
 }

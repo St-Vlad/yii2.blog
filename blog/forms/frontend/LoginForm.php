@@ -1,8 +1,7 @@
 <?php
 
-namespace app\modules\user\models\forms;
+namespace app\blog\forms\frontend;
 
-use app\modules\user\models\User;
 use yii\base\Model;
 
 /**
@@ -10,9 +9,9 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public ?string $email = null;
-    public ?string $password = null;
-    public bool $rememberMe = true;
+    public ?string $email = '';
+    public ?string $password = '';
+    public bool $rememberMe = false;
 
     /**
      * @return array the validation rules.

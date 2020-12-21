@@ -17,66 +17,83 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="blog" itemscope>
 <?php $this->beginBody() ?>
+<div id="masthead">
+    <div id="site-header" role="banner">
+        <div class="container">
+            <div class="row">
+                <nav id="main-menu" role="navigation" itemscope>
+                    <ul class="horizontal-navigation">
+                        <?php
+                        NavBar::begin([
+                            'brandLabel' => Yii::$app->name,
+                            'brandUrl' => Yii::$app->homeUrl,
+                            'options' => [
+                                'class' => 'menu',
+                            ],
+                        ]);
+                        if (Yii::$app->user->isGuest) {
+                            $menuItems[] = ['label' => 'Реєстрація', 'url' => ['/signup']];
+                            $menuItems[] = ['label' => 'Увійти', 'url' => ['/login']];
+                        } else {
+                            $menuItems[] = [
+                                'label' => Yii::$app->user->identity->username,
+                                'url' => ['/cabinet']
+                            ];
+                            $menuItems[] = [
+                                'label' => 'Вийти',
+                                'url' => ['/logout'],
+                                'linkOptions' => ['data-method' => 'post']
+                            ];
+                        }
+                        echo Nav::widget([
+                            'options' => ['class' => 'navbar-nav navbar-right'],
+                            'items' => $menuItems,
+                        ]);
+                        NavBar::end();
+                        ?>
+                    </ul>
+                </nav> <!-- #main-menu -->
+            </div> <!-- .row -->
+        </div> <!-- .container -->
+    </div> <!-- #site-header -->
+</div> <!-- #masthead -->
 
-<div class="wrap">
+<main id="content" role="main">
+    <div class="section">
+        <div class="container">
+            <div class="row">
 
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/']],
-            /*Yii::$app->user->isGuest ?
-                ['label' => 'Sign Up', 'url' => ['/user/default/signup']] :
-                false,*/
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/user/login/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/user/default/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+                <div class="three-quarters-block">
+                    <div class="content">
+                        <!--render view-->
+                        <?= $content?>
+                        <!--render view-->
 
+                    </div> <!-- .content -->
+                </div> <!-- .three-quarters-block -->
+            </div> <!-- .row -->
+        </div> <!-- .container -->
+    </div> <!-- .section -->
+
+</main> <!-- #content -->
+<footer id="footer" role="contentinfo">
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
+        <div class="row">
+            <div class="copyright">&copy; Стьопич В. В. <?php echo date('Y'); ?></div>
+        </div> <!-- .row -->
+    </div> <!-- .container -->
+</footer> <!-- #footer -->
+<!-- Scripts -->
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
 <?php $this->endBody() ?>
 </body>
 </html>
