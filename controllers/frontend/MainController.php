@@ -2,6 +2,7 @@
 
 namespace app\controllers\frontend;
 
+use app\blog\repositories\readRepos\ArticleRepository;
 use yii\web\Controller;
 
 /**
@@ -9,7 +10,8 @@ use yii\web\Controller;
  */
 class MainController extends Controller
 {
-    private ArticleService $service;
+    private ArticleRepository $repository;
+
     public function actions()
     {
         return [
@@ -19,19 +21,18 @@ class MainController extends Controller
         ];
     }
 
-    public function __construct($id, $module, ArticleService $service, $config = [])
+    public function __construct($id, $module, ArticleRepository $repository, $config = [])
     {
+        $this->repository = $repository;
         parent::__construct($id, $module, $config);
     }
 
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
     public function actionIndex()
     {
-
-        return $this->render('index');
+        $dataProvider = $this->repository->getAllActive();
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function getViewPath()

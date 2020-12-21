@@ -104,6 +104,11 @@ class User extends ActiveRecord
         return false;
     }
 
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
     public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;

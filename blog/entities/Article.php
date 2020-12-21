@@ -1,9 +1,10 @@
 <?php
 
-namespace app\modules\blog\models;
+namespace app\blog\entities;
 
 use app\blog\entities\User;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -22,7 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property Category $category
  * @property User $user
  */
-class Article
+class Article extends ActiveRecord
 {
     const STATUS_MODERATION = 0;
     const STATUS_ACTIVE = 1;
