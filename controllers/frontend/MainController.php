@@ -5,9 +5,6 @@ namespace app\controllers\frontend;
 use app\blog\repositories\readRepos\ArticleRepository;
 use yii\web\Controller;
 
-/**
- * Default controller for the `main` module
- */
 class MainController extends Controller
 {
     private ArticleRepository $repository;

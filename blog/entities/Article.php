@@ -4,7 +4,9 @@ namespace app\blog\entities;
 
 use app\blog\entities\User;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -52,6 +54,17 @@ class Article extends ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('CURRENT_TIMESTAMP()'),
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */

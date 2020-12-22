@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace app\controllers\backend;
 
 use yii\web\Controller;
 
@@ -9,6 +9,7 @@ use yii\web\Controller;
  */
 class AdminController extends Controller
 {
+    public $layout = '@app/views/backend/layouts/main.php';
     /**
      * Renders the index view for the module
      * @return string
@@ -16,5 +17,10 @@ class AdminController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function getViewPath()
+    {
+        return '@app/views/backend';
     }
 }

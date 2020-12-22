@@ -16,7 +16,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'hElkpnBu5P2_09t3gBV-ZDZ0WuxomGcS',
-            'baseUrl'=> '',
+            'baseUrl' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -52,7 +52,9 @@ $config = [
                 '' => 'frontend/main/index',
                 '<a:(login|logout)>' => 'frontend/auth/<a>',
                 '<a:(signup)>' => 'frontend/signup/signup',
-                'admin' => 'backend/users/index',
+                'admin' => 'backend/admin/index',
+                'cabinet' => 'frontend/cabinet/index',
+                '<category:[\w\-]+>' => 'frontend/main/category',
             ],
         ],
 

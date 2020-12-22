@@ -81,24 +81,10 @@ AppAsset::register($this);
                 </div> <!-- .three-quarters-block -->
                 <div class="one-quarter-block" role="complementary">
                     <div class="sidebar">
-                        <!--search widget-->
-                        <div class="widget">
-                            <h3 class="widget-title">Categories</h3>
-                            <ul>
-                                <li><a href="blog.html">Category One</a></li>
-                                <li><a href="blog.html">Category Two</a></li>
-                                <li><a href="blog.html">Category Three</a></li>
-                                <li><a href="blog.html">Category Four</a></li>
-                                <li><a href="blog.html">Category Five</a></li>
-                                <li><a href="blog.html">Category Six</a></li>
-                                <li><a href="blog.html">Category Seven</a></li>
-                                <li><a href="blog.html">Category Eight</a></li>
-                            </ul>
-                        </div> <!-- .widget -->
-            </div> <!-- .row -->
-        </div> <!-- .container -->
-    </div> <!-- .section -->
-
+                        <?= \app\components\CategoryWidget::widget() ?>
+                    </div> <!-- .row -->
+                </div> <!-- .container -->
+            </div> <!-- .section -->
 </main> <!-- #content -->
 <footer id="footer" role="contentinfo">
     <div class="container">

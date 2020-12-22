@@ -6,6 +6,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
@@ -34,10 +35,16 @@ class User extends ActiveRecord
         return '{{%users}}';
     }
 
+
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('CURRENT_TIMESTAMP()'),
+            ],
         ];
     }
 
