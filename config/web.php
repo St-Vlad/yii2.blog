@@ -57,7 +57,16 @@ $config = [
                 '<category:[\w\-]+>' => 'frontend/main/category',
             ],
         ],
-
+        'as beforeRequest' => [
+            'class' => yii\filters\AccessControl::className(),
+            'rules' => [
+                [
+                    'allow' => true,
+                    'controllers' => 'admin',
+                    'roles' => ['admin'],
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];

@@ -13,6 +13,15 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
         '@tests' => '@app/tests',
     ],
+    'controllerMap' => [
+        'migrate' => [
+            'class' => 'fishvision\migrate\controllers\MigrateController',
+            'autoDiscover' => true,
+            'migrationPaths' => [
+                '@vendor/yiisoft/yii2/rbac/migrations',
+            ],
+        ],
+    ],
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -24,6 +33,13 @@ $config = [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => '{{%auth_items}}',
+            'itemChildTable' => '{{%auth_item_children}}',
+            'assignmentTable' => '{{%auth_assignments}}',
+            'ruleTable' => '{{%auth_rules}}',
         ],
         'db' => $db,
     ],

@@ -20,6 +20,11 @@ $this->title = Yii::$app->name;
                         <?php endforeach; ?>
                     </div> <!-- .content -->
                 </div> <!-- .three-quarters-block -->
+                <div class="one-quarter-block" role="complementary">
+                    <div class="sidebar">
+                        <?= \app\components\CategoryWidget::widget() ?>
+                    </div> <!-- .row -->
+                </div> <!-- .container -->
             </div> <!-- .row -->
         </div> <!-- .container -->
     </div> <!-- .section -->

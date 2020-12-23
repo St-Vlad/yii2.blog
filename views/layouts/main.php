@@ -79,11 +79,6 @@ AppAsset::register($this);
 
                     </div> <!-- .content -->
                 </div> <!-- .three-quarters-block -->
-                <div class="one-quarter-block" role="complementary">
-                    <div class="sidebar">
-                        <?= \app\components\CategoryWidget::widget() ?>
-                    </div> <!-- .row -->
-                </div> <!-- .container -->
             </div> <!-- .section -->
 </main> <!-- #content -->
 <footer id="footer" role="contentinfo">
