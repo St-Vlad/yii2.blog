@@ -3,6 +3,7 @@
 namespace app\blog\entities;
 
 use app\blog\entities\User;
+use app\blog\repositories\readRepos\ArticleRepository;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -30,6 +31,18 @@ class Article extends ActiveRecord
     const STATUS_MODERATION = 0;
     const STATUS_ACTIVE = 1;
 
+    public static function create($user_id, $category_id, $title, $description, $text): Article
+    {
+        $article = new Article();
+        $article->user_id = $user_id;
+        $article->category_id = $category_id;
+        $article->title = $title;
+        $article->description = $description;
+        $article->text = $text;
+        $article->status = Article::STATUS_MODERATION;
+        return $article;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -41,7 +54,7 @@ class Article extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    /*public function rules()
     {
         return [
             [['user_id', 'category_id', 'status', 'created_at', 'updated_at'], 'integer'],
@@ -52,7 +65,7 @@ class Article extends ActiveRecord
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
-    }
+    }*/
 
     public function behaviors()
     {

@@ -21,6 +21,9 @@ $config = [
                 '@vendor/yiisoft/yii2/rbac/migrations',
             ],
         ],
+        'fixture' => [
+            'class' => 'yii\faker\FixtureController',
+        ],
     ],
     'components' => [
         'cache' => [

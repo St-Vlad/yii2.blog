@@ -20,4 +20,14 @@ class UserRepository
     {
         return User::findOne(['id' => $id, 'status' => User::STATUS_ACTIVE]);
     }
+
+    /**
+     * This method works with console ArticleController
+     *
+     * @return array
+     */
+    public function getAllUserIds(): array
+    {
+        return User::find()->select('id')->asArray()->column();
+    }
 }

@@ -18,12 +18,12 @@ class m201220_104345_create_table_articles extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
             'category_id' => $this->integer(),
-            'title' => $this->string(32)->notNull(),
-            'description' => $this->string(100)->notNull(),
-            'text' => $this->string()->notNull()->notNull(),
+            'title' => $this->string(50)->notNull(),
+            'description' => $this->string(250)->notNull(),
+            'text' => $this->string(1500)->notNull()->notNull(),
             'status' => $this->smallInteger()->notNull()->defaultValue(0),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->timestamp()->notNull(),
+            'updated_at' => $this->timestamp()->notNull(),
         ], $tableOptions);
 
         $this->addForeignKey(

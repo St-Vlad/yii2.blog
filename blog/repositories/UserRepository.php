@@ -45,4 +45,12 @@ class UserRepository
         }
         return $user;
     }
+
+    public function remove($id): void
+    {
+        $user = $this->find($id);
+        if (!$user->delete()) {
+            throw new \RuntimeException('Removing error.');
+        }
+    }
 }

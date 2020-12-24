@@ -2,7 +2,7 @@
 
 namespace app\blog\repositories;
 
-use app\modules\blog\models\Article;
+use app\blog\entities\Article;
 
 class ArticleRepository
 {
@@ -11,7 +11,7 @@ class ArticleRepository
         return Article::findOne($id);
     }
 
-    public function findAll()
+    public function findAll(): array
     {
         return Article::findAll(['status' => Article::STATUS_ACTIVE]);
     }
@@ -20,6 +20,14 @@ class ArticleRepository
     {
         if (!$article->save()) {
             throw new \RuntimeException('Saving error.');
+        }
+    }
+
+    public function remove($id): void
+    {
+        $article = $this->find($id);
+        if (!$article->delete()) {
+            throw new \RuntimeException('Removing error.');
         }
     }
 }

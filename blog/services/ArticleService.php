@@ -12,6 +12,4 @@ class ArticleService
     {
         $this->users = $users;
     }
-
-
 }
