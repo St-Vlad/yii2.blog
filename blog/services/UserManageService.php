@@ -4,6 +4,8 @@ namespace app\blog\services;
 
 use app\blog\forms\backend\update\UserUpdate;
 use app\blog\repositories\UserRepository;
+use Yii;
+use yii\web\NotFoundHttpException;
 
 class UserManageService
 {
@@ -23,5 +25,11 @@ class UserManageService
             $form->status
         );
         $this->repository->save($user);
+    }
+
+    public function remove($id): void
+    {
+        $user = $this->repository->find($id);
+        $this->repository->remove($user);
     }
 }

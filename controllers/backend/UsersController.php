@@ -123,12 +123,15 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        try {
+            $this->service->remove($id);
+            return $this->redirect(['admin/users']);
+        } catch (NotFoundHttpException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('viewError', $e->getMessage());
+            return $this->redirect(Yii::$app->request->referrer);
+        }
     }
-
-
 
     public function getViewPath()
     {
