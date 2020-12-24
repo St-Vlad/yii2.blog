@@ -2,8 +2,9 @@
 
 namespace app\controllers\backend;
 
-use app\blog\entities\User;
 use app\blog\forms\backend\UserSearch;
+use app\blog\repositories\readRepos\UserRepository as ReadUsersRepository;
+use app\blog\repositories\UserRepository;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -14,6 +15,23 @@ use yii\filters\VerbFilter;
  */
 class UsersController extends Controller
 {
+    private $readUsersRepository;
+    private $usersRepository;
+
+    public $layout = '@app/views/backend/layouts/main.php';
+
+    public function __construct(
+        $id,
+        $module,
+        ReadUsersRepository $readUsersRepository,
+        UserRepository $usersRepository,
+        $config = []
+    ) {
+        $this->readUsersRepository = $readUsersRepository;
+        $this->usersRepository = $usersRepository;
+        parent::__construct($id, $module, $config);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -50,10 +68,17 @@ class UsersController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
+        try {
+            $model = $this->usersRepository->find($id);
+        } catch (NotFoundHttpException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('viewError', $e->getMessage());
+            return $this->redirect(Yii::$app->request->referrer);
+        }
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -66,7 +91,7 @@ class UsersController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->usersRepository->find($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -91,21 +116,7 @@ class UsersController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the User model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return User the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = User::findOne($id)) !== null) {
-            return $model;
-        }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
 
     public function getViewPath()
     {

@@ -3,6 +3,7 @@
 namespace app\blog\repositories\readRepos;
 
 use app\blog\entities\User;
+use app\blog\repositories\NotFoundException;
 
 class UserRepository
 {
@@ -21,13 +22,26 @@ class UserRepository
         return User::findOne(['id' => $id, 'status' => User::STATUS_ACTIVE]);
     }
 
-    /**
-     * This method works with console ArticleController
-     *
-     * @return array
-     */
+    public function getByEmail($email)
+    {
+        return $this->getBy(['email' => $email]);
+    }
+
+    public function findByEmail($value): ?User
+    {
+        return User::findOne(['email' => $value]);
+    }
+
     public function getAllUserIds(): array
     {
         return User::find()->select('id')->asArray()->column();
+    }
+
+    private function getBy(array $condition)
+    {
+        if (!$user = User::find()->andWhere($condition)->limit(1)->one()) {
+            throw new NotFoundException('User not found.');
+        }
+        return $user;
     }
 }

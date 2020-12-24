@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\blog\controllers\backend;
+namespace app\controllers\backend;
 
+use app\blog\forms\backend\ArticleSearch;
+use app\blog\entities\Article;
 use Yii;
-use app\modules\blog\models\Article;
-use app\modules\blog\models\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class ArticlesController extends Controller
 {
+    public $layout = '@app/views/backend/layouts/main.php';
     /**
      * {@inheritdoc}
      */
@@ -127,6 +128,6 @@ class ArticlesController extends Controller
 
     public function getViewPath()
     {
-        return "@app/modules/blog/views/backend/article";
+        return "@app/views/backend/article";
     }
 }

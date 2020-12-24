@@ -7,8 +7,9 @@ use app\blog\repositories\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use app\blog\repositories\readRepos\UserRepository;
 use Faker\Factory;
+use yii\console\Controller;
 
-class ArticleController extends \yii\console\Controller
+class ArticleController extends Controller
 {
     private ArticleRepository $articleRepo;
     private CategoryRepository $categoryRepo;
@@ -30,8 +31,8 @@ class ArticleController extends \yii\console\Controller
 
     public function actionIndex()
     {
-        echo 'to create category, type \'./yii category/create {category_count}\'' . PHP_EOL;
-        echo 'to remove category, type \'./yii category/remove {category_id}\'' . PHP_EOL;
+        echo 'to create categorie, type \'./yii categorie/create {category_count}\'' . PHP_EOL;
+        echo 'to remove categorie, type \'./yii categorie/remove {category_id}\'' . PHP_EOL;
     }
 
     public function actionCreate($count)

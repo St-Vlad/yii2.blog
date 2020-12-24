@@ -21,7 +21,7 @@ class ArticleRepository
     {
         $query = Article::find()
             ->where(['status' => Article::STATUS_ACTIVE])
-            ->where(['category'])
+            ->where(['categorie'])
             ->with('user');
         return $this->getProvider($query);
     }

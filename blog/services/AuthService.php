@@ -2,10 +2,9 @@
 
 namespace app\blog\services;
 
-use app\blog\entities\User;
 use app\blog\entities\UserIdentity;
 use app\blog\forms\frontend\LoginForm;
-use app\blog\repositories\UserRepository;
+use app\blog\repositories\readRepos\UserRepository;
 use Yii;
 
 class AuthService

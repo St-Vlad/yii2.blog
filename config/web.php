@@ -54,10 +54,16 @@ $config = [
                 '<a:(signup)>' => 'frontend/signup/signup',
                 'admin' => 'backend/admin/index',
                 'cabinet' => 'frontend/cabinet/index',
-                '<category:[\w\-]+>' => 'frontend/main/category',
+                'admin/users' => 'backend/users/index',
+                'admin/articles' => 'backend/articles/index',
+                'admin/categories' => 'backend/categories/index',
+
+                'admin/users/<id:\d+>' => 'backend/users/view',
+
+                '<categorie:[\w\-]+>' => 'frontend/main/categorie',
             ],
         ],
-        'as beforeRequest' => [
+        /*'as beforeRequest' => [
             'class' => yii\filters\AccessControl::className(),
             'rules' => [
                 [
@@ -66,7 +72,7 @@ $config = [
                     'roles' => ['admin'],
                 ],
             ],
-        ],
+        ],*/
     ],
     'params' => $params,
 ];

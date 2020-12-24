@@ -4,15 +4,12 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\blog\models\CategorySearch */
+/* @var $searchModel app\blog\forms\backend\CategorieSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Categories';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categorie-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Categorie', ['create'], ['class' => 'btn btn-success']) ?>

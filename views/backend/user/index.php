@@ -3,17 +3,24 @@
 use app\blog\entities\User;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\blog\forms\backend\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Користувачі';
 ?>
-<div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<?php if (Yii::$app->session->hasFlash('viewError')) : ?>
+    <div class="alert alert-danger alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <h4><i class="icon fa fa-check"></i>Помилка при перегляді</h4>
+        <?= Yii::$app->session->getFlash('viewError') ?>
+    </div>
+<?php endif;?>
+
+<div class="user-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

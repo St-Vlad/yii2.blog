@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\blog\controllers\backend;
+namespace app\controllers\backend;
 
+use app\blog\entities\Categorie;
+use app\blog\forms\backend\CategorieSearch;
 use Yii;
-use app\modules\blog\models\Category;
-use app\modules\blog\models\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class CategoriesController extends Controller
 {
+    public $layout = '@app/views/backend/layouts/main.php';
     /**
      * {@inheritdoc}
      */
@@ -35,7 +36,7 @@ class CategoriesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
+        $searchModel = new CategorieSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -64,7 +65,7 @@ class CategoriesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Categorie();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -113,12 +114,12 @@ class CategoriesController extends Controller
      * Finds the Categorie model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Category the loaded model
+     * @return Categorie the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = Categorie::findOne($id)) !== null) {
             return $model;
         }
 
@@ -127,6 +128,6 @@ class CategoriesController extends Controller
 
     public function getViewPath()
     {
-        return "@app/modules/blog/views/backend";
+        return "@app/views/backend/categorie";
     }
 }

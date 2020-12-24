@@ -23,7 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property Category $category
+ * @property Categorie $categorie
  * @property User $user
  */
 class Article extends ActiveRecord
@@ -103,7 +103,7 @@ class Article extends ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return $this->hasOne(Categorie::className(), ['id' => 'category_id']);
     }
 
     /**

@@ -111,9 +111,12 @@ class User extends ActiveRecord
         return false;
     }
 
-    public function getUsername(): string
+    public function edit(string $username, string $email, int $status): void
     {
-        return $this->username;
+        $this->username = $username;
+        $this->email = $email;
+        $this->status = $status;
+        $this->updated_at = time();
     }
 
     public function isActive(): bool

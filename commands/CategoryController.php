@@ -2,7 +2,7 @@
 
 namespace app\commands;
 
-use app\blog\entities\Category;
+use app\blog\entities\Categorie;
 use app\blog\repositories\CategoryRepository;
 use Faker\Factory;
 use yii\console\Controller;
@@ -19,8 +19,8 @@ class CategoryController extends Controller
 
     public function actionIndex()
     {
-        echo 'to create category, type \'./yii category/create {category_count}\'' . PHP_EOL;
-        echo 'to remove category, type \'./yii category/remove {category_id}\'' . PHP_EOL;
+        echo 'to create categorie, type \'./yii categorie/create {category_count}\'' . PHP_EOL;
+        echo 'to remove categorie, type \'./yii categorie/remove {category_id}\'' . PHP_EOL;
     }
 
     public function actionCreate($count)
@@ -28,7 +28,7 @@ class CategoryController extends Controller
         $faker = Factory::create();
 
         for ($i = 0; $i < $count; $i++) {
-            $category = Category::create(
+            $category = Categorie::create(
                 $faker->domainWord
             );
             $this->repository->save($category);
