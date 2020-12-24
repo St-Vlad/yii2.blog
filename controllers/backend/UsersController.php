@@ -2,9 +2,11 @@
 
 namespace app\controllers\backend;
 
+use app\blog\forms\backend\update\UserUpdate;
 use app\blog\forms\backend\UserSearch;
 use app\blog\repositories\readRepos\UserRepository as ReadUsersRepository;
 use app\blog\repositories\UserRepository;
+use app\blog\services\UserManageService;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,18 +17,21 @@ use yii\filters\VerbFilter;
  */
 class UsersController extends Controller
 {
-    private $readUsersRepository;
-    private $usersRepository;
+    private ReadUsersRepository $readUsersRepository;
+    private UserRepository $usersRepository;
+    private UserManageService $service;
 
     public $layout = '@app/views/backend/layouts/main.php';
 
     public function __construct(
         $id,
         $module,
+        UserManageService $service,
         ReadUsersRepository $readUsersRepository,
         UserRepository $usersRepository,
         $config = []
     ) {
+        $this->service = $service;
         $this->readUsersRepository = $readUsersRepository;
         $this->usersRepository = $usersRepository;
         parent::__construct($id, $module, $config);
@@ -91,14 +96,21 @@ class UsersController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->usersRepository->find($id);
+        $user = $this->usersRepository->find($id);
+        $updateForm = new UserUpdate($user);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {
+            try {
+                $this->service->edit($user->id, $updateForm);
+                return $this->redirect(['view', 'id' => $user->id]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'updateForm' => $updateForm,
         ]);
     }
 
