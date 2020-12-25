@@ -2,16 +2,20 @@
 
 namespace app\blog\repositories;
 
-use app\blog\entities\Categorie;
+use app\blog\entities\Category;
+use yii\web\NotFoundHttpException;
 
 class CategoryRepository
 {
-    public function find($id): ?Categorie
+    public function find($id): ?Category
     {
-        return Categorie::findOne($id);
+        if (($model = Category::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function save(Categorie $category): void
+    public function save(Category $category): void
     {
         if (!$category->save()) {
             throw new \RuntimeException('Saving error.');

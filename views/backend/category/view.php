@@ -1,24 +1,20 @@
 <?php
 
 use yii\helpers\Html;
-use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\blog\entities\User */
+/* @var $model app\blog\entities\Category */
 
-$this->title = $model->username;
-
-YiiAsset::register($this);
+\yii\web\YiiAsset::register($this);
 ?>
-<div class="user-view">
-
+<div class="categorie-view">
     <p>
         <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Видалити', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Підтвердіть операцію?',
+                'confirm' => 'Підтвердіть видалення',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,14 +24,7 @@ YiiAsset::register($this);
         'model' => $model,
         'attributes' => [
             'id',
-            'username',
-            'email:email',
-            [
-                'attribute' => 'status',
-                'value' => $model->getStatusName(),
-            ],
-            'created_at:datetime',
-            'updated_at:datetime',
+            'name',
         ],
     ]) ?>
 

@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property string $name
  */
-class Categorie extends ActiveRecord
+class Category extends ActiveRecord
 {
     public static function create($name): self
     {

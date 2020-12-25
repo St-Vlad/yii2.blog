@@ -102,13 +102,12 @@ class UsersController extends Controller
         if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {
             try {
                 $this->service->edit($user->id, $updateForm);
-                return $this->redirect(['view', 'id' => $user->id]);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
+            return $this->redirect(['view', 'id' => $user->id]);
         }
-
         return $this->render('update', [
             'updateForm' => $updateForm,
         ]);
@@ -125,12 +124,12 @@ class UsersController extends Controller
     {
         try {
             $this->service->remove($id);
-            return $this->redirect(['admin/users']);
         } catch (NotFoundHttpException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('viewError', $e->getMessage());
             return $this->redirect(Yii::$app->request->referrer);
         }
+        return $this->redirect(['admin/users']);
     }
 
     public function getViewPath()

@@ -2,7 +2,7 @@
 
 namespace app\commands;
 
-use app\blog\entities\Categorie;
+use app\blog\entities\Category;
 use app\blog\repositories\CategoryRepository;
 use Faker\Factory;
 use yii\console\Controller;
@@ -28,7 +28,7 @@ class CategoryController extends Controller
         $faker = Factory::create();
 
         for ($i = 0; $i < $count; $i++) {
-            $category = Categorie::create(
+            $category = Category::create(
                 $faker->domainWord
             );
             $this->repository->save($category);

@@ -67,7 +67,7 @@ class SignupController extends Controller
             try {
                 $this->service->signup($model);
                 return $this->goBack();
-            } catch (\DomainException $e) {
+            } catch (\RuntimeException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }

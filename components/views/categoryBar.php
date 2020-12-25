@@ -1,6 +1,6 @@
 <?php
 
-/** @var $categories \app\blog\entities\Categorie*/
+/** @var $categories \app\blog\entities\Category*/
 
 use yii\helpers\Html;
 use yii\helpers\Url;

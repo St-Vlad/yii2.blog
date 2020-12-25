@@ -2,14 +2,14 @@
 
 namespace app\blog\forms\backend;
 
-use app\blog\entities\Categorie;
+use app\blog\entities\Category;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
  * CategorieSearch represents the model behind the search form of `app\modules\blog\models\Categorie`.
  */
-class CategorieSearch extends Categorie
+class CategorySearch extends Category
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class CategorieSearch extends Categorie
      */
     public function search($params)
     {
-        $query = Categorie::find();
+        $query = Category::find();
 
         // add conditions that should always apply here
 

@@ -2,14 +2,14 @@
 
 namespace app\blog\repositories\readRepos;
 
-use app\blog\entities\Categorie;
+use app\blog\entities\Category;
 use yii\data\DataProviderInterface;
 
 class CategoryRepository
 {
     public function getAll(): array
     {
-        return Categorie::find()->all();
+        return Category::find()->all();
     }
 
     /**
@@ -19,6 +19,6 @@ class CategoryRepository
      */
     public function getAllCategoriesIds(): array
     {
-        return Categorie::find()->select('id')->asArray()->column();
+        return Category::find()->select('id')->asArray()->column();
     }
 }

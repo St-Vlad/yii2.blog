@@ -59,6 +59,7 @@ $config = [
                 'admin/categories' => 'backend/categories/index',
 
                 'admin/users/<id:\d+>' => 'backend/users/view',
+                'admin/category/<id:\d+>' => 'backend/categories/view',
 
                 '<categorie:[\w\-]+>' => 'frontend/main/categorie',
             ],
