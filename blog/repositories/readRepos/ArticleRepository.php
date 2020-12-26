@@ -17,12 +17,16 @@ class ArticleRepository
         return $this->getProvider($query);
     }
 
-    public function getAllByCategory($id): DataProviderInterface
+    public function getAllByCategory($category): DataProviderInterface
     {
         $query = Article::find()
-            ->where(['status' => Article::STATUS_ACTIVE])
-            ->where(['category_id' => $id])
-            ->with('user');
+            ->with([
+               'user',
+               'category' => function ($query) use ($category) {
+                   $query->andWhere(['name' => $category]);
+               }
+            ])
+            ->where(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }
 

@@ -68,8 +68,7 @@ $config = [
 
                 'admin/users/<id:\d+>' => 'backend/users/view',
                 'admin/category/<id:\d+>' => 'backend/categories/view',
-
-                '<category:[\w\-]+>' => 'frontend/category/index',
+                '<category:[\w_-]+>' => 'frontend/category/index',
             ],
         ],
         /*'as beforeRequest' => [

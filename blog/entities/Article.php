@@ -31,15 +31,21 @@ class Article extends ActiveRecord
     const STATUS_MODERATION = 0;
     const STATUS_ACTIVE = 1;
 
-    public static function create($user_id, $category_id, $title, $description, $text): Article
-    {
+    public static function create(
+        $user_id,
+        $category_id,
+        $title,
+        $description,
+        $text,
+        $status = Article::STATUS_MODERATION
+    ): Article {
         $article = new Article();
         $article->user_id = $user_id;
         $article->category_id = $category_id;
         $article->title = $title;
         $article->description = $description;
         $article->text = $text;
-        $article->status = Article::STATUS_MODERATION;
+        $article->status = $status;
         return $article;
     }
 
