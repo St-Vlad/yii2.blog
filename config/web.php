@@ -52,8 +52,16 @@ $config = [
                 '' => 'frontend/main/index',
                 '<a:(login|logout)>' => 'frontend/auth/<a>',
                 '<a:(signup)>' => 'frontend/signup/signup',
+
+                'article/<id:\d+>' => 'frontend/articles/view',
+
+                'cabinet' => 'frontend/cabinet/cabinet/index',
+                'cabinet/articles/create' => 'frontend/cabinet/articles/create',
+
+                'cabinet/articles/edit' => 'frontend/cabinet/articles/edit',
+                'cabinet/articles/delete' => 'frontend/cabinet/articles/delete',
+
                 'admin' => 'backend/admin/index',
-                'cabinet' => 'frontend/cabinet/index',
                 'admin/users' => 'backend/users/index',
                 'admin/articles' => 'backend/articles/index',
                 'admin/categories' => 'backend/categories/index',
@@ -61,7 +69,7 @@ $config = [
                 'admin/users/<id:\d+>' => 'backend/users/view',
                 'admin/category/<id:\d+>' => 'backend/categories/view',
 
-                '<categorie:[\w\-]+>' => 'frontend/main/categorie',
+                '<category:[\w\-]+>' => 'frontend/category/index',
             ],
         ],
         /*'as beforeRequest' => [
@@ -74,6 +82,17 @@ $config = [
                 ],
             ],
         ],*/
+    ],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['@', '?'],
+            'root' => [
+                'class' => 'mihaildev\elfinder\volume\UserPath',
+                'path'  => 'static/images/user_{id}',
+                'name'  => 'My Images'
+            ],
+        ],
     ],
     'params' => $params,
 ];

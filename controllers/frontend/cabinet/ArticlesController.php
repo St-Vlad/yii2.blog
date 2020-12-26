@@ -1,32 +1,26 @@
 <?php
 
-namespace app\controllers\backend;
+namespace app\controllers\frontend\cabinet;
 
-use app\blog\forms\backend\CategorySearch;
-use app\blog\forms\backend\create\CategoryCreate;
-use app\blog\forms\backend\update\CategoryUpdate;
-use app\blog\repositories\CategoryRepository;
-use app\blog\services\CategoryManageService;
+use app\blog\forms\frontend\cabinet\ArticleCreate;
+use app\blog\repositories\ArticleRepository;
+use app\blog\services\ArticleService;
 use Yii;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
-/**
- * CategoriesController implements the CRUD actions for Categorie model.
- */
-class CategoriesController extends Controller
+class ArticlesController extends \yii\web\Controller
 {
-    public $layout = '@app/views/backend/layouts/main.php';
+    public $layout = '@app/views/frontend/layouts/main.php';
 
-    private CategoryRepository $repository;
-    private CategoryManageService $service;
+    private ArticleRepository $repository;
+    private ArticleService $service;
 
     public function __construct(
         $id,
         $module,
-        CategoryRepository $repository,
-        CategoryManageService $service,
+        ArticleRepository $repository,
+        ArticleService $service,
         $config = []
     ) {
         $this->repository = $repository;
@@ -49,27 +43,6 @@ class CategoriesController extends Controller
         ];
     }
 
-    /**
-     * Lists all Categorie models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new CategorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Categorie model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         try {
@@ -85,32 +58,20 @@ class CategoriesController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Categorie model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
-        $model = new CategoryCreate();
+        $model = new ArticleCreate();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $this->service->create($model);
-            return $this->redirect(['admin/categories']);
+            return $this->goBack();
         }
 
-        return $this->render('create', [
+        return $this->render('articleCreate', [
             'model' => $model,
         ]);
     }
 
-    /**
-     * Updates an existing Categorie model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $category = $this->repository->find($id);
@@ -130,13 +91,6 @@ class CategoriesController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Categorie model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         try {
@@ -151,6 +105,6 @@ class CategoriesController extends Controller
 
     public function getViewPath()
     {
-        return "@app/views/backend/category";
+        return "@app/views/frontend/cabinet/forms";
     }
 }

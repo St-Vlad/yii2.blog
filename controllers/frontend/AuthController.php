@@ -14,6 +14,8 @@ class AuthController extends Controller
 {
     private AuthService $service;
 
+    public $layout = '@app/views/frontend/layouts/main.php';
+
     public function __construct($id, $module, AuthService $service, $config = [])
     {
         $this->service = $service;

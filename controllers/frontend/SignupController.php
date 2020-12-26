@@ -12,6 +12,8 @@ use yii\web\Response;
 
 class SignupController extends Controller
 {
+    public $layout = '@app/views/frontend/layouts/main.php';
+
     private SignupService $service;
 
     public function __construct($id, $module, SignupService $service, $config = [])

@@ -51,22 +51,6 @@ class Article extends ActiveRecord
         return 'articles';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    /*public function rules()
-    {
-        return [
-            [['user_id', 'category_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'description', 'text', 'created_at', 'updated_at'], 'required'],
-            [['title'], 'string', 'max' => 32],
-            [['description'], 'string', 'max' => 100],
-            [['text'], 'string', 'max' => 255],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-        ];
-    }*/
-
     public function behaviors()
     {
         return [

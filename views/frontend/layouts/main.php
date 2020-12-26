@@ -44,6 +44,10 @@ AppAsset::register($this);
                             $menuItems[] = ['label' => 'Увійти', 'url' => ['/login']];
                         } else {
                             $menuItems[] = [
+                                'label' => 'Створити статтю',
+                                'url' => ['/cabinet/articles/create']
+                            ];
+                            $menuItems[] = [
                                 'label' => Yii::$app->user->identity->username,
                                 'url' => ['/cabinet']
                             ];

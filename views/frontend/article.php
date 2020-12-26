@@ -3,6 +3,9 @@
 /* @var $this yii\web\View */
 /* @var $article \app\blog\entities\Article */
 
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 ?>
 <article class="post hentry" itemscope itemprop="blogPost">
     <header class="entry-header">
@@ -23,4 +26,6 @@
     <div class="entry-content" itemprop="articleBody">
         <?= $article->description; ?>
     </div> <!-- .entry-content -->
+    <?= Html::a('Детальніше', ['article', 'id' => $article->id], ['class' => 'more button'])?>
+    <hr>
 </article> <!-- .post -->

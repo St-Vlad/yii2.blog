@@ -9,6 +9,8 @@ class MainController extends Controller
 {
     private ArticleRepository $repository;
 
+    public $layout = '@app/views/frontend/layouts/main.php';
+
     public function actions()
     {
         return [

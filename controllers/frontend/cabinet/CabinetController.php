@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\frontend;
+namespace app\controllers\frontend\cabinet;
 
 use app\blog\forms\frontend\cabinet\ArticleSearch;
 use app\blog\repositories\readRepos\ArticleRepository;
@@ -10,6 +10,8 @@ class CabinetController extends Controller
 {
     private ArticleRepository $articles;
 
+    public $layout = '@app/views/frontend/layouts/main.php';
+
     public function __construct($id, $module, ArticleRepository $articles, $config = [])
     {
         $this->articles = $articles;
@@ -17,6 +19,35 @@ class CabinetController extends Controller
     }
 
     public function actionIndex()
+    {
+        $form = new ArticleSearch();
+        $form->load(\Yii::$app->request->queryParams);
+
+        $dataProvider = $this->articles->search($form);
+        return $this->render('index', [
+            'searchForm' => $form,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCreate()
+    {
+
+    }
+
+    public function actionEdit()
+    {
+        $form = new ArticleSearch();
+        $form->load(\Yii::$app->request->queryParams);
+
+        $dataProvider = $this->articles->search($form);
+        return $this->render('index', [
+            'searchForm' => $form,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDelete()
     {
         $form = new ArticleSearch();
         $form->load(\Yii::$app->request->queryParams);

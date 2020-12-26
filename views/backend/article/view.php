@@ -4,11 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\blog\models\Article */
+/* @var $model app\blog\entities\Article */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="articles-view">
@@ -34,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'category_id',
             'title',
             'description',
-            'text',
+            'text:html',
             'status',
             'created_at',
             'updated_at',
