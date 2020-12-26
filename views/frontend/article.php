@@ -26,6 +26,10 @@ use yii\helpers\Url;
     <div class="entry-content" itemprop="articleBody">
         <?= $article->description; ?>
     </div> <!-- .entry-content -->
-    <?= Html::a('Детальніше', ['article', 'id' => $article->id], ['class' => 'more button'])?>
+    <?= Html::a(
+        'Детальніше',
+        Url::to(['frontend/blog/article', 'category' => $article->category->name, 'title' => $article->title]),
+        ['class' => 'more button']
+    )?>
     <hr>
 </article> <!-- .post -->

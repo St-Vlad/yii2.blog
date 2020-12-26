@@ -26,7 +26,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'frontend/main/error',
+            'errorAction' => 'frontend/blog/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -49,7 +49,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'frontend/main/index',
+                '' => 'frontend/blog/index',
                 '<a:(login|logout)>' => 'frontend/auth/<a>',
                 '<a:(signup)>' => 'frontend/signup/signup',
 
@@ -69,7 +69,8 @@ $config = [
                 'admin/users/<id:\d+>' => 'backend/users/view',
                 'admin/category/<id:\d+>' => 'backend/categories/view',
 
-                '<category:[\w\-]+>' => 'frontend/category/index',
+                '<category:.*>/<title:.*>' => 'frontend/blog/article',
+                '<slug:[\w_-]+>' => 'frontend/blog/category',
             ],
         ],
         /*'as beforeRequest' => [

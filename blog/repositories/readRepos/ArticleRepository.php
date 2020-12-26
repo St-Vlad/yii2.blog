@@ -3,6 +3,7 @@
 namespace app\blog\repositories\readRepos;
 
 use app\blog\entities\Article;
+use app\blog\entities\Category;
 use app\blog\forms\frontend\cabinet\ArticleSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
@@ -17,18 +18,26 @@ class ArticleRepository
         return $this->getProvider($query);
     }
 
-    public function getAllByCategory($id): DataProviderInterface
+    public function getByTitle($title)
+    {
+        return Article::findOne(['title' => $title]);
+    }
+
+    public function getAllByCategory(Category $category): DataProviderInterface
     {
         $query = Article::find()
-            ->where(['status' => Article::STATUS_ACTIVE])
-            ->where(['category_id' => $id])
-            ->with('user');
+            ->joinWith('category')
+            ->where(['name' => $category->name])
+            ->andWhere(['status' => Article::STATUS_ACTIVE])
+            ->with('user', 'category');
         return $this->getProvider($query);
     }
 
     public function getAllActive(): DataProviderInterface
     {
-        $query = Article::find()->where(['status' => Article::STATUS_ACTIVE])->with('user');
+        $query = Article::find()
+            ->where(['status' => Article::STATUS_ACTIVE])
+            ->with('user', 'category');
         return $this->getProvider($query);
     }
 

@@ -12,7 +12,10 @@ use yii\helpers\Url;
         <?php foreach ($categories as $category) :?>
             <?= Html::tag(
                 'li',
-                Html::a(Html::encode($category->name), Url::to(['', 'category' => $category->name]))
+                Html::a(
+                    Html::encode($category->name),
+                    Url::to(['frontend/blog/category', 'slug' => $category->name])
+                )
             );?>
         <?php endforeach;?>
     </ul>
