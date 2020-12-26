@@ -2,9 +2,6 @@
 
 namespace app\blog\entities;
 
-use app\blog\entities\User;
-use app\blog\repositories\readRepos\ArticleRepository;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
@@ -17,6 +14,7 @@ use yii\helpers\ArrayHelper;
  * @property int|null $user_id
  * @property int|null $category_id
  * @property string $title
+ * @property string $preview
  * @property string $description
  * @property string $text
  * @property int $status
@@ -35,6 +33,7 @@ class Article extends ActiveRecord
         $user_id,
         $category_id,
         $title,
+        $preview,
         $description,
         $text,
         $status = Article::STATUS_MODERATION
@@ -43,6 +42,7 @@ class Article extends ActiveRecord
         $article->user_id = $user_id;
         $article->category_id = $category_id;
         $article->title = $title;
+        $article->preview = $preview;
         $article->description = $description;
         $article->text = $text;
         $article->status = $status;

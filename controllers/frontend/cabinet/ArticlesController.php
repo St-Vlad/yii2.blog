@@ -74,7 +74,7 @@ class ArticlesController extends \yii\web\Controller
 
     public function actionUpdate($id)
     {
-        $category = $this->repository->find($id);
+        /*$category = $this->repository->find($id);
         $model = new CategoryUpdate($category);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             try {
@@ -88,19 +88,19 @@ class ArticlesController extends \yii\web\Controller
 
         return $this->render('update', [
             'model' => $model,
-        ]);
+        ]);*/
     }
 
     public function actionDelete($id)
     {
-        try {
+        /*try {
             $this->service->remove($id);
             return $this->redirect(['admin/categories']);
         } catch (NotFoundHttpException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('viewError', $e->getMessage());
             return $this->redirect(Yii::$app->request->referrer);
-        }
+        }*/
     }
 
     public function getViewPath()

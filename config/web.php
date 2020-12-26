@@ -49,6 +49,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'elfinder/<a>' => 'elfinder/<a>',
                 '' => 'frontend/blog/index',
                 '<a:(login|logout)>' => 'frontend/auth/<a>',
                 '<a:(signup)>' => 'frontend/signup/signup',
@@ -56,8 +57,8 @@ $config = [
                 'article/<id:\d+>' => 'frontend/articles/view',
 
                 'cabinet' => 'frontend/cabinet/cabinet/index',
-                'cabinet/articles/create' => 'frontend/cabinet/articles/create',
 
+                'cabinet/articles/create' => 'frontend/cabinet/articles/create',
                 'cabinet/articles/edit' => 'frontend/cabinet/articles/edit',
                 'cabinet/articles/delete' => 'frontend/cabinet/articles/delete',
 
@@ -71,6 +72,7 @@ $config = [
 
                 '<category:.*>/<title:.*>' => 'frontend/blog/article',
                 '<slug:[\w_-]+>' => 'frontend/blog/category',
+
             ],
         ],
         /*'as beforeRequest' => [

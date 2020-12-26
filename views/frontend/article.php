@@ -23,6 +23,9 @@ use yii\helpers\Url;
                 </span> <!-- .post-author -->
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->
+    <div class="entry-thumbnail">
+        <?= Html::img($article->preview, ['alt' => 'Blog Post']);?>
+    </div>
     <div class="entry-content" itemprop="articleBody">
         <?= $article->description; ?>
     </div> <!-- .entry-content -->

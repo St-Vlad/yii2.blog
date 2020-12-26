@@ -20,6 +20,7 @@ class ArticleService
             \Yii::$app->user->id,
             $form->category_id,
             $form->title,
+            $form->preview,
             $form->description,
             $form->text
         );

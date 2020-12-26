@@ -19,6 +19,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'preview')->widget(InputFile::className(), [
+        'language'      => 'ru',
+        'controller'    => 'elfinder',
+        'filter'        => 'image',
+        'template'      => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
+        'options'       => ['class' => 'form-control'],
+        'buttonOptions' => ['class' => 'btn btn-default'],
+        'multiple'      => false       // возможность выбора нескольких файлов
+    ]); ?>
+
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'text')->widget(CKEditor::className(), [
