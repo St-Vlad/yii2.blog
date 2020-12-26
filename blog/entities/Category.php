@@ -4,6 +4,7 @@ namespace app\blog\entities;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%categories}}".

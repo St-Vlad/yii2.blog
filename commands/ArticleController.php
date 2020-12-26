@@ -49,6 +49,7 @@ class ArticleController extends Controller
                 $faker->text($maxNbChars = 50),
                 $faker->text($maxNbChars = 250),
                 $faker->text($maxNbChars = 1500),
+                $status = Article::STATUS_ACTIVE
             );
             $this->articleRepo->save($article);
         }

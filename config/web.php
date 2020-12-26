@@ -49,7 +49,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'frontend/main/index',
+                '' => 'frontend/blog/index',
                 '<a:(login|logout)>' => 'frontend/auth/<a>',
                 '<a:(signup)>' => 'frontend/signup/signup',
 
@@ -68,7 +68,9 @@ $config = [
 
                 'admin/users/<id:\d+>' => 'backend/users/view',
                 'admin/category/<id:\d+>' => 'backend/categories/view',
-                '<category:[\w_-]+>' => 'frontend/category/index',
+
+                '<category:.*>/<title:.*>' => 'frontend/blog/article',
+                '<category:[\w_-]+>' => 'frontend/blog/category',
             ],
         ],
         /*'as beforeRequest' => [

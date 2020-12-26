@@ -5,7 +5,7 @@ namespace app\controllers\frontend;
 use app\blog\repositories\readRepos\ArticleRepository;
 use yii\web\Controller;
 
-class MainController extends Controller
+class BlogController extends Controller
 {
     private ArticleRepository $repository;
 
@@ -20,8 +20,12 @@ class MainController extends Controller
         ];
     }
 
-    public function __construct($id, $module, ArticleRepository $repository, $config = [])
-    {
+    public function __construct(
+        $id,
+        $module,
+        ArticleRepository $repository,
+        $config = []
+    ) {
         $this->repository = $repository;
         parent::__construct($id, $module, $config);
     }
@@ -31,6 +35,22 @@ class MainController extends Controller
         $dataProvider = $this->repository->getAllActive();
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCategory($category)
+    {
+        $dataProvider = $this->repository->getAllByCategory($category);
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionArticle($title)
+    {
+        $model = $this->repository->getByTitle($title);
+        return $this->render('detailView', [
+            'model' => $model,
         ]);
     }
 
