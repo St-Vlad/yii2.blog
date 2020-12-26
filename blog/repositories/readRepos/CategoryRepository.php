@@ -15,6 +15,11 @@ class CategoryRepository
         return Category::find()->all();
     }
 
+    public function getBySlug($slug)
+    {
+        return Category::findOne(['name' => $slug]);
+    }
+
     /**
      * This method works with console ArticleController
      *

@@ -23,11 +23,11 @@ class ArticleRepository
         return Article::findOne(['title' => $title]);
     }
 
-    public function getAllByCategory($category): DataProviderInterface
+    public function getAllByCategory(Category $category): DataProviderInterface
     {
         $query = Article::find()
             ->joinWith('category')
-            ->where(['name' => $category])
+            ->where(['name' => $category->name])
             ->andWhere(['status' => Article::STATUS_ACTIVE])
             ->with('user', 'category');
         return $this->getProvider($query);

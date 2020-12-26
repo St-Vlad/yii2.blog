@@ -26,7 +26,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'frontend/main/error',
+            'errorAction' => 'frontend/blog/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -70,7 +70,7 @@ $config = [
                 'admin/category/<id:\d+>' => 'backend/categories/view',
 
                 '<category:.*>/<title:.*>' => 'frontend/blog/article',
-                '<category:[\w_-]+>' => 'frontend/blog/category',
+                '<slug:[\w_-]+>' => 'frontend/blog/category',
             ],
         ],
         /*'as beforeRequest' => [

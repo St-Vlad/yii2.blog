@@ -2,12 +2,16 @@
 
 namespace app\controllers\frontend;
 
+use app\blog\entities\Category;
 use app\blog\repositories\readRepos\ArticleRepository;
+use app\blog\repositories\readRepos\CategoryRepository;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class BlogController extends Controller
 {
-    private ArticleRepository $repository;
+    private ArticleRepository $articleRepository;
+    private CategoryRepository $categoryRepository;
 
     public $layout = '@app/views/frontend/layouts/main.php';
 
@@ -23,24 +27,29 @@ class BlogController extends Controller
     public function __construct(
         $id,
         $module,
-        ArticleRepository $repository,
+        ArticleRepository $articleRepository,
+        CategoryRepository $categoryRepository,
         $config = []
     ) {
-        $this->repository = $repository;
+        $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
         parent::__construct($id, $module, $config);
     }
 
     public function actionIndex()
     {
-        $dataProvider = $this->repository->getAllActive();
+        $dataProvider = $this->articleRepository->getAllActive();
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionCategory($category)
+    public function actionCategory($slug)
     {
-        $dataProvider = $this->repository->getAllByCategory($category);
+        if (!$category = $this->categoryRepository->getBySlug($slug)) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $dataProvider = $this->articleRepository->getAllByCategory($category);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -48,7 +57,9 @@ class BlogController extends Controller
 
     public function actionArticle($title)
     {
-        $model = $this->repository->getByTitle($title);
+        if (!$model = $this->articleRepository->getByTitle($title)) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
         return $this->render('detailView', [
             'model' => $model,
         ]);
