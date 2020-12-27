@@ -13,7 +13,6 @@ class CategorySearch extends Model
 {
     public $id;
     public $name;
-    public $slug;
     /**
      * {@inheritdoc}
      */
@@ -22,7 +21,6 @@ class CategorySearch extends Model
         return [
             [['id'], 'integer'],
             [['name'], 'string'],
-            [['slug'], 'string'],
         ];
     }
 
@@ -65,9 +63,7 @@ class CategorySearch extends Model
             'id' => $this->id,
         ]);
 
-        $query
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'slug', $this->slug]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }
