@@ -25,6 +25,7 @@ use yii\widgets\DetailView;
         'attributes' => [
             'id',
             'name',
+            'slug',
         ],
     ]) ?>
 

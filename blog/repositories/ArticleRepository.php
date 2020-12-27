@@ -23,9 +23,8 @@ class ArticleRepository
         }
     }
 
-    public function remove($id): void
+    public function remove($article): void
     {
-        $article = $this->find($id);
         if (!$article->delete()) {
             throw new \RuntimeException('Removing error.');
         }

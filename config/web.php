@@ -71,7 +71,7 @@ $config = [
 
                 'cabinet/articles/edit/<slug:.*>' => 'frontend/cabinet/articles/update',
 
-                'cabinet/articles/delete' => 'frontend/cabinet/articles/delete',
+                'cabinet/articles/delete/<id:\d+>' => 'frontend/cabinet/articles/delete',
 
                 '<category:.*>/<slug:.*>' => 'frontend/blog/article',
                 '<slug:[\w_-]+>' => 'frontend/blog/category',

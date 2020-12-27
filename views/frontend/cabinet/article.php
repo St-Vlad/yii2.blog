@@ -30,7 +30,12 @@ use yii\helpers\Url;
             </span>
             <span>
                 <i class="fa fa-trash" aria-hidden="true"></i>
-                <a href="/cabinet/deleteArticle/<?= $article->title; ?>">delete</a>
+                <?= Html::a('Видалити', ['frontend/cabinet/articles/delete', 'id' => $article->id], [
+                    'data' => [
+                        'confirm' => 'Підтвердіть видалення',
+                        'method' => 'post',
+                    ],
+                ]) ?>
             </span>
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->

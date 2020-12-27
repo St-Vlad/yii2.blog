@@ -9,8 +9,11 @@ use yii\data\ActiveDataProvider;
 /**
  * CategorieSearch represents the model behind the search form of `app\modules\blog\models\Categorie`.
  */
-class CategorySearch extends Category
+class CategorySearch extends Model
 {
+    public $id;
+    public $name;
+    public $slug;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,8 @@ class CategorySearch extends Category
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['name'], 'string'],
+            [['slug'], 'string'],
         ];
     }
 
@@ -61,7 +65,9 @@ class CategorySearch extends Category
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'slug', $this->slug]);
 
         return $dataProvider;
     }

@@ -21,7 +21,7 @@ $this->title = Yii::$app->name;
 <?= $form->field($searchForm, 'status')->dropDownList(Article::getStatusesArray()) ?>
 
 <div class="form-group">
-    <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton('Фільтрувати', ['class' => 'btn btn-primary']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="content">

@@ -52,12 +52,15 @@ class ArticlesController extends \yii\web\Controller
     {
         $categoriesList = $this->categoryRepository->getAll();
         $model = new ArticleCreate();
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $this->service->create($model);
-            return $this->goBack();
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                $this->service->create($model);
+                return $this->redirect(['/cabinet']);
+            }
+        } catch (\DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('viewError', $e->getMessage());
         }
-
         return $this->render('articleCreate', [
             'categoriesList' => $categoriesList,
             'model' => $model,
@@ -75,7 +78,7 @@ class ArticlesController extends \yii\web\Controller
             try {
                 $this->service->edit($article->id, $model);
                 return $this->redirect(['/cabinet']);
-            } catch (\RuntimeException $e) {
+            } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('viewError', $e->getMessage());
             }
@@ -91,12 +94,11 @@ class ArticlesController extends \yii\web\Controller
     {
         try {
             $this->service->remove($id);
-            return $this->redirect(['admin/categories']);
-        } catch (NotFoundHttpException $e) {
+        } catch (\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('viewError', $e->getMessage());
-            return $this->redirect(Yii::$app->request->referrer);
         }
+        return $this->redirect(['/cabinet']);
     }
 
     public function getViewPath()

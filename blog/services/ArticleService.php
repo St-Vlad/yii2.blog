@@ -40,4 +40,10 @@ class ArticleService
         );
         $this->repository->save($article);
     }
+
+    public function remove($id): void
+    {
+        $article = $this->repository->find($id);
+        $this->repository->remove($article);
+    }
 }
