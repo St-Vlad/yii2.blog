@@ -30,11 +30,6 @@ class CabinetController extends Controller
         ]);
     }
 
-    public function actionCreate()
-    {
-
-    }
-
     public function actionEdit()
     {
         $form = new ArticleSearch();

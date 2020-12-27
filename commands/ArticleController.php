@@ -47,6 +47,7 @@ class ArticleController extends Controller
                 $this->getRandomValue($usersIds),
                 $this->getRandomValue($categoriesIds),
                 $faker->text($maxNbChars = 50),
+                $faker->imageUrl($width = 150, $height = 150),
                 $faker->text($maxNbChars = 250),
                 $faker->text($maxNbChars = 1500),
                 $status = Article::STATUS_ACTIVE

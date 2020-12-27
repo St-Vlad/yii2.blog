@@ -8,6 +8,7 @@ use app\blog\forms\backend\update\CategoryUpdate;
 use app\blog\repositories\CategoryRepository;
 use app\blog\services\CategoryManageService;
 use Yii;
+use yii\db\IntegrityException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,14 +73,7 @@ class CategoriesController extends Controller
      */
     public function actionView($id)
     {
-        try {
-            $model = $this->repository->find($id);
-        } catch (NotFoundHttpException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('viewError', $e->getMessage());
-            return $this->redirect(Yii::$app->request->referrer);
-        }
-
+        $model = $this->repository->find($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -142,9 +136,9 @@ class CategoriesController extends Controller
         try {
             $this->service->remove($id);
             return $this->redirect(['admin/categories']);
-        } catch (NotFoundHttpException $e) {
+        } catch (IntegrityException $e) {
             Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('viewError', $e->getMessage());
+            Yii::$app->session->setFlash('viewError', 'Неможливо видалити <br>' . $e->getMessage());
             return $this->redirect(Yii::$app->request->referrer);
         }
     }
