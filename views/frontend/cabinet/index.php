@@ -8,6 +8,7 @@
 use app\blog\entities\Article;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 
 $this->title = Yii::$app->name;
 
@@ -25,7 +26,11 @@ $this->title = Yii::$app->name;
 <?php ActiveForm::end(); ?>
 <div class="content">
 <?php foreach ($dataProvider->getModels() as $article) : ?>
-    <?= $this->render('../article', [
+    <?= $this->render('article', [
         'article' => $article
     ]) ?>
 <?php endforeach; ?>
+</div>
+<?= LinkPager::widget([
+    'pagination' => $dataProvider->pagination,
+]); ?>

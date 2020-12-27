@@ -2,7 +2,6 @@
 
 namespace app\controllers\frontend;
 
-use app\blog\entities\Category;
 use app\blog\repositories\readRepos\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use yii\web\Controller;
@@ -55,15 +54,28 @@ class BlogController extends Controller
         ]);
     }
 
-    public function actionArticle($title)
+    public function actionArticle($slug)
     {
-        if (!$model = $this->articleRepository->getByTitle($title)) {
+        if (!$model = $this->articleRepository->getBySlug($slug)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         return $this->render('detailView', [
             'model' => $model,
         ]);
     }
+
+    /*public function actionUpdate($id)
+    {
+        $model = $this->articleRepository->getByTitle($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }*/
 
     public function getViewPath()
     {

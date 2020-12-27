@@ -14,7 +14,7 @@ use yii\helpers\Url;
                 'li',
                 Html::a(
                     Html::encode($category->name),
-                    Url::to(['frontend/blog/category', 'slug' => $category->name])
+                    Url::to(['frontend/blog/category', 'slug' => $category->slug])
                 )
             );?>
         <?php endforeach;?>

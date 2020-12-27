@@ -2,6 +2,7 @@
 
 namespace app\blog\entities;
 
+use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
@@ -14,6 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property int|null $user_id
  * @property int|null $category_id
  * @property string $title
+ * @property string $slug
  * @property string $preview
  * @property string $description
  * @property string $text
@@ -66,8 +68,23 @@ class Article extends ActiveRecord
                 'updatedAtAttribute' => 'updated_at',
                 'value' => new Expression('CURRENT_TIMESTAMP()'),
             ],
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+                'slugAttribute' => 'slug',
+            ],
         ];
     }
+
+    public function edit($category_id, $title, $preview, $description, $text): void
+    {
+        $this->category_id = $category_id;
+        $this->title = $title;
+        $this->preview = $preview;
+        $this->description = $description;
+        $this->text = $text;
+    }
+
     /**
      * {@inheritdoc}
      */

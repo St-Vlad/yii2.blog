@@ -30,30 +30,6 @@ class CabinetController extends Controller
         ]);
     }
 
-    public function actionEdit()
-    {
-        $form = new ArticleSearch();
-        $form->load(\Yii::$app->request->queryParams);
-
-        $dataProvider = $this->articles->search($form);
-        return $this->render('index', [
-            'searchForm' => $form,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionDelete()
-    {
-        $form = new ArticleSearch();
-        $form->load(\Yii::$app->request->queryParams);
-
-        $dataProvider = $this->articles->search($form);
-        return $this->render('index', [
-            'searchForm' => $form,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
     public function getViewPath()
     {
         return '@app/views/frontend/cabinet';

@@ -18,9 +18,9 @@ class ArticleRepository
         return $this->getProvider($query);
     }
 
-    public function getByTitle($title)
+    public function getBySlug($slug)
     {
-        return Article::findOne(['title' => $title]);
+        return Article::findOne(['slug' => $slug]);
     }
 
     public function getAllByCategory(Category $category): DataProviderInterface
@@ -46,7 +46,8 @@ class ArticleRepository
         return new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSizeLimit' => [15, 100],
+                'pageSize' => 10,
+                'pageSizeParam' => false
             ]
         ]);
     }
@@ -54,7 +55,8 @@ class ArticleRepository
     public function search(ArticleSearch $form): DataProviderInterface
     {
         $pagination = new Pagination([
-            'pageSizeLimit' => [15, 100],
+            'pageSize' => 10,
+            'pageSizeParam' => false
         ]);
 
         $query = Article::find()

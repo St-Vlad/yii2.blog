@@ -3,7 +3,9 @@
 namespace app\controllers\frontend\cabinet;
 
 use app\blog\forms\frontend\cabinet\ArticleCreate;
-use app\blog\repositories\ArticleRepository;
+use app\blog\forms\frontend\cabinet\ArticleUpdate;
+use app\blog\repositories\readRepos\ArticleRepository;
+use app\blog\repositories\readRepos\CategoryRepository;
 use app\blog\services\ArticleService;
 use Yii;
 use yii\filters\VerbFilter;
@@ -13,19 +15,22 @@ class ArticlesController extends \yii\web\Controller
 {
     public $layout = '@app/views/frontend/layouts/main.php';
 
-    private ArticleRepository $repository;
+    private ArticleRepository $articleRepository;
+    private CategoryRepository $categoryRepository;
     private ArticleService $service;
 
     public function __construct(
         $id,
         $module,
-        ArticleRepository $repository,
+        ArticleRepository $articleRepository,
         ArticleService $service,
+        CategoryRepository $categoryRepository,
         $config = []
     ) {
-        $this->repository = $repository;
-        $this->service = $service;
         parent::__construct($id, $module, $config);
+        $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->service = $service;
     }
 
     /**
@@ -43,23 +48,9 @@ class ArticlesController extends \yii\web\Controller
         ];
     }
 
-    public function actionView($id)
-    {
-        try {
-            $model = $this->repository->find($id);
-        } catch (NotFoundHttpException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('viewError', $e->getMessage());
-            return $this->redirect(Yii::$app->request->referrer);
-        }
-
-        return $this->render('view', [
-            'model' => $model,
-        ]);
-    }
-
     public function actionCreate()
     {
+        $categoriesList = $this->categoryRepository->getAll();
         $model = new ArticleCreate();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -68,39 +59,44 @@ class ArticlesController extends \yii\web\Controller
         }
 
         return $this->render('articleCreate', [
+            'categoriesList' => $categoriesList,
             'model' => $model,
         ]);
     }
 
-    public function actionUpdate($id)
+    public function actionUpdate($slug)
     {
-        /*$category = $this->repository->find($id);
-        $model = new CategoryUpdate($category);
+        $categoriesList = $this->categoryRepository->getAll();
+
+        $article = $this->articleRepository->getBySlug($slug);
+        $model = new ArticleUpdate($article);
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             try {
-                $this->service->edit($category->id, $model);
-                return $this->redirect(['admin/categories', 'id' => $category->id]);
-            } catch (\DomainException $e) {
+                $this->service->edit($article->id, $model);
+                return $this->redirect(['/cabinet']);
+            } catch (\RuntimeException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('viewError', $e->getMessage());
             }
         }
 
-        return $this->render('update', [
+        return $this->render('articleUpdate', [
+            'categoriesList' => $categoriesList,
             'model' => $model,
-        ]);*/
+        ]);
     }
 
     public function actionDelete($id)
     {
-        /*try {
+        try {
             $this->service->remove($id);
             return $this->redirect(['admin/categories']);
         } catch (NotFoundHttpException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('viewError', $e->getMessage());
             return $this->redirect(Yii::$app->request->referrer);
-        }*/
+        }
     }
 
     public function getViewPath()

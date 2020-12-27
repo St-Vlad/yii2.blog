@@ -17,7 +17,7 @@ class CategoryRepository
 
     public function getBySlug($slug)
     {
-        return Category::findOne(['name' => $slug]);
+        return Category::findOne(['slug' => $slug]);
     }
 
     /**

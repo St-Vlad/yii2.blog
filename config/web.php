@@ -59,22 +59,23 @@ $config = [
                 'admin/articles' => 'backend/articles/index',
 
                 'admin/categories' => 'backend/categories/index',
+                'admin/categories/<id:\d+>' => 'backend/categories/view',
                 'admin/categories/create' => 'backend/categories/create',
                 'admin/categories/update/<id:\d+>' => 'backend/categories/update',
                 'admin/categories/delete/<id:\d+>' => 'backend/categories/delete',
-                'admin/categories/<id:\d+>' => 'backend/categories/view',
 
                 'admin/users/<id:\d+>' => 'backend/users/view',
 
-                'article/<id:\d+>' => 'frontend/articles/view',
                 'cabinet' => 'frontend/cabinet/cabinet/index',
-
                 'cabinet/articles/create' => 'frontend/cabinet/articles/create',
-                'cabinet/articles/edit' => 'frontend/cabinet/articles/edit',
+
+                'cabinet/articles/edit/<slug:.*>' => 'frontend/cabinet/articles/update',
+
                 'cabinet/articles/delete' => 'frontend/cabinet/articles/delete',
 
-                '<category:.*>/<title:.*>' => 'frontend/blog/article',
+                '<category:.*>/<slug:.*>' => 'frontend/blog/article',
                 '<slug:[\w_-]+>' => 'frontend/blog/category',
+
 
             ],
         ],
