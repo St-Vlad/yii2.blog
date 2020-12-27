@@ -24,7 +24,7 @@ use yii\helpers\Url;
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->
     <div class="entry-thumbnail">
-        <?= Html::img($article->preview, ['alt' => 'Blog Post']);?>
+        <?= Html::img($article->preview, ['alt' => $article->title, 'width' => 100, 'height' => 100]);?>
     </div>
     <div class="entry-content" itemprop="articleBody">
         <?= $article->description; ?>

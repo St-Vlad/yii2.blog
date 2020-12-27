@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
 <div class="articles-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'category_id')->textInput() ?>
 
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
         'template'      => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
         'options'       => ['class' => 'form-control'],
         'buttonOptions' => ['class' => 'btn btn-default'],
-        'multiple'      => false       // возможность выбора нескольких файлов
+        'multiple'      => false,
     ]); ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
@@ -37,7 +37,7 @@ use yii\widgets\ActiveForm;
             'inline' => false,
             'filter' => [
                 'image/png',
-                'image/jpg',
+                'image/jpeg',
             ],
         ])
     ]); ?>
