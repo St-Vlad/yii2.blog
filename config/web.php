@@ -55,8 +55,10 @@ $config = [
                 '<a:(signup)>' => 'frontend/signup/signup',
 
                 'admin' => 'backend/admin/index',
-                'admin/users' => 'backend/users/index',
                 'admin/articles' => 'backend/articles/index',
+                'admin/articles/<id:\d+>' => 'backend/articles/view',
+                'admin/articles/update/<id:\d+>' => 'backend/articles/update',
+                'admin/articles/delete/<id:\d+>' => 'backend/articles/delete',
 
                 'admin/categories' => 'backend/categories/index',
                 'admin/categories/<id:\d+>' => 'backend/categories/view',
@@ -64,19 +66,16 @@ $config = [
                 'admin/categories/update/<id:\d+>' => 'backend/categories/update',
                 'admin/categories/delete/<id:\d+>' => 'backend/categories/delete',
 
+                'admin/users' => 'backend/users/index',
                 'admin/users/<id:\d+>' => 'backend/users/view',
 
                 'cabinet' => 'frontend/cabinet/cabinet/index',
                 'cabinet/articles/create' => 'frontend/cabinet/articles/create',
-
-                'cabinet/articles/edit/<slug:.*>' => 'frontend/cabinet/articles/update',
-
+                'cabinet/articles/edit/<slug:[\w-]+>' => 'frontend/cabinet/articles/update',
                 'cabinet/articles/delete/<id:\d+>' => 'frontend/cabinet/articles/delete',
 
-                '<category:.*>/<slug:.*>' => 'frontend/blog/article',
-                '<slug:[\w_-]+>' => 'frontend/blog/category',
-
-
+                '<category:[\w-]+>/<slug:[\w-]+>' => 'frontend/blog/article',
+                '<slug:[\w-]+>' => 'frontend/blog/category',
             ],
         ],
         /*'as beforeRequest' => [

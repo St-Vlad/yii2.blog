@@ -28,7 +28,7 @@ class ArticleService
         $this->repository->save($user);
     }
 
-    public function edit($id, ArticleUpdate $form): void
+    public function edit($id, $form): void
     {
         $article = $this->repository->find($id);
         $article->edit(

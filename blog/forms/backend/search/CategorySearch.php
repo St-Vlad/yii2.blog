@@ -1,32 +1,36 @@
 <?php
 
-namespace app\blog\forms\backend;
+namespace app\blog\forms\backend\search;
 
-use app\blog\entities\User;
+use app\blog\entities\Category;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * UserSearch represents the model behind the search form of `app\modules\user\models\User`.
+ * CategorieSearch represents the model behind the search form of `app\modules\blog\models\Categorie`.
  */
-class UserSearch extends Model
+class CategorySearch extends Model
 {
     public $id;
-    public $username;
-    public $email;
-    public $status;
-    public $created_at;
-    public $updated_at;
-
+    public $name;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'email'], 'safe'],
+            [['id'], 'integer'],
+            [['name'], 'string'],
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
     }
 
     /**
@@ -38,7 +42,7 @@ class UserSearch extends Model
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = Category::find();
 
         // add conditions that should always apply here
 
@@ -57,13 +61,9 @@ class UserSearch extends Model
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'email', $this->email]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

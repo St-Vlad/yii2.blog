@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\blog\models\ArticleSearch */
+/* @var $model \app\blog\forms\backend\search\ArticleSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -17,17 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'user_id') ?>
-
     <?= $form->field($model, 'category_id') ?>
 
     <?= $form->field($model, 'title') ?>
 
     <?= $form->field($model, 'description') ?>
 
-    <?php // echo $form->field($model, 'text') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
+    <?= $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

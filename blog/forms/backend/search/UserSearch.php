@@ -1,34 +1,32 @@
 <?php
 
-namespace app\blog\forms\backend;
+namespace app\blog\forms\backend\search;
 
-use app\blog\entities\Article;
+use app\blog\entities\User;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ArticleSearch represents the model behind the search form of `app\modules\blog\models\Articles`.
+ * UserSearch represents the model behind the search form of `app\modules\user\models\User`.
  */
-class ArticleSearch extends Article
+class UserSearch extends Model
 {
+    public $id;
+    public $username;
+    public $email;
+    public $status;
+    public $created_at;
+    public $updated_at;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'category_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'description', 'text'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'email'], 'safe'],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
     }
 
     /**
@@ -40,7 +38,7 @@ class ArticleSearch extends Article
      */
     public function search($params)
     {
-        $query = Article::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 
@@ -59,16 +57,13 @@ class ArticleSearch extends Article
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'category_id' => $this->category_id,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'text', $this->text]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }

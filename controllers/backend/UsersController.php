@@ -3,7 +3,7 @@
 namespace app\controllers\backend;
 
 use app\blog\forms\backend\update\UserUpdate;
-use app\blog\forms\backend\UserSearch;
+use app\blog\forms\backend\search\UserSearch;
 use app\blog\repositories\readRepos\UserRepository as ReadUsersRepository;
 use app\blog\repositories\UserRepository;
 use app\blog\services\UserManageService;

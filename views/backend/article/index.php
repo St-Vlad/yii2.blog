@@ -1,10 +1,11 @@
 <?php
 
+use app\blog\entities\Article;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\blog\forms\backend\ArticleSearch */
+/* @var $searchModel \app\blog\forms\backend\search\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Articles';
@@ -20,18 +21,32 @@ $this->title = 'Articles';
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'user_id',
             'category_id',
             'title',
+            [
+                'attribute' => 'preview',
+                'format' => 'html',
+                'label' => 'preview',
+                'value' => function ($data) {
+                    return Html::img(
+                        $data->preview,
+                        ['width' => '60px']
+                    );
+                },
+            ],
             'description',
-            //'text',
-            //'status',
-            //'created_at',
-            //'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'filter' => Article::getStatusesArray(),
+                'attribute' => 'status',
+                'value' => 'statusName',
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => [
+                    'style' => 'white-space: nowrap; text-align: center; letter-spacing: 0.1em; max-width: 7em;'
+                ],
+            ],
         ],
     ]); ?>
-
 
 </div>

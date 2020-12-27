@@ -6,7 +6,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\blog\forms\backend\UserSearch */
+/* @var $searchModel app\blog\forms\backend\search\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Користувачі';

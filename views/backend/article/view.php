@@ -14,8 +14,8 @@ $this->title = $model->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Змінити', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Видалити', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,12 +28,19 @@ $this->title = $model->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
             'category_id',
             'title',
+            [
+                'attribute' => 'preview',
+                'value' => $model->preview,
+                'format' => ['image',['width' => '100','height' => '100']],
+            ],
             'description',
             'text:html',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusName(),
+            ],
             'created_at',
             'updated_at',
         ],

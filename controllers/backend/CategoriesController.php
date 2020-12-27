@@ -2,7 +2,7 @@
 
 namespace app\controllers\backend;
 
-use app\blog\forms\backend\CategorySearch;
+use app\blog\forms\backend\search\CategorySearch;
 use app\blog\forms\backend\create\CategoryCreate;
 use app\blog\forms\backend\update\CategoryUpdate;
 use app\blog\repositories\CategoryRepository;
@@ -105,7 +105,7 @@ class CategoriesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $category = $this->repository->find($id);
         $model = new CategoryUpdate($category);
@@ -131,7 +131,7 @@ class CategoriesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
         try {
             $this->service->remove($id);
