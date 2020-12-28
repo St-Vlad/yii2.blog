@@ -32,6 +32,8 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 
-/web/static
+web/static
+web/@app
+
 #.env
 .env
