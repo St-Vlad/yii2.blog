@@ -5,11 +5,12 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
 require __DIR__ . '/../vendor/autoload.php';
+
+Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
+
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
+require __DIR__ . '/../tools/helpers.php';
 
 $config = require __DIR__ . '/../config/web.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
 
 (new yii\web\Application($config))->run();
