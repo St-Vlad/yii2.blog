@@ -34,6 +34,7 @@ tests/_support/_generated
 
 web/static
 web/@app
+web/@web
 
 #.env
 .env
