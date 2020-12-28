@@ -24,7 +24,7 @@ class CategoryManageService
 
     public function edit($id, CategoryUpdate $form): void
     {
-        $category = $this->repository->get($id);
+        $category = $this->repository->find($id);
         $category->edit(
             $form->name
         );
@@ -33,7 +33,7 @@ class CategoryManageService
 
     public function remove($id): void
     {
-        $category = $this->repository->get($id);
+        $category = $this->repository->find($id);
         $this->repository->remove($category);
     }
 }

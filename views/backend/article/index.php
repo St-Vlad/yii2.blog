@@ -42,6 +42,18 @@ $this->title = 'Articles';
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
+                'template' => '{swap} {view} {update} {delete}',
+                'buttons' => [
+                    'swap' => function ($url) {
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-refresh"></span>',
+                            $url,
+                            [
+                                'id' => 'id',
+                            ]
+                        );
+                    },
+                ],
                 'contentOptions' => [
                     'style' => 'white-space: nowrap; text-align: center; letter-spacing: 0.1em; max-width: 7em;'
                 ],

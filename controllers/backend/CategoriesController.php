@@ -83,7 +83,7 @@ class CategoriesController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->repository->get($id);
+        $model = $this->repository->find($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -117,7 +117,7 @@ class CategoriesController extends Controller
      */
     public function actionUpdate(int $id)
     {
-        $category = $this->repository->get($id);
+        $category = $this->repository->find($id);
         $model = new CategoryUpdate($category);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             try {

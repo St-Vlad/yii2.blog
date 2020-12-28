@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $updateForm app\blog\entities\Article */
+/* @var $statusForm app\blog\entities\Article */
 
 $this->title = 'Update Articles: ' . $updateForm->title;
 ?>
@@ -13,6 +14,7 @@ $this->title = 'Update Articles: ' . $updateForm->title;
 
     <?= $this->render('_form', [
         'updateForm' => $updateForm,
+        'statusForm' => $statusForm,
     ]) ?>
 
 </div>

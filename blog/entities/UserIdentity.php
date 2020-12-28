@@ -16,7 +16,7 @@ class UserIdentity implements IdentityInterface
 
     public static function findIdentity($id): ?UserIdentity
     {
-        $user = self::getRepository()->findActiveById($id);
+        $user = User::findOne(['id' => $id, 'status' => User::STATUS_ACTIVE]);
         return $user ? new self($user) : null;
     }
 
@@ -33,11 +33,6 @@ class UserIdentity implements IdentityInterface
     public function validateAuthKey($authKey): bool
     {
         return $this->getAuthKey() === $authKey;
-    }
-
-    private static function getRepository(): UserRepository
-    {
-        return \Yii::$container->get(UserRepository::class);
     }
 
     public static function findIdentityByAccessToken($token, $type = null)

@@ -3,12 +3,11 @@
 namespace app\blog\entities;
 
 use Yii;
-use yii\base\NotSupportedException;
+use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
-use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -34,7 +33,6 @@ class User extends ActiveRecord
     {
         return '{{%users}}';
     }
-
 
     public function behaviors(): array
     {
@@ -64,7 +62,7 @@ class User extends ActiveRecord
         return ArrayHelper::getValue(self::getStatusesArray(), $this->status);
     }
 
-    public static function getStatusesArray()
+    public static function getStatusesArray(): array
     {
         return [
             self::STATUS_BLOCKED => 'Blocked',
@@ -85,9 +83,9 @@ class User extends ActiveRecord
 
     /**
      * @param string $password
-     * @throws \yii\base\Exception
+     * @throws Exception
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
@@ -100,7 +98,7 @@ class User extends ActiveRecord
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
-    public function beforeSave($insert)
+    public function beforeSave($insert): bool
     {
         if (parent::beforeSave($insert)) {
             if ($insert) {

@@ -4,6 +4,7 @@ namespace app\blog\entities;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -28,23 +29,23 @@ class Category extends ActiveRecord
         $this->name = $name;
     }
 
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             [
-                'class' => SluggableBehavior::className(),
+                'class' => SluggableBehavior::class,
                 'attribute' => 'name',
                 'slugAttribute' => 'slug',
             ],
         ];
     }
 
-    public static function tableName()
+    public static function tableName(): string
     {
-        return 'categories';
+        return '{{%categories}}';
     }
 
-    public function getArticles()
+    public function getArticles(): ActiveQuery
     {
         return $this->hasMany(Article::class, ['category_id' => 'id']);
     }

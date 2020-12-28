@@ -1,17 +1,28 @@
 <?php
 
-namespace app\blog\forms\frontend\cabinet;
+namespace app\blog\forms\common;
 
+use app\blog\entities\Article;
 use app\blog\entities\Category;
 use yii\base\Model;
 
-class ArticleCreate extends Model
+class ArticleUpdate extends Model
 {
     public ?int $category_id = 0;
     public ?string $title = '';
     public ?string $preview = '';
     public ?string $description = '';
     public ?string $text = '';
+
+    public function __construct(Article $article, $config = [])
+    {
+        parent::__construct($config);
+        $this->category_id = $article->category_id;
+        $this->title = $article->title;
+        $this->preview = $article->preview;
+        $this->description = $article->description;
+        $this->text = $article->text;
+    }
 
     public function rules(): array
     {

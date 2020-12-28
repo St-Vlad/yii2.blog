@@ -6,7 +6,7 @@ use yii\base\Model;
 
 class CategoryCreate extends Model
 {
-    public ?string $name = '';
+    public ?string $name;
 
     public function rules(): array
     {

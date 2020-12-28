@@ -3,7 +3,6 @@
 namespace app\blog\services;
 
 use app\blog\entities\Article;
-use app\blog\forms\frontend\cabinet\ArticleUpdate;
 use app\blog\repositories\ArticleRepository;
 
 class ArticleService
@@ -30,7 +29,7 @@ class ArticleService
 
     public function edit($id, $form): void
     {
-        $article = $this->repository->get($id);
+        $article = $this->getArticle($id);
         $article->edit(
             $form->category_id,
             $form->title,
@@ -41,9 +40,21 @@ class ArticleService
         $this->repository->save($article);
     }
 
+    public function editStatus($id): void
+    {
+        $article = $this->getArticle($id);
+        $article->swapStatus($article);
+        $this->repository->save($article);
+    }
+
     public function remove($id): void
     {
-        $article = $this->repository->get($id);
+        $article = $this->getArticle($id);
         $this->repository->remove($article);
+    }
+
+    private function getArticle($id)
+    {
+        return $this->repository->get($id);
     }
 }

@@ -42,7 +42,7 @@ class ArticleController extends Controller
     {
         $faker = Factory::create();
 
-        $usersIds = $this->userRepo->getAllUserIds();
+        $usersIds = $this->userRepo->findAllUserIds();
         if (!$categoriesIds = $this->categoryRepo->findAllCategoriesIds()) {
             throw new \DomainException('at least one category must exist');
         }

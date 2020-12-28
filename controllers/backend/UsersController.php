@@ -86,7 +86,7 @@ class UsersController extends Controller
     public function actionView(int $id)
     {
         try {
-            $model = $this->usersRepository->get($id);
+            $model = $this->usersRepository->find($id);
         } catch (NotFoundHttpException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('viewError', $e->getMessage());
@@ -106,7 +106,7 @@ class UsersController extends Controller
      */
     public function actionUpdate($id)
     {
-        $user = $this->usersRepository->get($id);
+        $user = $this->usersRepository->find($id);
         $updateForm = new UserUpdate($user);
 
         if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {
