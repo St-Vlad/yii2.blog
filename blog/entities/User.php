@@ -24,23 +24,23 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord
 {
-    const STATUS_BLOCKED = 0;
-    const STATUS_ACTIVE = 1;
+    public const STATUS_BLOCKED = 0;
+    public const STATUS_ACTIVE = 1;
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%users}}';
     }
 
 
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
                 'value' => new Expression('CURRENT_TIMESTAMP()'),
@@ -67,8 +67,8 @@ class User extends ActiveRecord
     public static function getStatusesArray()
     {
         return [
-            self::STATUS_BLOCKED => 'Заблокований',
-            self::STATUS_ACTIVE => 'Активний',
+            self::STATUS_BLOCKED => 'Blocked',
+            self::STATUS_ACTIVE => 'Active',
         ];
     }
 

@@ -40,11 +40,11 @@ AppAsset::register($this);
                             ],
                         ]);
                         if (Yii::$app->user->isGuest) {
-                            $menuItems[] = ['label' => 'Реєстрація', 'url' => ['/signup']];
-                            $menuItems[] = ['label' => 'Увійти', 'url' => ['/login']];
+                            $menuItems[] = ['label' => 'Register', 'url' => ['/signup']];
+                            $menuItems[] = ['label' => 'Log in', 'url' => ['/login']];
                         } else {
                             $menuItems[] = [
-                                'label' => 'Створити статтю',
+                                'label' => 'Create article',
                                 'url' => ['/cabinet/articles/create']
                             ];
                             $menuItems[] = [
@@ -52,7 +52,7 @@ AppAsset::register($this);
                                 'url' => ['/cabinet']
                             ];
                             $menuItems[] = [
-                                'label' => 'Вийти',
+                                'label' => 'Exit',
                                 'url' => ['/logout'],
                                 'linkOptions' => ['data-method' => 'post']
                             ];

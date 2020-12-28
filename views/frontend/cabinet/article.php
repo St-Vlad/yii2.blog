@@ -18,19 +18,19 @@ use yii\helpers\Url;
                 </span>
             </span> <!-- .post-date -->
             <span class="post-author">
-                <i class="fa fa-user fa-fw"></i> Написана автором <span class="vcard">
+                <i class="fa fa-user fa-fw"></i> Written by <span class="vcard">
                     <?= Html::encode($article->user->username); ?>
             </span> <!-- .post-author -->
             <span>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
                 <?= Html::a(
-                    'Редагувати',
+                    'Edit',
                     Url::to(['frontend/cabinet/articles/update', 'slug' => $article->slug])
                 )?>
             </span>
             <span>
                 <i class="fa fa-trash" aria-hidden="true"></i>
-                <?= Html::a('Видалити', ['frontend/cabinet/articles/delete', 'id' => $article->id], [
+                <?= Html::a('Delete', ['frontend/cabinet/articles/delete', 'id' => $article->id], [
                     'data' => [
                         'confirm' => 'Підтвердіть видалення',
                         'method' => 'post',
@@ -46,7 +46,7 @@ use yii\helpers\Url;
         <?= Html::encode($article->description); ?>
     </div> <!-- .entry-content -->
     <?= Html::a(
-        'Детальніше',
+        'More detail',
         Url::to(['frontend/blog/article', 'category' => $article->category->name, 'slug' => $article->slug]),
         ['class' => 'more button']
     )?>

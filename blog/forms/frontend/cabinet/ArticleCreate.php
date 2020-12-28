@@ -22,7 +22,13 @@ class ArticleCreate extends Model
             [['description'], 'string', 'max' => 250],
             [['text'], 'string', 'max' => 1500],
             [['preview'], 'string', 'max' => 255],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [
+                ['category_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Category::class,
+                'targetAttribute' => ['category_id' => 'id']
+            ],
         ];
     }
 }

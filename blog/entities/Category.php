@@ -39,18 +39,6 @@ class Category extends ActiveRecord
         ];
     }
 
-    /**
-     *
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'name' => 'Name',
-        ];
-    }
-
     public static function tableName()
     {
         return 'categories';
@@ -58,6 +46,6 @@ class Category extends ActiveRecord
 
     public function getArticles()
     {
-        return $this->hasMany(Article::className(), ['category_id' => 'id']);
+        return $this->hasMany(Article::class, ['category_id' => 'id']);
     }
 }

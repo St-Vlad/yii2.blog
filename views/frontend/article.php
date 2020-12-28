@@ -18,7 +18,7 @@ use yii\helpers\Url;
                 </span>
             </span> <!-- .post-date -->
             <span class="post-author">
-                <i class="fa fa-user fa-fw"></i> Написана автором <span class="vcard">
+                <i class="fa fa-user fa-fw"></i> Written by <span class="vcard">
                     <?= $article->user->username ?? "Unknown author";?>
                 </span> <!-- .post-author -->
         </div> <!-- .entry-meta -->

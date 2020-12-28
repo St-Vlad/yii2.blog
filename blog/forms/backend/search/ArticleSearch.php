@@ -26,8 +26,6 @@ class ArticleSearch extends Model
     public function search($params)
     {
         $query = Article::find();
-
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

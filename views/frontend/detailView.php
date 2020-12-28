@@ -25,4 +25,4 @@ use yii\helpers\Html;
     <div class="entry-content" itemprop="articleBody">
         <?= $model->text; ?>
     </div> <!-- .entry-content -->
-</article> <!-- .post --><?php
+</article> <!-- .post -->

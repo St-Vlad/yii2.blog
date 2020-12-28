@@ -17,7 +17,7 @@ class m201220_104345_create_table_articles extends Migration
 
         $this->createTable('{{%articles}}', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer(),
             'category_id' => $this->integer()->notNull(),
             'title' => $this->string(50)->notNull(),
             'description' => $this->string(250)->notNull(),
@@ -33,7 +33,7 @@ class m201220_104345_create_table_articles extends Migration
             'user_id',
             'users',
             'id',
-            'RESTRICT',
+            'SET NULL',
             'CASCADE',
         );
 

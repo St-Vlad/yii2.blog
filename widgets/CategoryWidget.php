@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components;
+namespace app\widgets;
 
 use app\blog\repositories\readRepos\CategoryRepository;
 use yii\base\Widget;

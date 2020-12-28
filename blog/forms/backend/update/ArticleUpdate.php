@@ -35,7 +35,13 @@ class ArticleUpdate extends \yii\base\Model
             [['text'], 'string', 'max' => 1500],
             [['preview'], 'string', 'max' => 255],
             [['status'], 'safe'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [
+                ['category_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Category::class,
+                'targetAttribute' => ['category_id' => 'id']
+            ],
         ];
     }
 }
