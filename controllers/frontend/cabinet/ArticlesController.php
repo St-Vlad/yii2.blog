@@ -8,6 +8,7 @@ use app\blog\repositories\readRepos\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use app\blog\services\ArticleService;
 use Yii;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 
@@ -39,6 +40,15 @@ class ArticlesController extends \yii\web\Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['user'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

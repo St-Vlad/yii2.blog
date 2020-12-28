@@ -8,6 +8,7 @@ use app\blog\repositories\readRepos\UserRepository as ReadUsersRepository;
 use app\blog\repositories\UserRepository;
 use app\blog\services\UserManageService;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -43,6 +44,15 @@ class UsersController extends Controller
     public function behaviors()
     {
         return [
+            [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

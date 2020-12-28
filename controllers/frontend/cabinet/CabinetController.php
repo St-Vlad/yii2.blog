@@ -4,6 +4,8 @@ namespace app\controllers\frontend\cabinet;
 
 use app\blog\forms\frontend\cabinet\ArticleSearch;
 use app\blog\repositories\readRepos\ArticleRepository;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 class CabinetController extends Controller
@@ -16,6 +18,24 @@ class CabinetController extends Controller
     {
         $this->articles = $articles;
         parent::__construct($id, $module, $config);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['user'],
+                    ],
+                ],
+            ],
+        ];
     }
 
     public function actionIndex()

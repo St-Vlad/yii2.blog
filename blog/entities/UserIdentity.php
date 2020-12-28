@@ -2,24 +2,22 @@
 
 namespace app\blog\entities;
 
-use app\blog\entities\User;
 use app\blog\repositories\readRepos\UserRepository;
-use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
 
 class UserIdentity implements IdentityInterface
 {
-    private $user;
+    private User $user;
 
     public function __construct(User $user)
     {
         $this->user = $user;
     }
 
-    public static function findIdentity($id)
+    public static function findIdentity($id): ?UserIdentity
     {
         $user = self::getRepository()->findActiveById($id);
-        return $user ? new self($user): null;
+        return $user ? new self($user) : null;
     }
 
     public function getId(): int

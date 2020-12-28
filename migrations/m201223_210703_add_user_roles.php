@@ -12,7 +12,6 @@ class m201223_210703_add_user_roles extends Migration
         $this->batchInsert('{{%auth_items}}', ['type', 'name', 'description'], [
             [1, 'user', 'User'],
             [1, 'admin', 'Admin'],
-            [1, 'guest', 'Guest'],
         ]);
 
         $this->batchInsert('{{%auth_item_children}}', ['parent', 'child'], [

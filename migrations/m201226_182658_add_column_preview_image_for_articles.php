@@ -21,6 +21,5 @@ class m201226_182658_add_column_preview_image_for_articles extends Migration
     public function down()
     {
         $this->dropColumn('articles', 'preview');
-        return false;
     }
 }

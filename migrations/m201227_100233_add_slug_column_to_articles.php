@@ -21,6 +21,5 @@ class m201227_100233_add_slug_column_to_articles extends Migration
     public function down()
     {
         $this->dropColumn('articles', 'slug');
-        return false;
     }
 }

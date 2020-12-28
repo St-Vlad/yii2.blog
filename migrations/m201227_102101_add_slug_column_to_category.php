@@ -21,6 +21,5 @@ class m201227_102101_add_slug_column_to_category extends Migration
     public function down()
     {
         $this->dropColumn('categories', 'slug');
-        return false;
     }
 }

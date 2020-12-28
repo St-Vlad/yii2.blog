@@ -7,7 +7,10 @@ $config = [
     'id' => 'basic',
     'name' => 'Blog',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        'app\bootstrap\Bootstrap',
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -23,6 +26,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\blog\entities\UserIdentity',
+            'loginUrl' => ['frontend/auth/login'],
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -44,6 +48,13 @@ $config = [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => '{{%auth_items}}',
+            'itemChildTable' => '{{%auth_item_children}}',
+            'assignmentTable' => '{{%auth_assignments}}',
+            'ruleTable' => '{{%auth_rules}}',
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -55,6 +66,7 @@ $config = [
                 '<a:(signup)>' => 'frontend/signup/signup',
 
                 'admin' => 'backend/admin/index',
+
                 'admin/articles' => 'backend/articles/index',
                 'admin/articles/<id:\d+>' => 'backend/articles/view',
                 'admin/articles/update/<id:\d+>' => 'backend/articles/update',
@@ -78,21 +90,11 @@ $config = [
                 '<slug:[\w-]+>' => 'frontend/blog/category',
             ],
         ],
-        /*'as beforeRequest' => [
-            'class' => yii\filters\AccessControl::className(),
-            'rules' => [
-                [
-                    'allow' => true,
-                    'controllers' => 'admin',
-                    'roles' => ['admin'],
-                ],
-            ],
-        ],*/
     ],
     'controllerMap' => [
         'elfinder' => [
             'class' => 'mihaildev\elfinder\PathController',
-            'access' => ['@', '?'],
+            'access' => ['admin', 'user'],
             'root' => [
                 'class' => 'mihaildev\elfinder\volume\UserPath',
                 'path'  => 'static/images/user_{id}',

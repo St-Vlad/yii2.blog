@@ -12,7 +12,7 @@ class UserRepository
         if (($model = User::findOne($id)) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('User not found');
     }
 
     public function save(User $user): void
