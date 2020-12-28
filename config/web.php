@@ -50,10 +50,10 @@ $config = [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'itemTable' => '{{%auth_items}}',
-            'itemChildTable' => '{{%auth_item_children}}',
-            'assignmentTable' => '{{%auth_assignments}}',
-            'ruleTable' => '{{%auth_rules}}',
+            'itemTable' => '{{%auth_item}}',
+            'itemChildTable' => '{{%auth_item_child}}',
+            'assignmentTable' => '{{%auth_assignment}}',
+            'ruleTable' => '{{%auth_rule}}',
         ],
         'db' => $db,
         'urlManager' => [

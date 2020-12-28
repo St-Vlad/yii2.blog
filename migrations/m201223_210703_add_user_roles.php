@@ -15,12 +15,12 @@ class m201223_210703_add_user_roles extends Migration
         ]);
 
         $this->batchInsert('{{%auth_item_children}}', ['parent', 'child'], [
-            ['user', 'admin'],
+            ['admin', 'user'],
         ]);
     }
 
     public function down()
     {
-        $this->delete('{{%auth_items}}', ['name' => ['user', 'admin']]);
+        $this->delete('{{%auth_items}}', ['name' => ['admin', 'user']]);
     }
 }
