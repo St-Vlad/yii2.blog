@@ -30,7 +30,7 @@ class ArticleService
 
     public function edit($id, $form): void
     {
-        $article = $this->repository->find($id);
+        $article = $this->repository->get($id);
         $article->edit(
             $form->category_id,
             $form->title,
@@ -43,7 +43,7 @@ class ArticleService
 
     public function remove($id): void
     {
-        $article = $this->repository->find($id);
+        $article = $this->repository->get($id);
         $this->repository->remove($article);
     }
 }

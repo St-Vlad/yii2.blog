@@ -60,7 +60,7 @@ class ArticlesController extends \yii\web\Controller
 
     public function actionCreate()
     {
-        $categoriesList = $this->categoryRepository->getAll();
+        $categoriesList = $this->categoryRepository->findAll();
         $model = new ArticleCreate();
         try {
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -79,9 +79,9 @@ class ArticlesController extends \yii\web\Controller
 
     public function actionUpdate($slug)
     {
-        $categoriesList = $this->categoryRepository->getAll();
+        $categoriesList = $this->categoryRepository->findAll();
 
-        $article = $this->articleRepository->getBySlug($slug);
+        $article = $this->articleRepository->findBySlug($slug);
         $model = new ArticleUpdate($article);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {

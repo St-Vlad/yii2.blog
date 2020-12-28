@@ -7,7 +7,7 @@ use yii\web\NotFoundHttpException;
 
 class UserRepository
 {
-    public function find($id): ?User
+    public function get($id): ?User
     {
         if (($model = User::findOne($id)) !== null) {
             return $model;
@@ -24,7 +24,7 @@ class UserRepository
 
     public function remove($id): void
     {
-        $user = $this->find($id);
+        $user = $this->get($id);
         if (!$user->delete()) {
             throw new \RuntimeException('Removing error.');
         }

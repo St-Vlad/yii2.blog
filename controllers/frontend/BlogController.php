@@ -37,7 +37,7 @@ class BlogController extends Controller
 
     public function actionIndex()
     {
-        $dataProvider = $this->articleRepository->getAllActive();
+        $dataProvider = $this->articleRepository->findAllActive();
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -45,10 +45,10 @@ class BlogController extends Controller
 
     public function actionCategory($slug)
     {
-        if (!$category = $this->categoryRepository->getBySlug($slug)) {
+        if (!$category = $this->categoryRepository->findBySlug($slug)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-        $dataProvider = $this->articleRepository->getAllByCategory($category);
+        $dataProvider = $this->articleRepository->findAllByCategory($category);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -56,7 +56,7 @@ class BlogController extends Controller
 
     public function actionArticle($slug)
     {
-        if (!$model = $this->articleRepository->getBySlug($slug)) {
+        if (!$model = $this->articleRepository->findBySlug($slug)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         return $this->render('detailView', [

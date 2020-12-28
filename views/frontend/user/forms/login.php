@@ -10,6 +10,12 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
 ?>
+<?php if (Yii::$app->session->hasFlash('error')) : ?>
+    <div class="alert alert-danger alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <?= Yii::$app->session->getFlash('error') ?>
+    </div>
+<?php endif;?>
 <div class="user-default-login">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>Please fill out the following fields to login:</p>

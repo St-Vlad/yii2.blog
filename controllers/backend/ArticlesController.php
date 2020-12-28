@@ -82,7 +82,7 @@ class ArticlesController extends Controller
      */
     public function actionView(int $id)
     {
-        $model = $this->repository->find($id);
+        $model = $this->repository->get($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -97,7 +97,7 @@ class ArticlesController extends Controller
      */
     public function actionUpdate(int $id)
     {
-        $article = $this->repository->find($id);
+        $article = $this->repository->get($id);
         $updateForm = new ArticleUpdate($article);
         if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {
             try {
@@ -105,7 +105,7 @@ class ArticlesController extends Controller
                 return $this->redirect(['admin/articles']);
             } catch (DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('viewError', $e->getMessage());
+                Yii::$app->session->setFlash('viewError');
             }
         }
 
@@ -128,7 +128,7 @@ class ArticlesController extends Controller
             return $this->redirect(['admin/articles']);
         } catch (DomainException $e) {
             Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('viewError', $e->getMessage());
+            Yii::$app->session->setFlash('viewError');
             return $this->redirect(Yii::$app->request->referrer);
         }
     }

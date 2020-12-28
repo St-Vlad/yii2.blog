@@ -43,7 +43,7 @@ class ArticleController extends Controller
         $faker = Factory::create();
 
         $usersIds = $this->userRepo->getAllUserIds();
-        $categoriesIds = $this->categoryRepo->getAllCategoriesIds();
+        $categoriesIds = $this->categoryRepo->findAllCategoriesIds();
 
         for ($i = 0; $i < $count; $i++) {
             $article = Article::create(

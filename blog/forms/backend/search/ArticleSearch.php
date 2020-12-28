@@ -41,8 +41,6 @@ class ArticleSearch extends Model
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
-            'title' => $this->title,
-            'description' => $this->description,
             'status' => $this->status,
         ]);
 

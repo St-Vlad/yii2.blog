@@ -48,6 +48,6 @@ class AssignController extends Controller
 
     private function getUser($id)
     {
-        return $this->repositiry->find($id);
+        return $this->repositiry->get($id);
     }
 }

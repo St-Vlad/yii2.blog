@@ -18,7 +18,7 @@ class UserManageService
 
     public function edit($id, UserUpdate $form): void
     {
-        $user = $this->repository->find($id);
+        $user = $this->repository->get($id);
         $user->edit(
             $form->username,
             $form->email,
@@ -29,7 +29,7 @@ class UserManageService
 
     public function remove($id): void
     {
-        $user = $this->repository->find($id);
+        $user = $this->repository->get($id);
         $this->repository->remove($user);
     }
 }

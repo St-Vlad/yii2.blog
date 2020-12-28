@@ -7,7 +7,7 @@ use yii\web\NotFoundHttpException;
 
 class ArticleRepository
 {
-    public function find($id): ?Article
+    public function get($id): ?Article
     {
         if (($model = Article::findOne($id)) !== null) {
             return $model;

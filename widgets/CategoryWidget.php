@@ -17,7 +17,7 @@ class CategoryWidget extends Widget
 
     public function run()
     {
-        $categories =  $this->repository->getAll();
+        $categories =  $this->repository->findAll();
         return $this->render('categoryBar', ['categories' => $categories]);
     }
 }
