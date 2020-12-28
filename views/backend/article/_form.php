@@ -10,7 +10,6 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $updateForm app\blog\entities\Article */
-/* @var $statusForm app\blog\entities\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -48,12 +47,6 @@ use yii\widgets\ActiveForm;
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($updateForm, 'status')->dropDownList(Article::getStatusesArray()) ?>
 
     <?php ActiveForm::end(); ?>
 </div>
