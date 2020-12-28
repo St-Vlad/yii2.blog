@@ -20,10 +20,9 @@ class m201218_104348_create_user_table extends Migration
             'password_hash' => $this->string()->notNull(),
             'auth_key' => $this->string(32)->notNull(),
             'email' => $this->string()->notNull()->unique(),
-
             'status' => $this->smallInteger()->notNull()->defaultValue(0),
-            'created_at' => $this->timestamp()->notNull(),
-            'updated_at' => $this->timestamp()->notNull(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $tableOptions);
     }
 

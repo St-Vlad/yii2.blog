@@ -18,17 +18,20 @@ use yii\helpers\Url;
                 </span>
             </span> <!-- .post-date -->
             <span class="post-author">
-                <i class="fa fa-user fa-fw"></i> Написана автором <span class="vcard">
-                    <?= $article->user->username ;?>
+                <i class="fa fa-user fa-fw"></i> Written by <span class="vcard">
+                    <?= $article->user->username ?? "Unknown author";?>
                 </span> <!-- .post-author -->
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->
+    <div class="entry-thumbnail">
+        <?= Html::img($article->preview, ['alt' => $article->title, 'width' => 100, 'height' => 100]);?>
+    </div>
     <div class="entry-content" itemprop="articleBody">
         <?= $article->description; ?>
     </div> <!-- .entry-content -->
     <?= Html::a(
-        'Детальніше',
-        Url::to(['frontend/blog/article', 'category' => $article->category->name, 'title' => $article->title]),
+        'More details',
+        Url::to(['frontend/blog/article', 'category' => $article->category->slug, 'slug' => $article->slug]),
         ['class' => 'more button']
     )?>
     <hr>

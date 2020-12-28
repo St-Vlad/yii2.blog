@@ -7,7 +7,10 @@ $config = [
     'id' => 'basic',
     'name' => 'Blog',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        'app\bootstrap\Bootstrap',
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -23,6 +26,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\blog\entities\UserIdentity',
+            'loginUrl' => ['frontend/auth/login'],
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -44,50 +48,55 @@ $config = [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'itemTable' => '{{%auth_item}}',
+            'itemChildTable' => '{{%auth_item_child}}',
+            'assignmentTable' => '{{%auth_assignment}}',
+            'ruleTable' => '{{%auth_rule}}',
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'elfinder/<a>' => 'elfinder/<a>',
                 '' => 'frontend/blog/index',
                 '<a:(login|logout)>' => 'frontend/auth/<a>',
                 '<a:(signup)>' => 'frontend/signup/signup',
 
-                'article/<id:\d+>' => 'frontend/articles/view',
+                'admin' => 'backend/admin/index',
+
+                'admin/articles' => 'backend/articles/index',
+                'admin/articles/<id:\d+>' => 'backend/articles/view',
+                'admin/articles/update/<id:\d+>' => 'backend/articles/update',
+                'admin/articles/delete/<id:\d+>' => 'backend/articles/delete',
+
+                'admin/categories' => 'backend/categories/index',
+                'admin/categories/<id:\d+>' => 'backend/categories/view',
+                'admin/categories/create' => 'backend/categories/create',
+                'admin/categories/update/<id:\d+>' => 'backend/categories/update',
+                'admin/categories/delete/<id:\d+>' => 'backend/categories/delete',
+
+                'admin/users' => 'backend/users/index',
+                'admin/users/<id:\d+>' => 'backend/users/view',
+                'admin/users/update/<id:\d+>' => 'backend/users/update',
+                'admin/users/delete/<id:\d+>' => 'backend/users/delete',
 
                 'cabinet' => 'frontend/cabinet/cabinet/index',
                 'cabinet/articles/create' => 'frontend/cabinet/articles/create',
+                'cabinet/articles/edit/<slug:[\w-]+>' => 'frontend/cabinet/articles/update',
+                'cabinet/articles/delete/<id:\d+>' => 'frontend/cabinet/articles/delete',
 
-                'cabinet/articles/edit' => 'frontend/cabinet/articles/edit',
-                'cabinet/articles/delete' => 'frontend/cabinet/articles/delete',
-
-                'admin' => 'backend/admin/index',
-                'admin/users' => 'backend/users/index',
-                'admin/articles' => 'backend/articles/index',
-                'admin/categories' => 'backend/categories/index',
-
-                'admin/users/<id:\d+>' => 'backend/users/view',
-                'admin/category/<id:\d+>' => 'backend/categories/view',
-
-                '<category:.*>/<title:.*>' => 'frontend/blog/article',
-                '<slug:[\w_-]+>' => 'frontend/blog/category',
+                '<category:[\w-]+>/<slug:[\w-]+>' => 'frontend/blog/article',
+                '<slug:[\w-]+>' => 'frontend/blog/category',
             ],
         ],
-        /*'as beforeRequest' => [
-            'class' => yii\filters\AccessControl::className(),
-            'rules' => [
-                [
-                    'allow' => true,
-                    'controllers' => 'admin',
-                    'roles' => ['admin'],
-                ],
-            ],
-        ],*/
     ],
     'controllerMap' => [
         'elfinder' => [
             'class' => 'mihaildev\elfinder\PathController',
-            'access' => ['@', '?'],
+            'access' => ['admin', 'user'],
             'root' => [
                 'class' => 'mihaildev\elfinder\volume\UserPath',
                 'path'  => 'static/images/user_{id}',

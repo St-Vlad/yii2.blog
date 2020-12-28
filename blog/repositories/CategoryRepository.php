@@ -7,7 +7,7 @@ use yii\web\NotFoundHttpException;
 
 class CategoryRepository
 {
-    public function find($id): ?Category
+    public function get($id): ?Category
     {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
@@ -23,7 +23,7 @@ class CategoryRepository
     }
     public function remove($id): void
     {
-        $category = $this->find($id);
+        $category = $this->get($id);
         if (!$category->delete()) {
             throw new \RuntimeException('Removing error.');
         }

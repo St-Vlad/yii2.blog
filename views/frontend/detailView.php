@@ -17,12 +17,12 @@ use yii\helpers\Html;
             </span>
         </span> <!-- .post-date -->
             <span class="post-author">
-            <i class="fa fa-user fa-fw"></i> Написана автором <span class="vcard">
-                <?= $model->user->username ;?>
+            <i class="fa fa-user fa-fw"></i> Writen by <span class="vcard">
+                <?= $model->user->username ?? "unknown author";?>
             </span> <!-- .post-author -->
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->
     <div class="entry-content" itemprop="articleBody">
         <?= $model->text; ?>
     </div> <!-- .entry-content -->
-</article> <!-- .post --><?php
+</article> <!-- .post -->

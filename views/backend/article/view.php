@@ -28,12 +28,19 @@ $this->title = $model->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'user_id',
             'category_id',
             'title',
+            [
+                'attribute' => 'preview',
+                'value' => $model->preview,
+                'format' => ['image',['width' => '100','height' => '100']],
+            ],
             'description',
             'text:html',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusName(),
+            ],
             'created_at',
             'updated_at',
         ],

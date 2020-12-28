@@ -3,11 +3,12 @@
 namespace app\controllers\backend;
 
 use app\blog\forms\backend\update\UserUpdate;
-use app\blog\forms\backend\UserSearch;
+use app\blog\forms\backend\search\UserSearch;
 use app\blog\repositories\readRepos\UserRepository as ReadUsersRepository;
 use app\blog\repositories\UserRepository;
 use app\blog\services\UserManageService;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -43,6 +44,15 @@ class UsersController extends Controller
     public function behaviors()
     {
         return [
+            [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -76,7 +86,7 @@ class UsersController extends Controller
     public function actionView(int $id)
     {
         try {
-            $model = $this->usersRepository->find($id);
+            $model = $this->usersRepository->get($id);
         } catch (NotFoundHttpException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('viewError', $e->getMessage());
@@ -96,7 +106,7 @@ class UsersController extends Controller
      */
     public function actionUpdate($id)
     {
-        $user = $this->usersRepository->find($id);
+        $user = $this->usersRepository->get($id);
         $updateForm = new UserUpdate($user);
 
         if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {

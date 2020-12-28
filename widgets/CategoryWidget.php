@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components;
+namespace app\widgets;
 
 use app\blog\repositories\readRepos\CategoryRepository;
 use yii\base\Widget;
@@ -17,7 +17,7 @@ class CategoryWidget extends Widget
 
     public function run()
     {
-        $categories =  $this->repository->getAll();
+        $categories =  $this->repository->findAll();
         return $this->render('categoryBar', ['categories' => $categories]);
     }
 }

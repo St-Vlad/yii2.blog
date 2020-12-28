@@ -2,7 +2,6 @@
 
 namespace app\controllers\frontend;
 
-use app\blog\entities\Category;
 use app\blog\repositories\readRepos\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use yii\web\Controller;
@@ -38,7 +37,7 @@ class BlogController extends Controller
 
     public function actionIndex()
     {
-        $dataProvider = $this->articleRepository->getAllActive();
+        $dataProvider = $this->articleRepository->findAllActive();
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -46,24 +45,37 @@ class BlogController extends Controller
 
     public function actionCategory($slug)
     {
-        if (!$category = $this->categoryRepository->getBySlug($slug)) {
+        if (!$category = $this->categoryRepository->findBySlug($slug)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-        $dataProvider = $this->articleRepository->getAllByCategory($category);
+        $dataProvider = $this->articleRepository->findAllByCategory($category);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionArticle($title)
+    public function actionArticle($slug)
     {
-        if (!$model = $this->articleRepository->getByTitle($title)) {
+        if (!$model = $this->articleRepository->findBySlug($slug)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         return $this->render('detailView', [
             'model' => $model,
         ]);
     }
+
+    /*public function actionUpdate($id)
+    {
+        $model = $this->articleRepository->getByTitle($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }*/
 
     public function getViewPath()
     {

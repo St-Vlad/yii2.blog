@@ -12,18 +12,12 @@ use yii\db\ActiveQuery;
 
 class ArticleRepository
 {
-    public function getAllByUser($id): ActiveDataProvider
+    public function findBySlug($slug)
     {
-        $query = Article::find()->where(['user_id' => $id])->with('user');
-        return $this->getProvider($query);
+        return Article::findOne(['slug' => $slug]);
     }
 
-    public function getByTitle($title)
-    {
-        return Article::findOne(['title' => $title]);
-    }
-
-    public function getAllByCategory(Category $category): DataProviderInterface
+    public function findAllByCategory(Category $category): DataProviderInterface
     {
         $query = Article::find()
             ->joinWith('category')
@@ -33,7 +27,7 @@ class ArticleRepository
         return $this->getProvider($query);
     }
 
-    public function getAllActive(): DataProviderInterface
+    public function findAllActive(): DataProviderInterface
     {
         $query = Article::find()
             ->where(['status' => Article::STATUS_ACTIVE])
@@ -46,7 +40,8 @@ class ArticleRepository
         return new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSizeLimit' => [15, 100],
+                'pageSize' => 10,
+                'pageSizeParam' => false
             ]
         ]);
     }
@@ -54,7 +49,8 @@ class ArticleRepository
     public function search(ArticleSearch $form): DataProviderInterface
     {
         $pagination = new Pagination([
-            'pageSizeLimit' => [15, 100],
+            'pageSize' => 10,
+            'pageSizeParam' => false
         ]);
 
         $query = Article::find()

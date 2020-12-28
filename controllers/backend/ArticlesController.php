@@ -2,9 +2,13 @@
 
 namespace app\controllers\backend;
 
-use app\blog\forms\backend\ArticleSearch;
-use app\blog\entities\Article;
+use app\blog\forms\backend\search\ArticleSearch;
+use app\blog\forms\backend\update\ArticleUpdate;
+use app\blog\repositories\ArticleRepository;
+use app\blog\services\ArticleService;
+use DomainException;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,12 +19,25 @@ use yii\filters\VerbFilter;
 class ArticlesController extends Controller
 {
     public $layout = '@app/views/backend/layouts/main.php';
+
+    private ArticleRepository $repository;
+    private ArticleService $service;
+
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
+            [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -28,6 +45,18 @@ class ArticlesController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function __construct(
+        $id,
+        $module,
+        ArticleRepository $repository,
+        ArticleService $service,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->repository = $repository;
+        $this->service = $service;
     }
 
     /**
@@ -51,27 +80,10 @@ class ArticlesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
+        $model = $this->repository->get($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Articles model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Article();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
             'model' => $model,
         ]);
     }
@@ -83,16 +95,22 @@ class ArticlesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $article = $this->repository->get($id);
+        $updateForm = new ArticleUpdate($article);
+        if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {
+            try {
+                $this->service->edit($article->id, $updateForm);
+                return $this->redirect(['admin/articles']);
+            } catch (DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('viewError');
+            }
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'updateForm' => $updateForm,
         ]);
     }
 
@@ -103,27 +121,16 @@ class ArticlesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Articles model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Article the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Article::findOne($id)) !== null) {
-            return $model;
+        try {
+            $this->service->remove($id);
+            return $this->redirect(['admin/articles']);
+        } catch (DomainException $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('viewError');
+            return $this->redirect(Yii::$app->request->referrer);
         }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     public function getViewPath()

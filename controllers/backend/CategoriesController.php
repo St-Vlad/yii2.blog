@@ -2,12 +2,14 @@
 
 namespace app\controllers\backend;
 
-use app\blog\forms\backend\CategorySearch;
+use app\blog\forms\backend\search\CategorySearch;
 use app\blog\forms\backend\create\CategoryCreate;
 use app\blog\forms\backend\update\CategoryUpdate;
 use app\blog\repositories\CategoryRepository;
 use app\blog\services\CategoryManageService;
 use Yii;
+use yii\db\IntegrityException;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -40,6 +42,15 @@ class CategoriesController extends Controller
     public function behaviors()
     {
         return [
+            [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -72,14 +83,7 @@ class CategoriesController extends Controller
      */
     public function actionView($id)
     {
-        try {
-            $model = $this->repository->find($id);
-        } catch (NotFoundHttpException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('viewError', $e->getMessage());
-            return $this->redirect(Yii::$app->request->referrer);
-        }
-
+        $model = $this->repository->get($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -111,9 +115,9 @@ class CategoriesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
-        $category = $this->repository->find($id);
+        $category = $this->repository->get($id);
         $model = new CategoryUpdate($category);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             try {
@@ -121,7 +125,7 @@ class CategoriesController extends Controller
                 return $this->redirect(['admin/categories', 'id' => $category->id]);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('viewError', $e->getMessage());
+                Yii::$app->session->setFlash('viewError');
             }
         }
 
@@ -137,14 +141,14 @@ class CategoriesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
         try {
             $this->service->remove($id);
             return $this->redirect(['admin/categories']);
-        } catch (NotFoundHttpException $e) {
+        } catch (IntegrityException $e) {
             Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('viewError', $e->getMessage());
+            Yii::$app->session->setFlash('viewError');
             return $this->redirect(Yii::$app->request->referrer);
         }
     }

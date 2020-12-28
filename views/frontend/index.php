@@ -3,6 +3,9 @@
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\DataProviderInterface */
 
+use app\widgets\CategoryWidget;
+use yii\widgets\LinkPager;
+
 $this->title = Yii::$app->name;
 
 ?>
@@ -19,10 +22,13 @@ $this->title = Yii::$app->name;
                             ]) ?>
                         <?php endforeach; ?>
                     </div> <!-- .content -->
+                    <?= LinkPager::widget([
+                        'pagination' => $dataProvider->pagination,
+                    ]); ?>
                 </div> <!-- .three-quarters-block -->
                 <div class="one-quarter-block" role="complementary">
                     <div class="sidebar">
-                        <?= \app\components\CategoryWidget::widget() ?>
+                        <?= CategoryWidget::widget() ?>
                     </div> <!-- .row -->
                 </div> <!-- .container -->
             </div> <!-- .row -->

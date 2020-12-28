@@ -1,3 +1,3 @@
 <div class="admin-default-index">
-    <h1>Головна сторiнка</h1>
+    <h1>Main page</h1>
 </div>

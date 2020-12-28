@@ -3,6 +3,7 @@
 namespace app\blog\entities;
 
 use Yii;
+use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -11,6 +12,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  */
 class Category extends ActiveRecord
 {
@@ -26,14 +28,14 @@ class Category extends ActiveRecord
         $this->name = $name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
+    public function behaviors()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'name',
+                'slugAttribute' => 'slug',
+            ],
         ];
     }
 
@@ -44,6 +46,6 @@ class Category extends ActiveRecord
 
     public function getArticles()
     {
-        return $this->hasMany(Article::className(), ['category_id' => 'id']);
+        return $this->hasMany(Article::class, ['category_id' => 'id']);
     }
 }

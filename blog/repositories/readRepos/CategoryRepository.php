@@ -10,14 +10,14 @@ use yii\db\ActiveQuery;
 
 class CategoryRepository
 {
-    public function getAll(): array
+    public function findAll(): array
     {
         return Category::find()->all();
     }
 
-    public function getBySlug($slug)
+    public function findBySlug($slug)
     {
-        return Category::findOne(['name' => $slug]);
+        return Category::findOne(['slug' => $slug]);
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryRepository
      *
      * @return array
      */
-    public function getAllCategoriesIds(): array
+    public function findAllCategoriesIds(): array
     {
         return Category::find()->select('id')->asArray()->column();
     }

@@ -7,6 +7,7 @@ use app\blog\repositories\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use app\blog\repositories\readRepos\UserRepository;
 use Faker\Factory;
+use Yii;
 use yii\console\Controller;
 
 class ArticleController extends Controller
@@ -14,6 +15,8 @@ class ArticleController extends Controller
     private ArticleRepository $articleRepo;
     private CategoryRepository $categoryRepo;
     private UserRepository $userRepo;
+
+    private string $imageThumbUrl = 'https://picsum.photos/150';
 
     public function __construct(
         $id,
@@ -31,8 +34,8 @@ class ArticleController extends Controller
 
     public function actionIndex()
     {
-        echo 'to create categorie, type \'./yii categorie/create {category_count}\'' . PHP_EOL;
-        echo 'to remove categorie, type \'./yii categorie/remove {category_id}\'' . PHP_EOL;
+        echo 'to create article, type \'./yii article/create {article_count}\'' . PHP_EOL;
+        echo 'to remove article, type \'./yii article/remove {article_id}\'' . PHP_EOL;
     }
 
     public function actionCreate($count)
@@ -40,13 +43,16 @@ class ArticleController extends Controller
         $faker = Factory::create();
 
         $usersIds = $this->userRepo->getAllUserIds();
-        $categoriesIds = $this->categoryRepo->getAllCategoriesIds();
+        if (!$categoriesIds = $this->categoryRepo->findAllCategoriesIds()) {
+            throw new \DomainException('at least one category must exist');
+        }
 
         for ($i = 0; $i < $count; $i++) {
             $article = Article::create(
                 $this->getRandomValue($usersIds),
                 $this->getRandomValue($categoriesIds),
                 $faker->text($maxNbChars = 50),
+                $this->imageThumbUrl,
                 $faker->text($maxNbChars = 250),
                 $faker->text($maxNbChars = 1500),
                 $status = Article::STATUS_ACTIVE

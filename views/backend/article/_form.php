@@ -1,11 +1,15 @@
 <?php
 
+use app\blog\entities\Article;
 use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
+use mihaildev\elfinder\InputFile;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\blog\entities\Article */
+/* @var $updateForm app\blog\entities\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -13,26 +17,34 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($updateForm, 'category_id')->textInput() ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($updateForm, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'text')->widget(CKEditor::className(), [
-        'editorOptions' => [
-            'preset' => 'full',
-            'inline' => false,
-        ]
+    <?= $form->field($updateForm, 'preview')->widget(InputFile::className(), [
+        'language'      => 'en',
+        'controller'    => 'elfinder',
+        'filter'        => 'image',
+        'template'      => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
+        'options'       => ['class' => 'form-control'],
+        'buttonOptions' => ['class' => 'btn btn-default'],
+        'multiple'      => false,
     ]); ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($updateForm, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?= $form->field($updateForm, 'text')->widget(CKEditor::className(), [
+        'editorOptions' => ElFinder::ckeditorOptions('elfinder', [
+            'preset' => 'full',
+            'inline' => false,
+            'filter' => [
+                'image/png',
+                'image/jpeg',
+            ],
+        ])
+    ]); ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($updateForm, 'status')->dropDownList(Article::getStatusesArray()) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

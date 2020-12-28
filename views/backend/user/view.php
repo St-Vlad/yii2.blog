@@ -14,11 +14,11 @@ YiiAsset::register($this);
 <div class="user-view">
 
     <p>
-        <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Видалити', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Підтвердіть операцію?',
+                'confirm' => 'Are you sure?',
                 'method' => 'post',
             ],
         ]) ?>

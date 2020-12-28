@@ -2,9 +2,7 @@
 
 namespace app\blog\entities;
 
-use app\blog\entities\User;
-use app\blog\repositories\readRepos\ArticleRepository;
-use Yii;
+use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
@@ -17,6 +15,8 @@ use yii\helpers\ArrayHelper;
  * @property int|null $user_id
  * @property int|null $category_id
  * @property string $title
+ * @property string $slug
+ * @property string $preview
  * @property string $description
  * @property string $text
  * @property int $status
@@ -28,13 +28,14 @@ use yii\helpers\ArrayHelper;
  */
 class Article extends ActiveRecord
 {
-    const STATUS_MODERATION = 0;
-    const STATUS_ACTIVE = 1;
+    public const STATUS_MODERATION = 0;
+    public const STATUS_ACTIVE = 1;
 
     public static function create(
         $user_id,
         $category_id,
         $title,
+        $preview,
         $description,
         $text,
         $status = Article::STATUS_MODERATION
@@ -43,6 +44,7 @@ class Article extends ActiveRecord
         $article->user_id = $user_id;
         $article->category_id = $category_id;
         $article->title = $title;
+        $article->preview = $preview;
         $article->description = $description;
         $article->text = $text;
         $article->status = $status;
@@ -52,38 +54,35 @@ class Article extends ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'articles';
     }
 
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
                 'value' => new Expression('CURRENT_TIMESTAMP()'),
             ],
+            [
+                'class' => SluggableBehavior::class,
+                'attribute' => 'title',
+                'slugAttribute' => 'slug',
+            ],
         ];
     }
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
+
+    public function edit($category_id, $title, $preview, $description, $text): void
     {
-        return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'category_id' => 'Category ID',
-            'title' => 'Title',
-            'description' => 'Description',
-            'text' => 'Text',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
-        ];
+        $this->category_id = $category_id;
+        $this->title = $title;
+        $this->preview = $preview;
+        $this->description = $description;
+        $this->text = $text;
     }
 
     /**
@@ -114,18 +113,13 @@ class Article extends ActiveRecord
     public static function getStatusesArray()
     {
         return [
-            self::STATUS_MODERATION => 'На модерації',
-            self::STATUS_ACTIVE => 'Активний',
+            self::STATUS_MODERATION => 'On Moderation',
+            self::STATUS_ACTIVE => 'Published',
         ];
     }
 
     public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;
-    }
-
-    public function isOnModeration(): bool
-    {
-        return $this->status === self::STATUS_MODERATION;
     }
 }
