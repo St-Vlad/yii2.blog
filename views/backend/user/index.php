@@ -38,8 +38,6 @@ $this->title = 'Користувачі';
                 'attribute' => 'status',
                 'value' => 'statusName',
             ],
-            'created_at:datetime',
-            'updated_at:datetime',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => [

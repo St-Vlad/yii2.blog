@@ -19,7 +19,7 @@ use yii\helpers\Url;
             </span> <!-- .post-date -->
             <span class="post-author">
                 <i class="fa fa-user fa-fw"></i> Написана автором <span class="vcard">
-                    <?= $article->user->username ;?>
+                    <?= $article->user->username ?? "Unknown author";?>
                 </span> <!-- .post-author -->
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->
@@ -30,7 +30,7 @@ use yii\helpers\Url;
         <?= $article->description; ?>
     </div> <!-- .entry-content -->
     <?= Html::a(
-        'Детальніше',
+        'More details',
         Url::to(['frontend/blog/article', 'category' => $article->category->slug, 'slug' => $article->slug]),
         ['class' => 'more button']
     )?>

@@ -21,7 +21,7 @@ class SignupService
         $this->roleService = $roleService;
     }
 
-    public function signup(SignupForm $form): void
+    public function signup($form): void
     {
         $user = User::create(
             $form->username,

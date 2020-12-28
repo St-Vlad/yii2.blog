@@ -1,8 +1,10 @@
 <?php
 
+use app\blog\entities\Article;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use mihaildev\elfinder\InputFile;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -20,7 +22,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($updateForm, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($updateForm, 'preview')->widget(InputFile::className(), [
-        'language'      => 'ru',
+        'language'      => 'en',
         'controller'    => 'elfinder',
         'filter'        => 'image',
         'template'      => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
@@ -42,7 +44,7 @@ use yii\widgets\ActiveForm;
         ])
     ]); ?>
 
-    <?= $form->field($updateForm, 'status')->textInput() ?>
+    <?= $form->field($updateForm, 'status')->dropDownList(Article::getStatusesArray()) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

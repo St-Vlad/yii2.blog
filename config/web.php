@@ -80,6 +80,8 @@ $config = [
 
                 'admin/users' => 'backend/users/index',
                 'admin/users/<id:\d+>' => 'backend/users/view',
+                'admin/users/update/<id:\d+>' => 'backend/users/update',
+                'admin/users/delete/<id:\d+>' => 'backend/users/delete',
 
                 'cabinet' => 'frontend/cabinet/cabinet/index',
                 'cabinet/articles/create' => 'frontend/cabinet/articles/create',
