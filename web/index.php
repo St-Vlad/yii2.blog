@@ -12,4 +12,6 @@ $config = require __DIR__ . '/../config/web.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
+dd(getenv('DB_HOST'));
+
 (new yii\web\Application($config))->run();

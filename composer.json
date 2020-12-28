@@ -35,7 +35,8 @@
         "codeception/module-yii2": "^1.0.0",
         "codeception/module-asserts": "^1.0.0",
         "squizlabs/php_codesniffer": "3.*",
-        "fishvision/yii2-migrate" : "*"
+        "fishvision/yii2-migrate" : "*",
+        "symfony/var-dumper": "^5.2"
     },
     "config": {
         "process-timeout": 1800,
