@@ -1,6 +1,6 @@
 <?php
 
-namespace app\blog\forms\frontend\cabinet;
+namespace app\blog\forms\common;
 
 use app\blog\entities\Article;
 use app\blog\entities\Category;

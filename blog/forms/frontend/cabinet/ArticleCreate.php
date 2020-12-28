@@ -13,7 +13,7 @@ class ArticleCreate extends Model
     public ?string $description = '';
     public ?string $text = '';
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['category_id'], 'integer'],

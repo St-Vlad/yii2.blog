@@ -9,7 +9,6 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
-        'app\bootstrap\Bootstrap',
     ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -71,6 +70,7 @@ $config = [
                 'admin/articles/<id:\d+>' => 'backend/articles/view',
                 'admin/articles/update/<id:\d+>' => 'backend/articles/update',
                 'admin/articles/delete/<id:\d+>' => 'backend/articles/delete',
+                'admin/articles/swap/<id:\d+>' => 'backend/articles/swap',
 
                 'admin/categories' => 'backend/categories/index',
                 'admin/categories/<id:\d+>' => 'backend/categories/view',

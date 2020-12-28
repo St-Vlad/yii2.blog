@@ -4,15 +4,15 @@ namespace app\blog\forms\backend\update;
 
 use app\blog\entities\Article;
 use app\blog\entities\Category;
+use yii\base\Model;
 
-class ArticleUpdate extends \yii\base\Model
+class ArticleUpdate extends Model
 {
-    public ?int $category_id;
-    public ?string $title = '';
-    public ?string $preview = '';
-    public ?string $description = '';
-    public ?string $text = '';
-    public ?int $status;
+    public ?int $category_id = 0;
+    public string $title;
+    public string $preview;
+    public string $description;
+    public string $text;
 
     public function __construct(Article $article, $config = [])
     {
@@ -22,19 +22,17 @@ class ArticleUpdate extends \yii\base\Model
         $this->preview = $article->preview;
         $this->description = $article->description;
         $this->text = $article->text;
-        $this->status = $article->status;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
-            [['category_id'], 'integer'],
+            [['category_id', 'status'], 'integer'],
             [['title', 'description', 'text', 'preview'], 'required'],
             [['title'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 250],
             [['text'], 'string', 'max' => 1500],
             [['preview'], 'string', 'max' => 255],
-            [['status'], 'safe'],
             [
                 ['category_id'],
                 'exist',

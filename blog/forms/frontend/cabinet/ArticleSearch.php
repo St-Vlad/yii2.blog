@@ -6,9 +6,9 @@ use yii\base\Model;
 
 class ArticleSearch extends Model
 {
-    public $status;
+    public ?int $status = null;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             ['status', 'integer'],

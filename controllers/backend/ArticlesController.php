@@ -3,7 +3,7 @@
 namespace app\controllers\backend;
 
 use app\blog\forms\backend\search\ArticleSearch;
-use app\blog\forms\backend\update\ArticleUpdate;
+use app\blog\forms\common\ArticleUpdate;
 use app\blog\repositories\ArticleRepository;
 use app\blog\services\ArticleService;
 use DomainException;
@@ -112,6 +112,12 @@ class ArticlesController extends Controller
         return $this->render('update', [
             'updateForm' => $updateForm,
         ]);
+    }
+
+    public function actionSwap(int $id)
+    {
+        $this->service->editStatus($id);
+        return $this->redirect(['admin/articles']);
     }
 
     /**

@@ -7,12 +7,9 @@ use yii\web\NotFoundHttpException;
 
 class CategoryRepository
 {
-    public function get($id): ?Category
+    public function find($id): ?Category
     {
-        if (($model = Category::findOne($id)) !== null) {
-            return $model;
-        }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return Category::findOne($id);
     }
 
     public function save(Category $category): void
@@ -23,7 +20,7 @@ class CategoryRepository
     }
     public function remove($id): void
     {
-        $category = $this->get($id);
+        $category = $this->find($id);
         if (!$category->delete()) {
             throw new \RuntimeException('Removing error.');
         }

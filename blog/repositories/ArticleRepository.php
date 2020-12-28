@@ -3,17 +3,15 @@
 namespace app\blog\repositories;
 
 use app\blog\entities\Article;
-use yii\web\NotFoundHttpException;
 
 class ArticleRepository
 {
-    public function get($id): ?Article
+    public function get($id): Article
     {
-        if (($model = Article::findOne($id)) !== null) {
-            return $model;
+        if (!$article = Article::findOne($id)) {
+            throw new NotFoundException('Page is not found.');
         }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return $article;
     }
 
     public function findAll(): array

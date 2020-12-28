@@ -15,7 +15,7 @@ class ArticleSearch extends Model
     public $description;
     public $status;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['id', 'category_id', 'status'], 'integer'],
@@ -23,7 +23,7 @@ class ArticleSearch extends Model
         ];
     }
 
-    public function search($params)
+    public function search($params): ActiveDataProvider
     {
         $query = Article::find();
         $dataProvider = new ActiveDataProvider([

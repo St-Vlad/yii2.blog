@@ -12,7 +12,7 @@ use yii\db\ActiveQuery;
 
 class ArticleRepository
 {
-    public function findBySlug($slug)
+    public function findBySlug($slug): ?Article
     {
         return Article::findOne(['slug' => $slug]);
     }

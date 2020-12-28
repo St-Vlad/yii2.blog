@@ -16,7 +16,7 @@ class CategorySearch extends Model
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['id'], 'integer'],
@@ -31,7 +31,7 @@ class CategorySearch extends Model
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search(array $params): ActiveDataProvider
     {
         $query = Category::find();
 
