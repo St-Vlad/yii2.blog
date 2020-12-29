@@ -20,7 +20,14 @@ use yii\helpers\Url;
             <span class="post-author">
                 <i class="fa fa-user fa-fw"></i> Written by <span class="vcard">
                     <?= $article->user->username ?? "Unknown author";?>
-                </span> <!-- .post-author -->
+            </span> <!-- .post-author -->
+            <span class="post-categories">
+                <i class="fa fa-folder fa-fw"></i>
+                <?= Html::a(
+                    Html::encode($article->category->name),
+                    Url::to(['frontend/blog/category', 'slug' => $article->category->slug])
+                ); ?>
+            </span>
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->
     <div class="entry-thumbnail">

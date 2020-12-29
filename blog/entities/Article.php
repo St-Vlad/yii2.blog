@@ -4,6 +4,7 @@ namespace app\blog\entities;
 
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
@@ -56,7 +57,7 @@ class Article extends ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'articles';
+        return '{{%articles}}';
     }
 
     public function behaviors(): array
@@ -85,22 +86,41 @@ class Article extends ActiveRecord
         $this->text = $text;
     }
 
+    public function swapStatus(Article $article)
+    {
+        if ($article->status === self::STATUS_ACTIVE) {
+            $this->status = self::STATUS_MODERATION;
+        } else {
+            $this->status = self::STATUS_ACTIVE;
+        }
+    }
+
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getCategory()
+    public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
     /**
+     * Gets query for [[Category]].
+     *
+     * @return ActiveQuery
+     */
+    public function getTag(): ActiveQuery
+    {
+        return $this->hasOne(Tag::className(), ['id' => 'category_id']);
+    }
+
+    /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
@@ -110,7 +130,10 @@ class Article extends ActiveRecord
         return ArrayHelper::getValue(self::getStatusesArray(), $this->status);
     }
 
-    public static function getStatusesArray()
+    /**
+     * @return string[]
+     */
+    public static function getStatusesArray(): array
     {
         return [
             self::STATUS_MODERATION => 'On Moderation',

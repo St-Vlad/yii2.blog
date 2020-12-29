@@ -4,6 +4,7 @@ namespace app\blog\repositories\readRepos;
 
 use app\blog\entities\Article;
 use app\blog\entities\Category;
+use app\blog\entities\Tag;
 use app\blog\forms\frontend\cabinet\ArticleSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
@@ -12,7 +13,7 @@ use yii\db\ActiveQuery;
 
 class ArticleRepository
 {
-    public function findBySlug($slug)
+    public function findBySlug($slug): ?Article
     {
         return Article::findOne(['slug' => $slug]);
     }
@@ -23,7 +24,17 @@ class ArticleRepository
             ->joinWith('category')
             ->where(['name' => $category->name])
             ->andWhere(['status' => Article::STATUS_ACTIVE])
-            ->with('user', 'category');
+            ->with('user', 'category', 'tag');
+        return $this->getProvider($query);
+    }
+
+    public function findAllByTag(Tag $tag): DataProviderInterface
+    {
+        $query = Article::find()
+            ->joinWith('tag')
+            ->where(['name' => $tag->title])
+            ->andWhere(['status' => Article::STATUS_ACTIVE])
+            ->with('user', 'category', 'tag');
         return $this->getProvider($query);
     }
 
