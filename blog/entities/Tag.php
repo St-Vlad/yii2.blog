@@ -10,8 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "tags".
  *
  * @property int $id
- * @property int|null $article_id
- * @property string $title
+ * @property string $name
  * @property string $slug
  *
  * @property Article $article
@@ -31,26 +30,23 @@ class Tag extends ActiveRecord
         return [
             [
                 'class' => SluggableBehavior::class,
-                'attribute' => 'title',
+                'attribute' => 'name',
                 'slugAttribute' => 'slug',
             ],
         ];
     }
 
     public static function create(
-        $article_id,
-        $title,
-        $slug
+        $name
     ): Tag {
         $tag = new Tag();
-        $tag->article_id = $article_id;
-        $tag->title = $title;
-        $tag->slug = $slug;
+        $tag->name = $name;
         return $tag;
     }
 
-    public function getArticles(): ActiveQuery
+    public function getArticle(): ActiveQuery
     {
-        return $this->hasMany(Article::class, ['article_id' => 'id']);
+        return $this->hasMany(Article::class, ['id' => 'article_id'])
+            ->viaTable('articles_tags', ['tag_id' => 'id']);
     }
 }

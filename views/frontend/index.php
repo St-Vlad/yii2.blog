@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\DataProviderInterface */
-/* @var $tagForm \app\blog\forms\frontend\TagForm */
+/* @var $tagForm \app\blog\forms\frontend\TagSearchForm */
 
 use app\widgets\CategoryWidget;
 use yii\helpers\Html;
@@ -34,18 +34,21 @@ $this->title = Yii::$app->name;
                         <div class="search-widget widget">
                             <?php $form = ActiveForm::begin([
                                 'action' => 'tag',
+                                'method' => 'GET',
                                 'options' => [
                                     'class' => 'widget-form'
                                 ],
                             ]); ?>
-                            <?= $form->field($tagForm, 'title')->textInput([
-                                'class' => 'search-field',
-                                'placeholder' => 'Search for tags',
+                            <?= $form->field($tagForm, 'slug')->textInput([
+                                'id' => 'search',
+                                'placeholder' => 'Search by tag',
                                 'value' => '',
                             ])->label(false) ?>
                             <?= Html::submitButton(
                                 Html::tag('i', '', ['class' => 'fa fa-search']),
-                                ['name' => 'search-button']
+                                [
+                                    'onClick' => "window.location.href = this.form.action + '/' + document.getElementById('search').value",
+                                ]
                             ) ?>
                             <?php ActiveForm::end(); ?>
                         </div>

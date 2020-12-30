@@ -12,6 +12,7 @@ class ArticleCreate extends Model
     public ?string $preview = '';
     public ?string $description = '';
     public ?string $text = '';
+    public array $tags = [];
 
     public function rules(): array
     {
@@ -29,6 +30,7 @@ class ArticleCreate extends Model
                 'targetClass' => Category::class,
                 'targetAttribute' => ['category_id' => 'id']
             ],
+            ['tags', 'each', 'rule' => ['string', 'max' => 50]],
         ];
     }
 }

@@ -23,8 +23,7 @@ class ArticleRepository
         $query = Article::find()
             ->joinWith('category')
             ->where(['name' => $category->name])
-            ->andWhere(['status' => Article::STATUS_ACTIVE])
-            ->with('user', 'category', 'tag');
+            ->andWhere(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }
 
@@ -32,24 +31,22 @@ class ArticleRepository
     {
         $query = Article::find()
             ->joinWith('tag')
-            ->where(['name' => $tag->title])
-            ->andWhere(['status' => Article::STATUS_ACTIVE])
-            ->with('user', 'category', 'tag');
+            ->where(['name' => $tag->name])
+            ->andWhere(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }
 
     public function findAllActive(): DataProviderInterface
     {
         $query = Article::find()
-            ->where(['status' => Article::STATUS_ACTIVE])
-            ->with('user', 'category');
+            ->where(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }
 
     public function getProvider(ActiveQuery $query): ActiveDataProvider
     {
         return new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->with('user', 'category', 'tag'),
             'pagination' => [
                 'pageSize' => 10,
                 'pageSizeParam' => false

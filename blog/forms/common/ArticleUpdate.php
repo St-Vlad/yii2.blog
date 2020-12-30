@@ -4,6 +4,7 @@ namespace app\blog\forms\common;
 
 use app\blog\entities\Article;
 use app\blog\entities\Category;
+use app\blog\entities\Tag;
 use yii\base\Model;
 
 class ArticleUpdate extends Model

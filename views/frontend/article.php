@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $article \app\blog\entities\Article */
+/* @var $tag \app\blog\entities\Tag */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -28,6 +29,14 @@ use yii\helpers\Url;
                     Url::to(['frontend/blog/category', 'slug' => $article->category->slug])
                 ); ?>
             </span>
+            <?php if ($article->tag) : ?>
+            <span class="post-tags">
+                <i class="fa fa-tags fa-fw"></i>
+                <?php foreach ($article->tag as $tag) : ?>
+                    <?= Html::a('#' . $tag->name, Url::to(['frontend/blog/tag', 'name' => $tag->name])); ?>
+                <?php endforeach; ?>
+            </span>
+            <?php endif; ?>
         </div> <!-- .entry-meta -->
     </header> <!-- .entry-header -->
     <div class="entry-thumbnail">

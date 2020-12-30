@@ -4,9 +4,9 @@ namespace app\blog\forms\frontend;
 
 use yii\base\Model;
 
-class TagForm extends Model
+class TagSearchForm extends Model
 {
-    public ?string $title = '';
+    public ?string $slug = '';
 
     /**
      * @return array the validation rules.
@@ -14,8 +14,8 @@ class TagForm extends Model
     public function rules(): array
     {
         return [
-            ['title', 'filter', 'filter' => 'trim'],
-            ['title', 'match', 'pattern' => '#^[\w]+$#'],
+            ['slug', 'filter', 'filter' => 'trim'],
+            ['slug', 'match', 'pattern' => '/^[\w]+$/ui'],
         ];
     }
 }

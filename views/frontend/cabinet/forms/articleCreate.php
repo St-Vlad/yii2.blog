@@ -3,6 +3,7 @@
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use mihaildev\elfinder\InputFile;
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -32,6 +33,13 @@ use yii\widgets\ActiveForm;
         'buttonOptions' => ['class' => 'btn btn-default'],
         'multiple'      => false,
     ]); ?>
+
+    <?= $form->field($model, 'tags')->widget(MultipleInput::class, [
+        'max'               => 6,
+        'min'               => 0, // should be at least 2 rows
+        'allowEmptyList'    => true,
+        'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
+    ])->label(false); ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 

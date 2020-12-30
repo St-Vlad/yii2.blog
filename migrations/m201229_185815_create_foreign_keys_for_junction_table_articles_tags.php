@@ -34,6 +34,6 @@ class m201229_185815_create_foreign_keys_for_junction_table_articles_tags extend
     {
         $this->dropForeignKey('{{%fk-articles-articles_tags}}', '{{%articles_tags}}');
 
-        $this->dropIndex('{{%fk-tags-articles_tags}}', '{{%articles_tags}}');
+        $this->dropForeignKey('{{%fk-tags-articles_tags}}', '{{%articles_tags}}');
     }
 }
