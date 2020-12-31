@@ -16,8 +16,8 @@ class CabinetController extends Controller
 
     public function __construct($id, $module, ArticleRepository $articles, $config = [])
     {
-        $this->articles = $articles;
         parent::__construct($id, $module, $config);
+        $this->articles = $articles;
     }
 
     /**

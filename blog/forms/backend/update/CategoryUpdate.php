@@ -7,20 +7,20 @@ use yii\base\Model;
 
 class CategoryUpdate extends Model
 {
-    public string $name;
+    public string $category_name;
 
     public function __construct(Category $category, $config = [])
     {
-        $this->name = $category->name;
+        $this->category_name = $category->category_name;
         parent::__construct($config);
     }
 
     public function rules(): array
     {
         return [
-            [['name'], 'filter', 'filter' => 'trim'],
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['category_name'], 'filter', 'filter' => 'trim'],
+            [['category_name'], 'required'],
+            [['category_name'], 'string', 'max' => 255],
         ];
     }
 }

@@ -18,7 +18,7 @@ class CategoryManageService
 
     public function create(CategoryCreate $form): void
     {
-        $category = Category::create($form->name);
+        $category = Category::create($form->category_name);
         $this->repository->save($category);
     }
 
@@ -26,7 +26,7 @@ class CategoryManageService
     {
         $category = $this->repository->find($id);
         $category->edit(
-            $form->name
+            $form->category_name
         );
         $this->repository->save($category);
     }

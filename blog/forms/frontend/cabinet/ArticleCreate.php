@@ -32,7 +32,8 @@ class ArticleCreate extends Model
                 'targetClass' => Category::class,
                 'targetAttribute' => ['category_id' => 'id']
             ],
-            [['tags'], 'each', 'rule' => ['string', 'max' => 50]]
+            [['tags'], 'each', 'rule' => ['string', 'max' => 50]],
+            [['tags'], 'each', 'rule' => ['match', 'pattern' => '#^[\w]+$#', 'message' => 'Tags should be mono-words']]
         ];
     }
 }

@@ -31,9 +31,9 @@ class CategoriesController extends Controller
         CategoryManageService $service,
         $config = []
     ) {
+        parent::__construct($id, $module, $config);
         $this->repository = $repository;
         $this->service = $service;
-        parent::__construct($id, $module, $config);
     }
 
     /**

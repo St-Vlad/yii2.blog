@@ -26,7 +26,7 @@ use yii\grid\GridView;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'name',
+            'tag_name',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => [

@@ -26,7 +26,7 @@ class ArticleSearch extends Model
 
     public function search($params): ActiveDataProvider
     {
-        $query = Article::find()->innerJoinWith(['category', 'tag'], true);
+        $query = Article::find()->joinWith(['category', 'tag'], true, 'JOIN');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => ['attributes' => ['id', 'category_name', 'title', 'description', 'status', 'tag_name']]

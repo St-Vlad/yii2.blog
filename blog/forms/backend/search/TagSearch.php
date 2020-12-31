@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 class TagSearch extends Model
 {
     public $id;
-    public $name;
+    public $tag_name;
 
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class TagSearch extends Model
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'string'],
+            [['tag_name'], 'string'],
         ];
     }
 
@@ -52,7 +52,7 @@ class TagSearch extends Model
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'tag_name', $this->tag_name]);
 
         return $dataProvider;
     }

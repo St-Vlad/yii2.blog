@@ -19,13 +19,13 @@ class SignupForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'match', 'pattern' => '#^[\w_-]+$#i'],
-            ['username', 'unique', 'targetClass' => User::class, 'message' => 'Це ім\'я вже заняте'],
+            ['username', 'unique', 'targetClass' => User::class, 'message' => 'This username is already taken'],
             ['username', 'string', 'min' => 4, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => User::class, 'message' => 'Ця назва пошти вже занята'],
+            ['email', 'unique', 'targetClass' => User::class, 'message' => 'This male is already taken'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 8],

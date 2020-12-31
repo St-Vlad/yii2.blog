@@ -3,8 +3,11 @@
 namespace app\controllers\backend;
 
 use app\blog\forms\backend\search\TagSearch;
+use app\blog\forms\backend\update\TagUpdate;
 use app\blog\repositories\TagRepository;
+use app\blog\services\TagManageService;
 use Yii;
+use yii\db\IntegrityException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -15,15 +18,18 @@ class TagsController extends Controller
     public $layout = '@app/views/backend/layouts/main.php';
 
     private TagRepository $repository;
+    private TagManageService $service;
 
     public function __construct(
         $id,
         $module,
         TagRepository $repository,
+        TagManageService $service,
         $config = []
     ) {
-        $this->repository = $repository;
         parent::__construct($id, $module, $config);
+        $this->repository = $repository;
+        $this->service = $service;
     }
 
     /**
@@ -80,25 +86,6 @@ class TagsController extends Controller
     }
 
     /**
-     * Creates a new Categorie model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new CategoryCreate();
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $this->service->create($model);
-            return $this->redirect(['admin/categories']);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Updates an existing Categorie model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -107,12 +94,12 @@ class TagsController extends Controller
      */
     public function actionUpdate(int $id)
     {
-        $category = $this->repository->find($id);
-        $model = new CategoryUpdate($category);
+        $tag = $this->repository->find($id);
+        $model = new TagUpdate($tag);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             try {
-                $this->service->edit($category->id, $model);
-                return $this->redirect(['admin/categories', 'id' => $category->id]);
+                $this->service->edit($tag->id, $model);
+                return $this->redirect(['admin/tags', 'id' => $tag->id]);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('viewError');
@@ -135,7 +122,7 @@ class TagsController extends Controller
     {
         try {
             $this->service->remove($id);
-            return $this->redirect(['admin/categories']);
+            return $this->redirect(['admin/tags']);
         } catch (IntegrityException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('viewError');

@@ -44,6 +44,11 @@ class Tag extends ActiveRecord
         return $tag;
     }
 
+    public function edit($name): void
+    {
+        $this->tag_name = $name;
+    }
+
     public function getArticle(): ActiveQuery
     {
         return $this->hasMany(Article::class, ['id' => 'article_id'])

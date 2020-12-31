@@ -24,7 +24,7 @@ use yii\widgets\DetailView;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
+            'tag_name',
         ],
     ]) ?>
 

@@ -13,8 +13,8 @@ class CategoryController extends Controller
 
     public function __construct($id, $module, CategoryRepository $repository, $config = [])
     {
-        $this->repository = $repository;
         parent::__construct($id, $module, $config);
+        $this->repository = $repository;
     }
 
     public function actionIndex()

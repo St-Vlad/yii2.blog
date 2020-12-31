@@ -33,4 +33,9 @@ class TagRepository
             throw new \RuntimeException('Removing error.');
         }
     }
+
+    public function find($id): ?Tag
+    {
+        return Tag::findOne($id);
+    }
 }

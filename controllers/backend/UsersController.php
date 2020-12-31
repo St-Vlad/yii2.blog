@@ -32,10 +32,10 @@ class UsersController extends Controller
         UserRepository $usersRepository,
         $config = []
     ) {
+        parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->readUsersRepository = $readUsersRepository;
         $this->usersRepository = $usersRepository;
-        parent::__construct($id, $module, $config);
     }
 
     /**

@@ -12,7 +12,7 @@ use yii\data\ActiveDataProvider;
 class CategorySearch extends Model
 {
     public $id;
-    public $name;
+    public $category_name;
     /**
      * {@inheritdoc}
      */
@@ -20,7 +20,7 @@ class CategorySearch extends Model
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'string'],
+            [['category_name'], 'string'],
         ];
     }
 
@@ -54,7 +54,7 @@ class CategorySearch extends Model
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'category_name', $this->category_name]);
 
         return $dataProvider;
     }
