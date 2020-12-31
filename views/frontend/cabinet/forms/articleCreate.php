@@ -38,6 +38,7 @@ use yii\widgets\ActiveForm;
         'max'               => 6,
         'min'               => 0, // should be at least 2 rows
         'allowEmptyList'    => true,
+        'enableGuessTitle'  => true,
         'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
     ])->label(false); ?>
 

@@ -12,7 +12,7 @@ class ArticleCreate extends Model
     public ?string $preview = '';
     public ?string $description = '';
     public ?string $text = '';
-    public array $tags = [];
+    public $tags;
 
     public function rules(): array
     {
@@ -30,7 +30,19 @@ class ArticleCreate extends Model
                 'targetClass' => Category::class,
                 'targetAttribute' => ['category_id' => 'id']
             ],
-            ['tags', 'each', 'rule' => ['string', 'max' => 50]],
+            [['tags'], 'each', 'rule' => ['string', 'max' => 50]]
         ];
     }
+
+    /*public function beforeValidate()
+
+    {
+        if (parent::beforeValidate()) {
+            if (!is_array($this->tags)) {
+                return $this->tags = [];
+            }
+            return true;
+
+        }
+    }*/
 }

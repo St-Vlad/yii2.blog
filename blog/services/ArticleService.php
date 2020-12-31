@@ -38,7 +38,10 @@ class ArticleService
         $transaction = \Yii::$app->db->beginTransaction();
         try {
             $this->articleRepository->save($article);
-            $this->assignTags($article, $form->tags);
+
+            if (is_array($form->tags)) {
+                $this->assignTags($article, $form->tags);
+            }
             $transaction->commit();
         } catch (\Exception $ex) {
             $transaction->rollBack();
@@ -75,8 +78,7 @@ class ArticleService
     private function assignTags($article, $tags)
     {
         foreach ($tags as $value) {
-            $tag = $this->readTagRepository->findByName($value);
-            if (!$tag) {
+            if (!$tag = $this->readTagRepository->findByName($value)) {
                 $tag = Tag::create($value);
                 $this->tagRepository->save($tag);
             }

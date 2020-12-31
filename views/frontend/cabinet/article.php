@@ -21,6 +21,21 @@ use yii\helpers\Url;
                 <i class="fa fa-user fa-fw"></i> Written by <span class="vcard">
                     <?= Html::encode($article->user->username); ?>
             </span> <!-- .post-author -->
+            <span class="post-categories">
+                <i class="fa fa-folder fa-fw"></i>
+                <?= Html::a(
+                    Html::encode($article->category->name),
+                    Url::to(['frontend/blog/category', 'slug' => $article->category->slug])
+                ); ?>
+            </span>
+            <?php if ($article->tag) : ?>
+                <span class="post-tags">
+                <i class="fa fa-tags fa-fw"></i>
+                <?php foreach ($article->tag as $tag) : ?>
+                    <?= Html::a('#' . $tag->name, Url::to(['frontend/blog/tag', 'name' => $tag->name])); ?>
+                <?php endforeach; ?>
+            </span>
+            <?php endif; ?>
             <span>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
                 <?= Html::a(

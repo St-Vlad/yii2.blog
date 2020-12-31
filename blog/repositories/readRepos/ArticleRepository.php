@@ -63,7 +63,8 @@ class ArticleRepository
 
         $query = Article::find()
             ->where(['user_id' => \Yii::$app->user->id])
-            ->andFilterWhere(['status' => $form->status]);
+            ->andFilterWhere(['status' => $form->status])
+            ->with('user', 'category', 'tag');
 
         return new ActiveDataProvider([
             'query' => $query,
