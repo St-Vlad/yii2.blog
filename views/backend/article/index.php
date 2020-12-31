@@ -8,12 +8,10 @@ use yii\grid\GridView;
 /* @var $searchModel \app\blog\forms\backend\search\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Articles';
 ?>
 <div class="articles-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -21,12 +19,17 @@ $this->title = 'Articles';
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'category_id',
             'title',
+            /*[
+                'attribute' => 'category_id',
+                'label' => 'Category',
+                'value' => 'category.name',
+                'filter' => null,
+            ],*/
             [
                 'attribute' => 'preview',
                 'format' => 'html',
-                'label' => 'preview',
+                'label' => 'Preview',
                 'value' => function ($data) {
                     return Html::img(
                         $data->preview,
@@ -39,6 +42,17 @@ $this->title = 'Articles';
                 'filter' => Article::getStatusesArray(),
                 'attribute' => 'status',
                 'value' => 'statusName',
+            ],
+            [
+                'label' => 'Tags',
+                'format' => 'ntext',
+                'attribute' => 'name',
+                'value' => function ($model) {
+                    foreach ($model->tag as $tag) {
+                        $tags[] = $tag->name;
+                    }
+                    return implode(", ", $tags);
+                },
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

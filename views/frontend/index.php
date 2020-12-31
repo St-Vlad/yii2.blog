@@ -39,7 +39,7 @@ $this->title = Yii::$app->name;
                                     'class' => 'widget-form'
                                 ],
                             ]); ?>
-                            <?= $form->field($tagForm, 'slug')->textInput([
+                            <?= $form->field($tagForm, 'name')->textInput([
                                 'id' => 'search',
                                 'placeholder' => 'Search by tag',
                                 'value' => '',

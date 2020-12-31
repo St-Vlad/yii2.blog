@@ -2,6 +2,7 @@
 
 namespace app\blog\forms\frontend\cabinet;
 
+use app\blog\entities\Article;
 use app\blog\entities\Category;
 use yii\base\Model;
 
@@ -20,6 +21,7 @@ class ArticleCreate extends Model
             [['category_id'], 'integer'],
             [['title', 'description', 'text', 'preview'], 'required'],
             [['title'], 'string', 'max' => 50],
+            ['title', 'unique', 'targetClass' => Article::class, 'message' => 'This title is already exist'],
             [['description'], 'string', 'max' => 250],
             [['text'], 'string', 'max' => 1500],
             [['preview'], 'string', 'max' => 255],
@@ -33,16 +35,4 @@ class ArticleCreate extends Model
             [['tags'], 'each', 'rule' => ['string', 'max' => 50]]
         ];
     }
-
-    /*public function beforeValidate()
-
-    {
-        if (parent::beforeValidate()) {
-            if (!is_array($this->tags)) {
-                return $this->tags = [];
-            }
-            return true;
-
-        }
-    }*/
 }

@@ -6,10 +6,12 @@ use app\blog\forms\common\ArticleUpdate;
 use app\blog\forms\frontend\cabinet\ArticleCreate;
 use app\blog\repositories\readRepos\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
+use app\blog\repositories\readRepos\TagRepository;
 use app\blog\services\ArticleService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Inflector;
 
 class ArticlesController extends \yii\web\Controller
 {
@@ -18,12 +20,14 @@ class ArticlesController extends \yii\web\Controller
     private ArticleRepository $articleRepository;
     private CategoryRepository $categoryRepository;
     private ArticleService $service;
+    private TagRepository $tagRepository;
 
     public function __construct(
         $id,
         $module,
         ArticleRepository $articleRepository,
         ArticleService $service,
+        TagRepository $tagRepository,
         CategoryRepository $categoryRepository,
         $config = []
     ) {
@@ -31,6 +35,7 @@ class ArticlesController extends \yii\web\Controller
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->service = $service;
+        $this->tagRepository = $tagRepository;
     }
 
     /**
@@ -79,9 +84,9 @@ class ArticlesController extends \yii\web\Controller
     public function actionUpdate($slug)
     {
         $categoriesList = $this->categoryRepository->findAll();
-
         $article = $this->articleRepository->findBySlug($slug);
-        $model = new ArticleUpdate($article);
+        $tagsList = $this->tagRepository->findAllByArticle($article);
+        $model = new ArticleUpdate($article, $tagsList);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             try {

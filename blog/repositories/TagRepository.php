@@ -2,6 +2,7 @@
 
 namespace app\blog\repositories;
 
+use app\blog\entities\Article;
 use app\blog\entities\Tag;
 
 class TagRepository
@@ -14,6 +15,11 @@ class TagRepository
         return $tag;
     }
 
+    public function findAllByArticle(Article $article): array
+    {
+        return Tag::find()->innerjoinWith('article')->where(['article_id' => $article->id])->all();
+    }
+
     public function save(Tag $tag): void
     {
         if (!$tag->save()) {
@@ -21,7 +27,7 @@ class TagRepository
         }
     }
 
-    public function remove($tag): void
+    public function remove(Tag $tag): void
     {
         if (!$tag->delete()) {
             throw new \RuntimeException('Removing error.');

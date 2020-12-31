@@ -14,23 +14,30 @@ class ArticleSearch extends Model
     public $preview;
     public $description;
     public $status;
+    public $name;
 
     public function rules(): array
     {
         return [
-            [['id', 'category_id', 'status'], 'integer'],
-            [['title', 'description', 'preview'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['name', 'category_id', 'title', 'description'], 'safe'],
         ];
     }
 
     public function search($params): ActiveDataProvider
     {
-        $query = Article::find();
+        $query = Article::find()->innerJoinWith('tag', true);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['id', 'category_id', 'title', 'description', 'status', 'name']]
         ]);
 
         $this->load($params);
+
+        $dataProvider->sort->attributes['category'] = [
+            'asc' => ['category.name' => SORT_ASC],
+            'desc' => ['category.name' => SORT_DESC],
+        ];
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -40,12 +47,15 @@ class ArticleSearch extends Model
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'category_id' => $this->category_id,
+            //'category_id' => $this->category_id,
             'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'name', $this->name]);
+
+        //$query->andFilterWhere(['like', 'category.name', $this->category]);
 
         return $dataProvider;
     }

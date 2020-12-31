@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "tags".
  *
  * @property int $id
- * @property string $name
+ * @property string $tag_name
  * @property string $slug
  *
  * @property Article $article
@@ -40,7 +40,7 @@ class Tag extends ActiveRecord
         $name
     ): Tag {
         $tag = new Tag();
-        $tag->name = $name;
+        $tag->tag_name = $name;
         return $tag;
     }
 

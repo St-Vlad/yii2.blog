@@ -47,7 +47,7 @@ use yii\helpers\Url;
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 <?= Html::a('Delete', ['frontend/cabinet/articles/delete', 'id' => $article->id], [
                     'data' => [
-                        'confirm' => 'Підтвердіть видалення',
+                        'confirm' => 'Confirm deletion',
                         'method' => 'post',
                     ],
                 ]) ?>

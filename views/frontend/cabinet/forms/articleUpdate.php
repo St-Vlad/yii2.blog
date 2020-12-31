@@ -34,6 +34,14 @@ use yii\widgets\ActiveForm;
         'multiple'      => false,
     ]); ?>
 
+    <?= $form->field($model, 'tags')->widget(MultipleInput::class, [
+        'max'               => 6,
+        'min'               => 0,
+        'allowEmptyList'    => true,
+        'enableGuessTitle'  => true,
+        'addButtonPosition' => MultipleInput::POS_HEADER,
+    ])->label(false); ?>
+
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'text')->widget(CKEditor::className(), [
@@ -48,7 +56,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Зберегти', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

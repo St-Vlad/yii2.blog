@@ -34,19 +34,7 @@ class ArticleService
             $form->description,
             $form->text
         );
-
-        $transaction = \Yii::$app->db->beginTransaction();
-        try {
-            $this->articleRepository->save($article);
-
-            if (is_array($form->tags)) {
-                $this->assignTags($article, $form->tags);
-            }
-            $transaction->commit();
-        } catch (\Exception $ex) {
-            $transaction->rollBack();
-            throw $ex;
-        }
+        $this->transact($article, $form->tags);
     }
 
     public function edit($id, $form): void
@@ -59,7 +47,8 @@ class ArticleService
             $form->description,
             $form->text
         );
-        $this->articleRepository->save($article);
+        $this->revokeTags($article);
+        $this->transact($article, $form->tags);
     }
 
     public function editStatus($id): void
@@ -73,6 +62,31 @@ class ArticleService
     {
         $article = $this->getArticle($id);
         $this->articleRepository->remove($article);
+    }
+
+    private function revokeTags($article)
+    {
+        if ($relatedTags = $this->tagRepository->findAllByArticle($article)) {
+            foreach ($relatedTags as $tag) {
+                $tag->unlink('article', $article, true);
+            }
+        }
+    }
+
+    private function transact($article, $tags)
+    {
+        $transaction = \Yii::$app->db->beginTransaction();
+        try {
+            $this->articleRepository->save($article);
+
+            if (is_array($tags)) {
+                $this->assignTags($article, $tags);
+            }
+            $transaction->commit();
+        } catch (\Exception $ex) {
+            $transaction->rollBack();
+            throw $ex;
+        }
     }
 
     private function assignTags($article, $tags)
