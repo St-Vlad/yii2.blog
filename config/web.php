@@ -93,8 +93,8 @@ $config = [
                 'cabinet/articles/edit/<slug:[\w-]+>' => 'frontend/cabinet/articles/update',
                 'cabinet/articles/delete/<id:\d+>' => 'frontend/cabinet/articles/delete',
 
-                'tag/<name:[\w]+>' => 'frontend/blog/tag',
-                '<category:[\w-]+>/<slug:[\w-]+>' => 'frontend/blog/article',
+                'tag/<tag_name:[\w]+>' => 'frontend/blog/tag',
+                '<category_name:[\w-]+>/<slug:[\w-]+>' => 'frontend/blog/article',
                 '<slug:[\w-]+>' => 'frontend/blog/category',
             ],
         ],

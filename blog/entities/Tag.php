@@ -30,7 +30,7 @@ class Tag extends ActiveRecord
         return [
             [
                 'class' => SluggableBehavior::class,
-                'attribute' => 'name',
+                'attribute' => 'tag_name',
                 'slugAttribute' => 'slug',
             ],
         ];

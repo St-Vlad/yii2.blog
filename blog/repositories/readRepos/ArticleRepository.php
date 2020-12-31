@@ -22,7 +22,7 @@ class ArticleRepository
     {
         $query = Article::find()
             ->joinWith('category')
-            ->where(['name' => $category->name])
+            ->where(['category_name' => $category->category_name])
             ->andWhere(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }
@@ -31,7 +31,7 @@ class ArticleRepository
     {
         $query = Article::find()
             ->joinWith('tag')
-            ->where(['name' => $tag->name])
+            ->where(['tag_name' => $tag->tag_name])
             ->andWhere(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }

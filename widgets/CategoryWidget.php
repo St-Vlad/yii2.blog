@@ -7,7 +7,7 @@ use yii\base\Widget;
 
 class CategoryWidget extends Widget
 {
-    private $repository;
+    private CategoryRepository $repository;
 
     public function __construct(CategoryRepository $repository, $config = [])
     {

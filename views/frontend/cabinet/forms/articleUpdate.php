@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(
-        ArrayHelper::map($categoriesList, 'id', 'name')
+        ArrayHelper::map($categoriesList, 'id', 'category_name')
     ); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>

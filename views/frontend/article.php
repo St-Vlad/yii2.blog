@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $article \app\blog\entities\Article */
+/* @var $article \app\blog\entities\Category */
 /* @var $tag \app\blog\entities\Tag */
 
 use yii\helpers\Html;
@@ -25,7 +26,7 @@ use yii\helpers\Url;
             <span class="post-categories">
                 <i class="fa fa-folder fa-fw"></i>
                 <?= Html::a(
-                    Html::encode($article->category->name),
+                    Html::encode($article->category->category_name),
                     Url::to(['frontend/blog/category', 'slug' => $article->category->slug])
                 ); ?>
             </span>
@@ -33,7 +34,7 @@ use yii\helpers\Url;
             <span class="post-tags">
                 <i class="fa fa-tags fa-fw"></i>
                 <?php foreach ($article->tag as $tag) : ?>
-                    <?= Html::a('#' . $tag->name, Url::to(['frontend/blog/tag', 'name' => $tag->name])); ?>
+                    <?= Html::a('#' . $tag->tag_name, Url::to(['frontend/blog/tag', 'tag_name' => $tag->tag_name])); ?>
                 <?php endforeach; ?>
             </span>
             <?php endif; ?>
@@ -47,7 +48,7 @@ use yii\helpers\Url;
     </div> <!-- .entry-content -->
     <?= Html::a(
         'More details',
-        Url::to(['frontend/blog/article', 'category' => $article->category->slug, 'slug' => $article->slug]),
+        Url::to(['frontend/blog/article', 'category_name' => $article->category->slug, 'slug' => $article->slug]),
         ['class' => 'more button']
     )?>
     <hr>

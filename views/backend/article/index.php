@@ -20,12 +20,14 @@ use yii\grid\GridView;
 
             'id',
             'title',
-            /*[
-                'attribute' => 'category_id',
+            [
                 'label' => 'Category',
-                'value' => 'category.name',
-                'filter' => null,
-            ],*/
+                'format' => 'ntext',
+                'attribute' => 'category_name',
+                'value' => function ($model) {
+                    return $model->category->category_name;
+                },
+            ],
             [
                 'attribute' => 'preview',
                 'format' => 'html',
@@ -46,10 +48,10 @@ use yii\grid\GridView;
             [
                 'label' => 'Tags',
                 'format' => 'ntext',
-                'attribute' => 'name',
+                'attribute' => 'tag_name',
                 'value' => function ($model) {
                     foreach ($model->tag as $tag) {
-                        $tags[] = $tag->name;
+                        $tags[] = $tag->tag_name;
                     }
                     return implode(", ", $tags);
                 },

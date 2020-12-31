@@ -39,9 +39,9 @@ $this->title = Yii::$app->name;
                                     'class' => 'widget-form'
                                 ],
                             ]); ?>
-                            <?= $form->field($tagForm, 'name')->textInput([
+                            <?= $form->field($tagForm, 'tag_name')->textInput([
                                 'id' => 'search',
-                                'placeholder' => 'Search by tag',
+                                'placeholder' => 'Search by tag (type without #)',
                                 'value' => '',
                             ])->label(false) ?>
                             <?= Html::submitButton(

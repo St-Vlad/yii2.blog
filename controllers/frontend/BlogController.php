@@ -75,12 +75,12 @@ class BlogController extends Controller
         ]);
     }
 
-    public function actionTag($name)
+    public function actionTag($tag_name)
     {
-        $slug = Inflector::slug($name, '', true);
+        $slug = Inflector::slug($tag_name, '', true);
         $tagForm = new TagSearchForm();
         if (!$tag = $this->tagRepository->findBySlug($slug)) {
-            throw new NotFoundHttpException('There are no articles for this tag: ' . $name);
+            throw new NotFoundHttpException('There are no articles for this tag: ' . $tag_name);
         }
         $dataProvider = $this->articleRepository->findAllByTag($tag);
         return $this->render('index', [

@@ -9,7 +9,7 @@ class TagRepository
 {
     public function findByName($name): ?Tag
     {
-        return Tag::findOne(['name' => $name]);
+        return Tag::findOne(['tag_name' => $name]);
     }
 
     public function findBySlug($slug): ?Tag
@@ -21,6 +21,6 @@ class TagRepository
     {
         return Tag::find()
             ->joinWith('article')
-            ->where(['article_id' => $article->id])->select('name')->asArray()->column();
+            ->where(['article_id' => $article->id])->select('tag_name')->asArray()->column();
     }
 }
