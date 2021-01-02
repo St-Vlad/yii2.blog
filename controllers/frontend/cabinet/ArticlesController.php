@@ -7,7 +7,7 @@ use app\blog\forms\frontend\cabinet\ArticleCreate;
 use app\blog\repositories\readRepos\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use app\blog\repositories\readRepos\TagRepository;
-use app\blog\services\ArticleService;
+use app\blog\services\blog\ArticleService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;

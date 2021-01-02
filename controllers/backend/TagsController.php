@@ -5,7 +5,7 @@ namespace app\controllers\backend;
 use app\blog\forms\backend\search\TagSearch;
 use app\blog\forms\backend\update\TagUpdate;
 use app\blog\repositories\TagRepository;
-use app\blog\services\TagManageService;
+use app\blog\services\blog\TagService;
 use Yii;
 use yii\db\IntegrityException;
 use yii\filters\AccessControl;
@@ -18,13 +18,13 @@ class TagsController extends Controller
     public $layout = '@app/views/backend/layouts/main.php';
 
     private TagRepository $repository;
-    private TagManageService $service;
+    private TagService $service;
 
     public function __construct(
         $id,
         $module,
         TagRepository $repository,
-        TagManageService $service,
+        TagService $service,
         $config = []
     ) {
         parent::__construct($id, $module, $config);

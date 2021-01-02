@@ -5,7 +5,7 @@ namespace app\commands;
 use app\blog\entities\User;
 use app\blog\repositories\UserRepository;
 use app\blog\roles\RbacRoles;
-use app\blog\services\RoleManageService;
+use app\blog\services\user\RoleManageService;
 use app\blog\services\SignupService;
 use Faker\Factory;
 use yii\console\Controller;

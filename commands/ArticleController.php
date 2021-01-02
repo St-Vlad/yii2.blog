@@ -6,7 +6,7 @@ use app\blog\entities\Article;
 use app\blog\repositories\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use app\blog\repositories\readRepos\UserRepository;
-use app\blog\services\ArticleService;
+use app\blog\services\blog\ArticleService;
 use Faker\Factory;
 use Yii;
 use yii\console\Controller;

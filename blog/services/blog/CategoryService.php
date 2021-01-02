@@ -1,13 +1,13 @@
 <?php
 
-namespace app\blog\services;
+namespace app\blog\services\blog;
 
 use app\blog\entities\Category;
 use app\blog\forms\backend\create\CategoryCreate;
 use app\blog\forms\backend\update\CategoryUpdate;
 use app\blog\repositories\CategoryRepository;
 
-class CategoryManageService
+class CategoryService
 {
     private CategoryRepository $repository;
 

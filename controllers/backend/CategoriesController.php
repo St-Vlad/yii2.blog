@@ -6,7 +6,7 @@ use app\blog\forms\backend\search\CategorySearch;
 use app\blog\forms\backend\create\CategoryCreate;
 use app\blog\forms\backend\update\CategoryUpdate;
 use app\blog\repositories\CategoryRepository;
-use app\blog\services\CategoryManageService;
+use app\blog\services\blog\CategoryService;
 use Yii;
 use yii\db\IntegrityException;
 use yii\filters\AccessControl;
@@ -22,13 +22,13 @@ class CategoriesController extends Controller
     public $layout = '@app/views/backend/layouts/main.php';
 
     private CategoryRepository $repository;
-    private CategoryManageService $service;
+    private CategoryService $service;
 
     public function __construct(
         $id,
         $module,
         CategoryRepository $repository,
-        CategoryManageService $service,
+        CategoryService $service,
         $config = []
     ) {
         parent::__construct($id, $module, $config);

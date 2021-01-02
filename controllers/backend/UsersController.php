@@ -6,7 +6,7 @@ use app\blog\forms\backend\update\UserUpdate;
 use app\blog\forms\backend\search\UserSearch;
 use app\blog\repositories\readRepos\UserRepository as ReadUsersRepository;
 use app\blog\repositories\UserRepository;
-use app\blog\services\UserManageService;
+use app\blog\services\user\UserManageService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;

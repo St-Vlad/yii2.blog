@@ -1,11 +1,11 @@
 <?php
 
-namespace app\blog\services;
+namespace app\blog\services\blog;
 
 use app\blog\forms\backend\update\TagUpdate;
 use app\blog\repositories\TagRepository;
 
-class TagManageService
+class TagService
 {
     private TagRepository $repository;
 

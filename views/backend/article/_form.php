@@ -12,13 +12,16 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $updateForm app\blog\entities\Article */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $categoriesList app\blog\entities\Article*/
 ?>
 
 <div class="articles-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($updateForm, 'category_id')->textInput() ?>
+    <?= $form->field($updateForm, 'category_id')->dropDownList(
+        ArrayHelper::map($categoriesList, 'id', 'category_name')
+    ); ?>
 
     <?= $form->field($updateForm, 'title')->textInput(['maxlength' => true]) ?>
 

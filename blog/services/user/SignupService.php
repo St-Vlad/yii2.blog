@@ -1,11 +1,12 @@
 <?php
 
-namespace app\blog\services;
+namespace app\blog\services\user;
 
 use app\blog\entities\User;
 use app\blog\forms\frontend\SignupForm;
 use app\blog\repositories\UserRepository;
 use app\blog\roles\RbacRoles;
+use app\blog\services\user\RoleManageService;
 use yii\db\Connection;
 
 class SignupService

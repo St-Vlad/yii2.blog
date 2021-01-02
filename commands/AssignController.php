@@ -5,7 +5,7 @@ namespace app\commands;
 use app\blog\repositories\NotFoundException;
 use app\blog\repositories\UserRepository;
 use app\blog\roles\RbacRoles;
-use app\blog\services\RoleManageService;
+use app\blog\services\user\RoleManageService;
 use http\Exception\RuntimeException;
 use yii\console\Controller;
 

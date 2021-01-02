@@ -3,7 +3,7 @@
 namespace app\controllers\frontend;
 
 use app\blog\forms\frontend\SignupForm;
-use app\blog\services\SignupService;
+use app\blog\services\user\SignupService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;

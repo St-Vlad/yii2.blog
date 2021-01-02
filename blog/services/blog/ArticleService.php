@@ -1,6 +1,6 @@
 <?php
 
-namespace app\blog\services;
+namespace app\blog\services\blog;
 
 use app\blog\entities\Article;
 use app\blog\entities\Tag;

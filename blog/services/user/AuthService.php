@@ -1,6 +1,6 @@
 <?php
 
-namespace app\blog\services;
+namespace app\blog\services\user;
 
 use app\blog\entities\UserIdentity;
 use app\blog\forms\frontend\LoginForm;
