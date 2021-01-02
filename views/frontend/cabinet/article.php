@@ -61,8 +61,8 @@ use yii\helpers\Url;
         <?= Html::encode($article->description); ?>
     </div> <!-- .entry-content -->
     <?= Html::a(
-        'More detail',
-        Url::to(['frontend/blog/article', 'category' => $article->category->category_name, 'slug' => $article->slug]),
+        'More details',
+        Url::to(['frontend/blog/article', 'category_name' => $article->category->slug, 'slug' => $article->slug]),
         ['class' => 'more button']
     )?>
     <hr>

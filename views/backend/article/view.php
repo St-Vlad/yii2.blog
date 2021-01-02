@@ -6,12 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\blog\entities\Article */
 
-$this->title = $model->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="articles-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -28,7 +25,14 @@ $this->title = $model->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'category_id',
+            [
+                'label' => 'Category',
+                'format' => 'ntext',
+                'attribute' => 'category_name',
+                'value' => function ($model) {
+                    return $model->category->category_name;
+                },
+            ],
             'title',
             [
                 'attribute' => 'preview',
@@ -36,6 +40,21 @@ $this->title = $model->title;
                 'format' => ['image',['width' => '100','height' => '100']],
             ],
             'description',
+            [
+                'label' => 'Tags',
+                'format' => 'ntext',
+                'attribute' => 'tag_name',
+                'value' => function ($model) {
+                    if (!empty($model->tag)) {
+                        foreach ($model->tag as $tag) {
+                            $tags[] = $tag->tag_name;
+                        }
+                        return implode(", ", $tags);
+                    } else {
+                        return 'no tag';
+                    }
+                },
+            ],
             'text:html',
             [
                 'attribute' => 'status',

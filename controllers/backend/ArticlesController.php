@@ -5,6 +5,7 @@ namespace app\controllers\backend;
 use app\blog\forms\backend\search\ArticleSearch;
 use app\blog\forms\common\ArticleUpdate;
 use app\blog\repositories\ArticleRepository;
+use app\blog\repositories\readRepos\TagRepository;
 use app\blog\services\ArticleService;
 use DomainException;
 use Yii;
@@ -22,6 +23,7 @@ class ArticlesController extends Controller
 
     private ArticleRepository $repository;
     private ArticleService $service;
+    private TagRepository $tagRepository;
 
     /**
      * {@inheritdoc}
@@ -52,11 +54,13 @@ class ArticlesController extends Controller
         $module,
         ArticleRepository $repository,
         ArticleService $service,
+        TagRepository $tagRepository,
         $config = []
     ) {
         parent::__construct($id, $module, $config);
         $this->repository = $repository;
         $this->service = $service;
+        $this->tagRepository = $tagRepository;
     }
 
     /**
@@ -98,7 +102,8 @@ class ArticlesController extends Controller
     public function actionUpdate(int $id)
     {
         $article = $this->repository->get($id);
-        $updateForm = new ArticleUpdate($article);
+        $tagsList = $this->tagRepository->findAllByArticle($article);
+        $updateForm = new ArticleUpdate($article, $tagsList);
         if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {
             try {
                 $this->service->edit($article->id, $updateForm);

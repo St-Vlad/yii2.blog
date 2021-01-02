@@ -50,7 +50,7 @@ class ArticleRepository
             'pagination' => [
                 'pageSize' => 10,
                 'pageSizeParam' => false
-            ]
+            ],
         ]);
     }
 

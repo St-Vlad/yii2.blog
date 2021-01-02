@@ -50,10 +50,14 @@ use yii\grid\GridView;
                 'format' => 'ntext',
                 'attribute' => 'tag_name',
                 'value' => function ($model) {
-                    foreach ($model->tag as $tag) {
-                        $tags[] = $tag->tag_name;
+                    if (!empty($model->tag)) {
+                        foreach ($model->tag as $tag) {
+                            $tags[] = $tag->tag_name;
+                        }
+                        return implode(", ", $tags);
+                    } else {
+                        return 'no tag';
                     }
-                    return implode(", ", $tags);
                 },
             ],
             [

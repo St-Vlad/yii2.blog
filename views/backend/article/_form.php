@@ -4,6 +4,7 @@ use app\blog\entities\Article;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use mihaildev\elfinder\InputFile;
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -30,6 +31,14 @@ use yii\widgets\ActiveForm;
         'buttonOptions' => ['class' => 'btn btn-default'],
         'multiple'      => false,
     ]); ?>
+
+    <?= $form->field($updateForm, 'tags')->widget(MultipleInput::class, [
+        'max'               => 6,
+        'min'               => 0,
+        'allowEmptyList'    => true,
+        'enableGuessTitle'  => true,
+        'addButtonPosition' => MultipleInput::POS_HEADER,
+    ])->label(false); ?>
 
     <?= $form->field($updateForm, 'description')->textInput(['maxlength' => true]) ?>
 
