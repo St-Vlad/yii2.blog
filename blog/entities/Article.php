@@ -32,26 +32,6 @@ class Article extends ActiveRecord
     public const STATUS_MODERATION = 0;
     public const STATUS_ACTIVE = 1;
 
-    public static function create(
-        $user_id,
-        $category_id,
-        $title,
-        $preview,
-        $description,
-        $text,
-        $status = Article::STATUS_MODERATION
-    ): Article {
-        $article = new Article();
-        $article->user_id = $user_id;
-        $article->category_id = $category_id;
-        $article->title = $title;
-        $article->preview = $preview;
-        $article->description = $description;
-        $article->text = $text;
-        $article->status = $status;
-        return $article;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -77,6 +57,26 @@ class Article extends ActiveRecord
         ];
     }
 
+    public static function create(
+        $user_id,
+        $category_id,
+        $title,
+        $preview,
+        $description,
+        $text,
+        $status = Article::STATUS_MODERATION
+    ): Article {
+        $article = new Article();
+        $article->user_id = $user_id;
+        $article->category_id = $category_id;
+        $article->title = $title;
+        $article->preview = $preview;
+        $article->description = $description;
+        $article->text = $text;
+        $article->status = $status;
+        return $article;
+    }
+
     public function edit($category_id, $title, $preview, $description, $text): void
     {
         $this->category_id = $category_id;
@@ -85,7 +85,6 @@ class Article extends ActiveRecord
         $this->description = $description;
         $this->text = $text;
     }
-
 
     public function swapStatus(Article $article)
     {
@@ -104,6 +103,12 @@ class Article extends ActiveRecord
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    public function getTag(): ActiveQuery
+    {
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])
+            ->viaTable('articles_tags', ['article_id' => 'id']);
     }
 
     /**

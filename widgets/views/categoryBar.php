@@ -13,7 +13,7 @@ use yii\helpers\Url;
             <?= Html::tag(
                 'li',
                 Html::a(
-                    Html::encode($category->name),
+                    Html::encode($category->category_name),
                     Url::to(['frontend/blog/category', 'slug' => $category->slug])
                 )
             );?>

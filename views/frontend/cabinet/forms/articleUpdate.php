@@ -3,6 +3,7 @@
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use mihaildev\elfinder\InputFile;
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -18,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(
-        ArrayHelper::map($categoriesList, 'id', 'name')
+        ArrayHelper::map($categoriesList, 'id', 'category_name')
     ); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -32,6 +33,14 @@ use yii\widgets\ActiveForm;
         'buttonOptions' => ['class' => 'btn btn-default'],
         'multiple'      => false,
     ]); ?>
+
+    <?= $form->field($model, 'tags')->widget(MultipleInput::class, [
+        'max'               => 6,
+        'min'               => 0,
+        'allowEmptyList'    => true,
+        'enableGuessTitle'  => true,
+        'addButtonPosition' => MultipleInput::POS_HEADER,
+    ])->label(false); ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
@@ -47,7 +56,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Зберегти', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

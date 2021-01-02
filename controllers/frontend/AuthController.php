@@ -3,7 +3,7 @@
 namespace app\controllers\frontend;
 
 use app\blog\forms\frontend\LoginForm;
-use app\blog\services\AuthService;
+use app\blog\services\user\AuthService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -18,8 +18,8 @@ class AuthController extends Controller
 
     public function __construct($id, $module, AuthService $service, $config = [])
     {
-        $this->service = $service;
         parent::__construct($id, $module, $config);
+        $this->service = $service;
     }
 
     /**

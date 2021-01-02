@@ -6,12 +6,14 @@ use app\blog\entities\Article;
 use app\blog\repositories\ArticleRepository;
 use app\blog\repositories\readRepos\CategoryRepository;
 use app\blog\repositories\readRepos\UserRepository;
+use app\blog\services\blog\ArticleService;
 use Faker\Factory;
 use Yii;
 use yii\console\Controller;
 
 class ArticleController extends Controller
 {
+    private ArticleService $service;
     private ArticleRepository $articleRepo;
     private CategoryRepository $categoryRepo;
     private UserRepository $userRepo;
@@ -21,15 +23,17 @@ class ArticleController extends Controller
     public function __construct(
         $id,
         $module,
+        ArticleService $service,
         ArticleRepository $articleRepo,
         CategoryRepository $categoriesRepo,
         UserRepository $usersRepo,
         $config = []
     ) {
+        parent::__construct($id, $module, $config);
+        $this->service = $service;
         $this->articleRepo = $articleRepo;
         $this->categoryRepo = $categoriesRepo;
         $this->userRepo = $usersRepo;
-        parent::__construct($id, $module, $config);
     }
 
     public function actionIndex()

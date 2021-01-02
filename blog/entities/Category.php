@@ -12,7 +12,7 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "{{%categories}}".
  *
  * @property int $id
- * @property string $name
+ * @property string $category_name
  * @property string $slug
  */
 class Category extends ActiveRecord
@@ -20,13 +20,13 @@ class Category extends ActiveRecord
     public static function create($name): self
     {
         $category = new static();
-        $category->name = $name;
+        $category->category_name = $name;
         return $category;
     }
 
     public function edit($name): void
     {
-        $this->name = $name;
+        $this->category_name = $name;
     }
 
     public function behaviors(): array
@@ -34,7 +34,7 @@ class Category extends ActiveRecord
         return [
             [
                 'class' => SluggableBehavior::class,
-                'attribute' => 'name',
+                'attribute' => 'category_name',
                 'slugAttribute' => 'slug',
             ],
         ];

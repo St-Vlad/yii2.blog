@@ -6,14 +6,15 @@ use yii\base\Model;
 
 class CategoryCreate extends Model
 {
-    public ?string $name;
+
+    public ?string $category_name = '';
 
     public function rules(): array
     {
         return [
-            [['name'], 'filter', 'filter' => 'trim'],
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['category_name'], 'filter', 'filter' => 'trim'],
+            [['category_name'], 'required'],
+            [['category_name'], 'string', 'max' => 255],
         ];
     }
 }

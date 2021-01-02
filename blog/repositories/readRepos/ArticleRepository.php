@@ -4,6 +4,7 @@ namespace app\blog\repositories\readRepos;
 
 use app\blog\entities\Article;
 use app\blog\entities\Category;
+use app\blog\entities\Tag;
 use app\blog\forms\frontend\cabinet\ArticleSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\DataProviderInterface;
@@ -21,28 +22,35 @@ class ArticleRepository
     {
         $query = Article::find()
             ->joinWith('category')
-            ->where(['name' => $category->name])
-            ->andWhere(['status' => Article::STATUS_ACTIVE])
-            ->with('user', 'category');
+            ->where(['category_name' => $category->category_name])
+            ->andWhere(['status' => Article::STATUS_ACTIVE]);
+        return $this->getProvider($query);
+    }
+
+    public function findAllByTag(Tag $tag): DataProviderInterface
+    {
+        $query = Article::find()
+            ->joinWith('tag')
+            ->where(['tag_name' => $tag->tag_name])
+            ->andWhere(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }
 
     public function findAllActive(): DataProviderInterface
     {
         $query = Article::find()
-            ->where(['status' => Article::STATUS_ACTIVE])
-            ->with('user', 'category');
+            ->where(['status' => Article::STATUS_ACTIVE]);
         return $this->getProvider($query);
     }
 
     public function getProvider(ActiveQuery $query): ActiveDataProvider
     {
         return new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->with('user', 'category', 'tag'),
             'pagination' => [
                 'pageSize' => 10,
                 'pageSizeParam' => false
-            ]
+            ],
         ]);
     }
 
@@ -55,7 +63,8 @@ class ArticleRepository
 
         $query = Article::find()
             ->where(['user_id' => \Yii::$app->user->id])
-            ->andFilterWhere(['status' => $form->status]);
+            ->andFilterWhere(['status' => $form->status])
+            ->with('user', 'category', 'tag');
 
         return new ActiveDataProvider([
             'query' => $query,

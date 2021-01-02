@@ -6,7 +6,7 @@ use app\blog\forms\backend\update\UserUpdate;
 use app\blog\forms\backend\search\UserSearch;
 use app\blog\repositories\readRepos\UserRepository as ReadUsersRepository;
 use app\blog\repositories\UserRepository;
-use app\blog\services\UserManageService;
+use app\blog\services\user\UserManageService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -32,10 +32,10 @@ class UsersController extends Controller
         UserRepository $usersRepository,
         $config = []
     ) {
+        parent::__construct($id, $module, $config);
         $this->service = $service;
         $this->readUsersRepository = $readUsersRepository;
         $this->usersRepository = $usersRepository;
-        parent::__construct($id, $module, $config);
     }
 
     /**

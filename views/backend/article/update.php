@@ -4,8 +4,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $updateForm app\blog\entities\Article */
+/* @var $categoriesList app\blog\entities\Article*/
 
-$this->title = 'Update Articles: ' . $updateForm->title;
 ?>
 <div class="articles-update">
 
@@ -13,6 +13,7 @@ $this->title = 'Update Articles: ' . $updateForm->title;
 
     <?= $this->render('_form', [
         'updateForm' => $updateForm,
+        'categoriesList' => $categoriesList,
     ]) ?>
 
 </div>

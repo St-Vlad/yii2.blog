@@ -14,7 +14,7 @@ use yii\widgets\DetailView;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Підтвердіть видалення',
+                'confirm' => 'Confirm operation',
                 'method' => 'post',
             ],
         ]) ?>
@@ -24,7 +24,7 @@ use yii\widgets\DetailView;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
+            'category_name',
         ],
     ]) ?>
 

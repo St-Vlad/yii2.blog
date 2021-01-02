@@ -9,7 +9,8 @@ use yii\data\ActiveDataProvider;
 class ArticleSearch extends Model
 {
     public $id;
-    public $category_id;
+    public $category_name;
+    public $tag_name;
     public $title;
     public $preview;
     public $description;
@@ -18,16 +19,17 @@ class ArticleSearch extends Model
     public function rules(): array
     {
         return [
-            [['id', 'category_id', 'status'], 'integer'],
-            [['title', 'description', 'preview'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['name', 'category_name', 'tag_name', 'title', 'description'], 'safe'],
         ];
     }
 
     public function search($params): ActiveDataProvider
     {
-        $query = Article::find();
+        $query = Article::find()->joinWith(['category', 'tag'], true);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['id', 'category_name', 'title', 'description', 'status', 'tag_name']]
         ]);
 
         $this->load($params);
@@ -40,12 +42,13 @@ class ArticleSearch extends Model
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'category_id' => $this->category_id,
             'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'category_name', $this->category_name])
+            ->andFilterWhere(['like', 'tag_name', $this->tag_name]);
 
         return $dataProvider;
     }

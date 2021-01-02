@@ -32,7 +32,7 @@ $this->title = 'Категорії';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'name',
+            'category_name',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => [

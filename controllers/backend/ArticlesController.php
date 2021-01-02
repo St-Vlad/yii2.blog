@@ -5,7 +5,9 @@ namespace app\controllers\backend;
 use app\blog\forms\backend\search\ArticleSearch;
 use app\blog\forms\common\ArticleUpdate;
 use app\blog\repositories\ArticleRepository;
-use app\blog\services\ArticleService;
+use app\blog\repositories\readRepos\CategoryRepository;
+use app\blog\repositories\readRepos\TagRepository;
+use app\blog\services\blog\ArticleService;
 use DomainException;
 use Yii;
 use yii\filters\AccessControl;
@@ -20,8 +22,10 @@ class ArticlesController extends Controller
 {
     public $layout = '@app/views/backend/layouts/main.php';
 
-    private ArticleRepository $repository;
+    private ArticleRepository $articleRepository;
+    private CategoryRepository $categoryRepository;
     private ArticleService $service;
+    private TagRepository $tagRepository;
 
     /**
      * {@inheritdoc}
@@ -50,13 +54,17 @@ class ArticlesController extends Controller
     public function __construct(
         $id,
         $module,
-        ArticleRepository $repository,
+        ArticleRepository $articleRepository,
+        CategoryRepository $categoryRepository,
         ArticleService $service,
+        TagRepository $tagRepository,
         $config = []
     ) {
         parent::__construct($id, $module, $config);
-        $this->repository = $repository;
+        $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->service = $service;
+        $this->tagRepository = $tagRepository;
     }
 
     /**
@@ -82,7 +90,7 @@ class ArticlesController extends Controller
      */
     public function actionView(int $id)
     {
-        $model = $this->repository->get($id);
+        $model = $this->articleRepository->get($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -97,8 +105,10 @@ class ArticlesController extends Controller
      */
     public function actionUpdate(int $id)
     {
-        $article = $this->repository->get($id);
-        $updateForm = new ArticleUpdate($article);
+        $categoriesList = $this->categoryRepository->findAll();
+        $article = $this->articleRepository->get($id);
+        $tagsList = $this->tagRepository->findAllByArticle($article);
+        $updateForm = new ArticleUpdate($article, $tagsList);
         if ($updateForm->load(Yii::$app->request->post()) && $updateForm->validate()) {
             try {
                 $this->service->edit($article->id, $updateForm);
@@ -111,6 +121,7 @@ class ArticlesController extends Controller
 
         return $this->render('update', [
             'updateForm' => $updateForm,
+            'categoriesList' => $categoriesList,
         ]);
     }
 

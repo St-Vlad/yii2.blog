@@ -72,6 +72,11 @@ $config = [
                 'admin/articles/delete/<id:\d+>' => 'backend/articles/delete',
                 'admin/articles/swap/<id:\d+>' => 'backend/articles/swap',
 
+                'admin/tags' => 'backend/tags/index',
+                'admin/tags/<id:\d+>' => 'backend/tags/view',
+                'admin/tags/update/<id:\d+>' => 'backend/tags/update',
+                'admin/tags/delete/<id:\d+>' => 'backend/tags/delete',
+
                 'admin/categories' => 'backend/categories/index',
                 'admin/categories/<id:\d+>' => 'backend/categories/view',
                 'admin/categories/create' => 'backend/categories/create',
@@ -88,7 +93,8 @@ $config = [
                 'cabinet/articles/edit/<slug:[\w-]+>' => 'frontend/cabinet/articles/update',
                 'cabinet/articles/delete/<id:\d+>' => 'frontend/cabinet/articles/delete',
 
-                '<category:[\w-]+>/<slug:[\w-]+>' => 'frontend/blog/article',
+                'tag/<tag_name:[\w]+>' => 'frontend/blog/tag',
+                '<category_name:[\w-]+>/<slug:[\w-]+>' => 'frontend/blog/article',
                 '<slug:[\w-]+>' => 'frontend/blog/category',
             ],
         ],

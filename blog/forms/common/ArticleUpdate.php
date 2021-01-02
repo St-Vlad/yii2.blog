@@ -9,12 +9,14 @@ use yii\base\Model;
 class ArticleUpdate extends Model
 {
     public ?int $category_id = 0;
+
     public ?string $title = '';
     public ?string $preview = '';
     public ?string $description = '';
     public ?string $text = '';
+    public $tags;
 
-    public function __construct(Article $article, $config = [])
+    public function __construct(Article $article, array $tags, $config = [])
     {
         parent::__construct($config);
         $this->category_id = $article->category_id;
@@ -22,6 +24,7 @@ class ArticleUpdate extends Model
         $this->preview = $article->preview;
         $this->description = $article->description;
         $this->text = $article->text;
+        $this->tags = $tags;
     }
 
     public function rules(): array
@@ -40,6 +43,9 @@ class ArticleUpdate extends Model
                 'targetClass' => Category::class,
                 'targetAttribute' => ['category_id' => 'id']
             ],
+            [['tags'], 'each', 'rule' => ['string', 'max' => 50]],
+            [['tags'], 'each', 'rule' => ['match', 'pattern' => '#^[\w]+$#']],
+            [['tags'], 'each', 'rule' => ['required']]
         ];
     }
 }

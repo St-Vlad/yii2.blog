@@ -21,6 +21,21 @@ use yii\helpers\Url;
                 <i class="fa fa-user fa-fw"></i> Written by <span class="vcard">
                     <?= Html::encode($article->user->username); ?>
             </span> <!-- .post-author -->
+            <span class="post-categories">
+                <i class="fa fa-folder fa-fw"></i>
+                <?= Html::a(
+                    Html::encode($article->category->category_name),
+                    Url::to(['frontend/blog/category', 'slug' => $article->category->slug])
+                ); ?>
+            </span>
+            <?php if ($article->tag) : ?>
+                <span class="post-tags">
+                <i class="fa fa-tags fa-fw"></i>
+                <?php foreach ($article->tag as $tag) : ?>
+                    <?= Html::a('#' . $tag->tag_name, Url::to(['frontend/blog/tag', 'tag_name' => $tag->tag_name])); ?>
+                <?php endforeach; ?>
+            </span>
+            <?php endif; ?>
             <span>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
                 <?= Html::a(
@@ -32,7 +47,7 @@ use yii\helpers\Url;
                 <i class="fa fa-trash" aria-hidden="true"></i>
                 <?= Html::a('Delete', ['frontend/cabinet/articles/delete', 'id' => $article->id], [
                     'data' => [
-                        'confirm' => 'Підтвердіть видалення',
+                        'confirm' => 'Confirm deletion',
                         'method' => 'post',
                     ],
                 ]) ?>
@@ -46,8 +61,8 @@ use yii\helpers\Url;
         <?= Html::encode($article->description); ?>
     </div> <!-- .entry-content -->
     <?= Html::a(
-        'More detail',
-        Url::to(['frontend/blog/article', 'category' => $article->category->name, 'slug' => $article->slug]),
+        'More details',
+        Url::to(['frontend/blog/article', 'category_name' => $article->category->slug, 'slug' => $article->slug]),
         ['class' => 'more button']
     )?>
     <hr>
