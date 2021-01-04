@@ -33,7 +33,7 @@ class ArticleCreate extends Model
                 'targetAttribute' => ['category_id' => 'id']
             ],
             [['tags'], 'each', 'rule' => ['string', 'max' => 50]],
-            [['tags'], 'each', 'rule' => ['match', 'pattern' => '#^[\w]+$#', 'message' => 'Tags should be mono-words']]
+            [['tags'], 'each', 'rule' => ['match', 'pattern' => '#^[А-Яа-я\w]+$#u']]
         ];
     }
 }

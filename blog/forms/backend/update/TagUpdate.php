@@ -21,7 +21,7 @@ class TagUpdate extends Model
             [['tag_name'], 'filter', 'filter' => 'trim'],
             [['tag_name'], 'required'],
             [['tag_name'], 'string', 'max' => 50],
-            [['tag_name'], 'match', 'pattern' => '#^[\w]+$#', 'message' => 'Tags should be mono-words'],
+            [['tag_name'], 'match', 'pattern' => '#^[А-Яа-я\w]+$#u'],
             [['tag_name'], 'unique', 'targetClass' => Tag::class, 'message' => 'Tag name already taken'],
         ];
     }

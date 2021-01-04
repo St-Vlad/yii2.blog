@@ -44,7 +44,7 @@ class ArticleUpdate extends Model
                 'targetAttribute' => ['category_id' => 'id']
             ],
             [['tags'], 'each', 'rule' => ['string', 'max' => 50]],
-            [['tags'], 'each', 'rule' => ['match', 'pattern' => '#^[\w]+$#']],
+            [['tags'], 'each', 'rule' => ['match', 'pattern' => '#^[А-Яа-я\w]+$#u']],
             [['tags'], 'each', 'rule' => ['required']]
         ];
     }
