@@ -77,9 +77,8 @@ class BlogController extends Controller
 
     public function actionTag($tag_name)
     {
-        $slug = Inflector::slug($tag_name, '', true);
         $tagForm = new TagSearchForm();
-        if (!$tag = $this->tagRepository->findBySlug($slug)) {
+        if (!$tag = $this->tagRepository->findByName($tag_name)) {
             throw new NotFoundHttpException('Tag does not exist: ' . $tag_name);
         }
         $dataProvider = $this->articleRepository->findAllByTag($tag);

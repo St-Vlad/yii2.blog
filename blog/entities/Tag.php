@@ -11,7 +11,6 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string $tag_name
- * @property string $slug
  *
  * @property Article $article
  */
@@ -25,20 +24,8 @@ class Tag extends ActiveRecord
         return '{{%tags}}';
     }
 
-    public function behaviors(): array
+    public static function create($name): Tag
     {
-        return [
-            [
-                'class' => SluggableBehavior::class,
-                'attribute' => 'tag_name',
-                'slugAttribute' => 'slug',
-            ],
-        ];
-    }
-
-    public static function create(
-        $name
-    ): Tag {
         $tag = new Tag();
         $tag->tag_name = $name;
         return $tag;

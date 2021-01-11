@@ -7,14 +7,9 @@ use app\blog\entities\Tag;
 
 class TagRepository
 {
-    public function findByName($name): ?Tag
+    public function findByName($tag_name): ?Tag
     {
-        return Tag::findOne(['tag_name' => $name]);
-    }
-
-    public function findBySlug($slug): ?Tag
-    {
-        return Tag::findOne(['slug' => $slug]);
+        return Tag::findOne(['tag_name' => $tag_name]);
     }
 
     public function findAllByArticle(Article $article): array
