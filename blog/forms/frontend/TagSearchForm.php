@@ -15,7 +15,7 @@ class TagSearchForm extends Model
     {
         return [
             ['tag_name', 'filter', 'filter' => 'trim'],
-            ['tag_name', 'match', 'pattern' => '/^[\w]+$/ui'],
+            ['tag_name', 'match', 'pattern' => '#^[А-Яа-я\w]+$#ui'],
         ];
     }
 }
