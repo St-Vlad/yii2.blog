@@ -6,7 +6,7 @@ use yii\base\Model;
 
 class TagSearchForm extends Model
 {
-    public ?string $slug = '';
+    public ?string $tag_name = '';
 
     /**
      * @return array the validation rules.
@@ -14,8 +14,8 @@ class TagSearchForm extends Model
     public function rules(): array
     {
         return [
-            ['slug', 'filter', 'filter' => 'trim'],
-            ['slug', 'match', 'pattern' => '/^[\w]+$/ui'],
+            ['tag_name', 'filter', 'filter' => 'trim'],
+            ['tag_name', 'match', 'pattern' => '/^[\w]+$/ui'],
         ];
     }
 }
