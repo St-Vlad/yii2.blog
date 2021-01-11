@@ -80,7 +80,7 @@ class BlogController extends Controller
         $slug = Inflector::slug($tag_name, '', true);
         $tagForm = new TagSearchForm();
         if (!$tag = $this->tagRepository->findBySlug($slug)) {
-            throw new NotFoundHttpException('There are no articles for this tag: ' . $tag_name);
+            throw new NotFoundHttpException('Tag does not exist: ' . $tag_name);
         }
         $dataProvider = $this->articleRepository->findAllByTag($tag);
         return $this->render('index', [

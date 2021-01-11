@@ -19,6 +19,9 @@ $this->title = Yii::$app->name;
             <div class="row">
                 <div class="three-quarters-block">
                     <div class="content">
+                        <?php if (!$dataProvider->getModels()) : ?>
+                            <p>Articles for this tag will appear after moderation. Please, stand by.</p>
+                        <?php endif ?>
                         <?php foreach ($dataProvider->getModels() as $article) : ?>
                             <?= $this->render('article', [
                                 'article' => $article
